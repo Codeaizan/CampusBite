@@ -1,7 +1,60 @@
-export default function AdminFeedbackPage() {
+import { createClient } from "@/lib/supabase/server";
+import { AdminFeedbackClient } from "@/components/admin/AdminFeedbackClient";
+
+export default async function AdminFeedbackPage() {
+  const supabase = await createClient();
+
+  // 1. Fetch total metrics
+  await supabase.rpc("get_feedback_metrics"); // We'll mock this if RPC doesn't exist, since I can just do .select count
+
+  const [likesRes, dislikesRes, kiosks] = await Promise.all([
+    supabase
+      .from("feedback")
+      .select("id", { count: "exact", head: true })
+      .eq("type", "liked"),
+    supabase
+      .from("feedback")
+      .select("id", { count: "exact", head: true })
+      .eq("type", "disliked"),
+    supabase.from("kiosks").select("id, name").order("name"),
+  ]);
+
+  // 2. Fetch feedback list (with related item and kiosk names)
+  const { data: feedbackList } = await supabase
+    .from("feedback")
+    .select(
+      `
+      id,
+      type,
+      comment,
+      created_at,
+      items(name, image_url),
+      kiosks(id, name)
+      `
+    )
+    .order("created_at", { ascending: false })
+    .limit(100);
+
+  const metrics = {
+    totalLikes: likesRes.count || 0,
+    totalDislikes: dislikesRes.count || 0,
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const formattedFeedback = (feedbackList || []).map((f: any) => ({
+    id: f.id,
+    type: f.type,
+    comment: f.comment,
+    created_at: f.created_at,
+    items: f.items || { name: "Unknown Item", image_url: null },
+    kiosks: f.kiosks || { id: "", name: "Unknown Kiosk" },
+  }));
+
   return (
-    <div className="flex min-h-[80vh] items-center justify-center text-on-surface">
-      <h1 className="text-2xl font-bold">Global Feedback</h1>
-    </div>
+    <AdminFeedbackClient
+      initialFeedback={formattedFeedback}
+      kiosks={kiosks.data || []}
+      metrics={metrics}
+    />
   );
 }
