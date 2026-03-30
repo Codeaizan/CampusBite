@@ -1,38 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-// Inline the updateSession helper to avoid Edge Function module resolution issues
-async function updateSession(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({ request });
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
-          supabaseResponse = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          );
-        },
-      },
-    }
-  );
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  return { supabase, user, supabaseResponse };
-}
-
 // Routes that require authentication
 const protectedPrefixes = ["/student", "/kiosk", "/admin"];
 
@@ -47,83 +15,120 @@ const roleHomeRoutes: Record<string, string> = {
 const authRoutes = ["/auth/student", "/auth/kiosk", "/x-control-9f3k"];
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  // Guard: if env vars are missing, let the request through
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  // Refresh Supabase auth session
-  const { supabase, user, supabaseResponse } = await updateSession(request);
-
-  // Add X-Robots-Tag: noindex for super admin route
-  if (pathname.startsWith("/x-control-9f3k")) {
-    supabaseResponse.headers.set("X-Robots-Tag", "noindex");
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return NextResponse.next();
   }
 
-  // Check if route is protected
-  const isProtectedRoute = protectedPrefixes.some((prefix) =>
-    pathname.startsWith(prefix)
-  );
-  const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
+  try {
+    const { pathname } = request.nextUrl;
 
-  // Block unauthenticated users from protected routes
-  if (isProtectedRoute && !user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/";
-    return NextResponse.redirect(url);
-  }
+    // Create Supabase client for middleware
+    let supabaseResponse = NextResponse.next({ request });
 
-  // Redirect authenticated users away from auth routes to their role home
-  if (user && (isAuthRoute || pathname === "/")) {
-    try {
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", user.id)
-        .single();
+    const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          );
+          supabaseResponse = NextResponse.next({ request });
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          );
+        },
+      },
+    });
 
-      if (profile?.role) {
-        const homeRoute = roleHomeRoutes[profile.role as string];
-        if (homeRoute && pathname !== homeRoute) {
-          const url = request.nextUrl.clone();
-          url.pathname = homeRoute;
-          return NextResponse.redirect(url);
-        }
-      }
-    } catch {
-      // Profile may not exist yet (e.g., during initial signup flow)
+    // Get current user
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    // Add X-Robots-Tag: noindex for super admin route
+    if (pathname.startsWith("/x-control-9f3k")) {
+      supabaseResponse.headers.set("X-Robots-Tag", "noindex");
     }
-  }
 
-  // For protected routes, verify the user has the correct role
-  if (isProtectedRoute && user) {
-    try {
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", user.id)
-        .single();
+    // Check route type
+    const isProtectedRoute = protectedPrefixes.some((prefix) =>
+      pathname.startsWith(prefix)
+    );
+    const isAuthRoute = authRoutes.some((route) =>
+      pathname.startsWith(route)
+    );
 
-      if (profile?.role) {
-        const rolePrefixMap: Record<string, string> = {
-          student: "/student",
-          kiosk_owner: "/kiosk",
-          super_admin: "/admin",
-        };
-        const allowedPrefix = rolePrefixMap[profile.role as string];
+    // Block unauthenticated users from protected routes
+    if (isProtectedRoute && !user) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/";
+      return NextResponse.redirect(url);
+    }
 
-        if (allowedPrefix && !pathname.startsWith(allowedPrefix)) {
+    // Redirect authenticated users away from auth routes to their role home
+    if (user && (isAuthRoute || pathname === "/")) {
+      try {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", user.id)
+          .single();
+
+        if (profile?.role) {
           const homeRoute = roleHomeRoutes[profile.role as string];
-          if (homeRoute) {
+          if (homeRoute && pathname !== homeRoute) {
             const url = request.nextUrl.clone();
             url.pathname = homeRoute;
             return NextResponse.redirect(url);
           }
         }
+      } catch {
+        // Profile may not exist yet — allow through
       }
-    } catch {
-      // Allow request to continue if profile check fails
     }
-  }
 
-  return supabaseResponse;
+    // For protected routes, verify the user has the correct role
+    if (isProtectedRoute && user) {
+      try {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", user.id)
+          .single();
+
+        if (profile?.role) {
+          const rolePrefixMap: Record<string, string> = {
+            student: "/student",
+            kiosk_owner: "/kiosk",
+            super_admin: "/admin",
+          };
+          const allowedPrefix = rolePrefixMap[profile.role as string];
+
+          if (allowedPrefix && !pathname.startsWith(allowedPrefix)) {
+            const homeRoute = roleHomeRoutes[profile.role as string];
+            if (homeRoute) {
+              const url = request.nextUrl.clone();
+              url.pathname = homeRoute;
+              return NextResponse.redirect(url);
+            }
+          }
+        }
+      } catch {
+        // Allow request to continue if profile check fails
+      }
+    }
+
+    return supabaseResponse;
+  } catch {
+    // If middleware crashes for any reason, let the request through
+    return NextResponse.next();
+  }
 }
 
 export const config = {
