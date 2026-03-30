@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Culinary Lume - Super Admin Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-lowest": "#0e0e0e",
+              "on-tertiary": "#00344c",
+              "inverse-on-surface": "#313030",
+              "on-error": "#690005",
+              "secondary-fixed": "#ffdcc3",
+              "secondary-container": "#6a3b0f",
+              "tertiary-fixed-dim": "#85cfff",
+              "surface": "#131313",
+              "background": "#131313",
+              "on-surface-variant": "#ddc1ae",
+              "error": "#ffb4ab",
+              "surface-container-highest": "#353534",
+              "on-secondary": "#4d2600",
+              "surface-tint": "#ffb77d",
+              "tertiary-container": "#00b5fc",
+              "on-secondary-fixed-variant": "#6a3b0f",
+              "tertiary-fixed": "#c7e7ff",
+              "primary-container": "#ff8c00",
+              "on-surface": "#e5e2e1",
+              "surface-variant": "#353534",
+              "error-container": "#93000a",
+              "surface-bright": "#3a3939",
+              "on-secondary-container": "#e9a771",
+              "on-tertiary-fixed-variant": "#004c6c",
+              "primary-fixed": "#ffdcc3",
+              "on-secondary-fixed": "#2f1500",
+              "on-primary-container": "#623200",
+              "on-primary-fixed-variant": "#6e3900",
+              "inverse-primary": "#904d00",
+              "secondary": "#fdb881",
+              "primary": "#ffb77d",
+              "tertiary": "#85cfff",
+              "surface-container-low": "#1c1b1b",
+              "surface-container-high": "#2a2a2a",
+              "secondary-fixed-dim": "#fdb881",
+              "outline": "#a48c7a",
+              "surface-container": "#201f1f",
+              "on-error-container": "#ffdad6",
+              "on-background": "#e5e2e1",
+              "primary-fixed-dim": "#ffb77d",
+              "outline-variant": "#564334",
+              "inverse-surface": "#e5e2e1",
+              "on-primary": "#4d2600",
+              "on-tertiary-fixed": "#001e2e",
+              "on-primary-fixed": "#2f1500",
+              "surface-dim": "#131313",
+              "on-tertiary-container": "#004360"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(58, 57, 57, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 183, 125, 0.08);
+        }
+        .lume-glow:focus-within {
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.1);
+            border-color: rgba(255, 140, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body selection:bg-primary-container/30">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-neutral-900 dark:bg-[#0E0E0E] shadow-[4px_0_24px_rgba(255,140,0,0.05)] font-['Plus_Jakarta_Sans'] antialiased flex flex-col h-full py-6 z-50">
+<div class="px-6 mb-10">
+<h1 class="text-2xl font-bold tracking-tighter text-orange-500 dark:text-[#FF8C00]">The Culinary Lume</h1>
+<p class="text-xs text-neutral-500 mt-1 uppercase tracking-widest">Super Admin</p>
+</div>
+<nav class="flex-1 space-y-1 px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-neutral-400 dark:text-[#E5E2E1]/60 hover:bg-neutral-800 dark:hover:bg-[#201F1F] transition-colors duration-200 ease-in-out transform active:scale-[0.98] group" href="#">
+<span class="material-symbols-outlined group-hover:text-white" data-icon="devices">devices</span>
+<span>Kiosks</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-neutral-400 dark:text-[#E5E2E1]/60 hover:bg-neutral-800 dark:hover:bg-[#201F1F] transition-colors duration-200 ease-in-out transform active:scale-[0.98] group" href="#">
+<span class="material-symbols-outlined group-hover:text-white" data-icon="rate_review">rate_review</span>
+<span>Feedback</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-neutral-400 dark:text-[#E5E2E1]/60 hover:bg-neutral-800 dark:hover:bg-[#201F1F] transition-colors duration-200 ease-in-out transform active:scale-[0.98] group" href="#">
+<span class="material-symbols-outlined group-hover:text-white" data-icon="poll">poll</span>
+<span>Polls</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-orange-500/10 dark:bg-[#FF8C00]/10 text-orange-500 dark:text-[#FF8C00] border-r-4 border-orange-500 dark:border-[#FF8C00] duration-200 ease-in-out transform active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-semibold">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<button class="w-full flex items-center justify-center gap-2 py-3 px-4 bg-neutral-800 dark:bg-[#201F1F] text-on-surface rounded-xl hover:bg-neutral-700 transition-all text-sm font-medium">
+<span class="material-symbols-outlined text-sm" data-icon="analytics">analytics</span>
+                System Status
+            </button>
+<div class="mt-6 flex items-center gap-3 px-2">
+<div class="h-10 w-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<img alt="Admin Profile" class="h-full w-full object-cover" data-alt="portrait of a professional executive in a sharp suit with a confident expression and neutral lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ8hQoAXQQ4HwdxmQsakTV_mothEEbfshnuPRLEaQ8G37cGa19KobxIgpgOdM99gs6ATF6fmAo2MAqD49MQoaEDkU1f8F8Q4Jz41X7hmKKJegVAj86eP0Ps0U7sHcsj5c236aYPK-DCL6rrFqtC04XRkfjl7YnEAEgxUGkTpjRhRoRwnzTjHELbGZhrrRM02GhJEpmb0VJJCvPZET2o9XQ4R7hq6NsWSMtvAyb05k1zxaOGePFwAFXWmoqGIZlvjgk69isqaZtT8Kb"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-on-surface">Alex Mercer</span>
+<span class="text-[10px] text-neutral-500">Concierge Elite</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-64 h-16 z-40 bg-neutral-950/80 dark:bg-[#131313]/80 backdrop-blur-xl border-b border-neutral-800 dark:border-[#201F1F]/50 flex justify-between items-center px-8 w-full">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-lg" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary/50 transition-all" placeholder="Search configurations..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="text-orange-500 font-bold text-lg tracking-tight">Lume Concierge</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-neutral-400 hover:text-orange-400 transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-neutral-400 hover:text-orange-400 transition-all">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+<button class="px-4 py-1.5 bg-orange-500/10 text-orange-500 rounded-full text-xs font-bold hover:bg-orange-500 hover:text-on-primary transition-all">
+                    Logout
+                </button>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 pt-24 pb-12 px-12 min-h-screen">
+<!-- Header Section -->
+<header class="mb-12">
+<h2 class="text-4xl font-extrabold tracking-tighter text-on-surface mb-2">System Settings</h2>
+<p class="text-neutral-500 max-w-2xl">Manage global application parameters, culinary taxonomies, and administrative security protocols for the Lume Concierge ecosystem.</p>
+</header>
+<div class="grid grid-cols-12 gap-8">
+<!-- App Configuration Section (Bento Style) -->
+<section class="col-span-12 lg:col-span-7 space-y-8">
+<div class="glass-card rounded-3xl p-8 lume-glow transition-all">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="tune">tune</span>
+                                App Configuration
+                            </h3>
+<p class="text-sm text-neutral-400">Core operational thresholds and limits</p>
+</div>
+</div>
+<div class="space-y-6">
+<!-- Daily Swipe Limit Row -->
+<div class="flex items-center justify-between p-6 rounded-2xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-xl bg-tertiary-container/10 flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined" data-icon="swipe">swipe</span>
+</div>
+<div>
+<h4 class="font-semibold text-on-surface">Daily Swipe Limit per Student</h4>
+<p class="text-xs text-neutral-500">Global cap for meal redemptions within 24 hours</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center bg-surface-container-highest rounded-full p-1">
+<button class="h-8 w-8 rounded-full flex items-center justify-center hover:bg-surface-bright text-neutral-400 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="remove">remove</span>
+</button>
+<span class="px-6 font-bold text-lg text-tertiary-container">50</span>
+<button class="h-8 w-8 rounded-full flex items-center justify-center hover:bg-surface-bright text-neutral-400 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+<button class="px-6 py-2 bg-tertiary-container text-on-tertiary font-bold rounded-full text-sm hover:brightness-110 active:scale-95 transition-all">
+                                    Save
+                                </button>
+</div>
+</div>
+<!-- Secondary Config Placeholder -->
+<div class="flex items-center justify-between p-6 rounded-2xl bg-surface-container-low/50 opacity-60">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-xl bg-surface-container-highest flex items-center justify-center text-neutral-400">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+</div>
+<div>
+<h4 class="font-semibold text-on-surface">Grace Period (Minutes)</h4>
+<p class="text-xs text-neutral-500">Buffet entry window after booking</p>
+</div>
+</div>
+<span class="font-bold text-neutral-500">15</span>
+</div>
+</div>
+</div>
+<!-- Bento Info Card -->
+<div class="grid grid-cols-2 gap-8">
+<div class="bg-primary-container/5 p-8 rounded-3xl border border-primary-container/10">
+<span class="material-symbols-outlined text-primary mb-4 block text-3xl" data-icon="security_update_good">security_update_good</span>
+<h4 class="font-bold text-lg mb-2">Auto-Sync Enabled</h4>
+<p class="text-sm text-neutral-500 leading-relaxed">System parameters are synchronized across all 24 Kiosk terminals every 60 seconds.</p>
+</div>
+<div class="bg-tertiary-container/5 p-8 rounded-3xl border border-tertiary-container/10">
+<span class="material-symbols-outlined text-tertiary mb-4 block text-3xl" data-icon="history">history</span>
+<h4 class="font-bold text-lg mb-2">Audit Logs</h4>
+<p class="text-sm text-neutral-500 leading-relaxed">Last configuration change by Alex Mercer (Super Admin) - 2 hours ago.</p>
+</div>
+</div>
+</section>
+<!-- Cuisine Categories Section -->
+<section class="col-span-12 lg:col-span-5">
+<div class="glass-card rounded-3xl p-8 lume-glow h-full flex flex-col">
+<div class="mb-8">
+<h3 class="text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="restaurant_menu">restaurant_menu</span>
+                            Cuisine Categories
+                        </h3>
+<p class="text-sm text-neutral-400">Manage tags for global culinary discovery</p>
+</div>
+<!-- Chips Container -->
+<div class="flex flex-wrap gap-3 mb-10">
+<div class="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-highest border border-outline-variant/30 group hover:border-primary/50 transition-all cursor-default">
+<span class="text-sm font-medium">North Indian</span>
+<button class="text-neutral-500 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="close">close</span>
+</button>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-highest border border-outline-variant/30 group hover:border-primary/50 transition-all cursor-default">
+<span class="text-sm font-medium">South Indian</span>
+<button class="text-neutral-500 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="close">close</span>
+</button>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-highest border border-outline-variant/30 group hover:border-primary/50 transition-all cursor-default">
+<span class="text-sm font-medium">Continental</span>
+<button class="text-neutral-500 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="close">close</span>
+</button>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-highest border border-outline-variant/30 group hover:border-primary/50 transition-all cursor-default">
+<span class="text-sm font-medium">Asian</span>
+<button class="text-neutral-500 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="close">close</span>
+</button>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-highest border border-outline-variant/30 group hover:border-primary/50 transition-all cursor-default">
+<span class="text-sm font-medium">Drinks/Desserts</span>
+<button class="text-neutral-500 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="close">close</span>
+</button>
+</div>
+</div>
+<!-- Add New Section -->
+<div class="mt-auto pt-8 border-t border-outline-variant/10">
+<label class="block text-xs font-bold uppercase tracking-widest text-neutral-500 mb-3">Create New Entity</label>
+<div class="flex items-center gap-3">
+<div class="relative flex-1 group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-lg group-focus-within:text-tertiary transition-colors" data-icon="label">label</span>
+<input class="w-full bg-surface-container-low border-none rounded-2xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-tertiary/20 transition-all" placeholder="Add new category..." type="text"/>
+</div>
+<button class="flex items-center gap-2 px-6 py-3 bg-tertiary-container text-on-tertiary font-bold rounded-2xl hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-tertiary-container/10">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                                Add
+                            </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- System Visual Footer (Decorative) -->
+<footer class="mt-20 flex justify-between items-end">
+<div class="flex items-center gap-4 text-neutral-600">
+<span class="text-[10px] font-bold uppercase tracking-[0.2em]">Build 9.22.04</span>
+<span class="h-1 w-1 rounded-full bg-neutral-800"></span>
+<span class="text-[10px] font-bold uppercase tracking-[0.2em]">Regional Server: West-01</span>
+</div>
+<div class="relative h-24 w-64 overflow-hidden rounded-2xl">
+<div class="absolute inset-0 bg-gradient-to-t from-orange-500/20 to-transparent"></div>
+<img class="w-full h-full object-cover grayscale mix-blend-overlay opacity-30" data-alt="abstract view of gourmet cuisine being prepared in a dark kitchen with warm ambient lighting and steam" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZMzy9PwR696vy3tkGNJydSCgP5qg5YqtSJrZo1Eppf-QwdhOATYyH9UiqbJN4OCUe7pPgye09hQ3qp6rE0oTp3wKXZ-hysz5NUQ0s81g_wl1kkkd6DrR7-Ioz2Zz2zI1N-HL92zdqVSPBSj7DuTfBjSQYqU6EnktIPaLHzCQldSdyRCjJeZyOFw716T0VhbNwZwhYdaqzWDQCwaAoLzmLLmgmEHGmi-RFaWF8q22F3ePu3wz-lTPcR7LUiN-w3IaIhnBGORojBu-Y"/>
+<div class="absolute bottom-4 right-4 flex flex-col items-end">
+<span class="text-xs font-extrabold text-orange-500/50 uppercase">Lume Visual Engine</span>
+<div class="flex gap-1 mt-1">
+<div class="h-1 w-4 bg-orange-500/20 rounded-full"></div>
+<div class="h-1 w-8 bg-orange-500/40 rounded-full"></div>
+<div class="h-1 w-2 bg-orange-500/10 rounded-full"></div>
+</div>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

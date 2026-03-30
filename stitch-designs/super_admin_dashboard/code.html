@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusBite — Super Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#6e3900",
+              "on-primary": "#4d2600",
+              "on-secondary-fixed": "#2f1500",
+              "on-error": "#690005",
+              "primary": "#ffb77d",
+              "on-background": "#e5e2e1",
+              "surface-container-low": "#1c1b1b",
+              "secondary": "#fdb881",
+              "outline": "#a48c7a",
+              "on-tertiary-fixed": "#001e2e",
+              "tertiary": "#85cfff",
+              "primary-fixed": "#ffdcc3",
+              "primary-container": "#ff8c00",
+              "on-error-container": "#ffdad6",
+              "on-primary-container": "#623200",
+              "secondary-fixed": "#ffdcc3",
+              "surface-dim": "#131313",
+              "surface-container-high": "#2a2a2a",
+              "on-secondary": "#4d2600",
+              "surface-tint": "#ffb77d",
+              "on-tertiary-fixed-variant": "#004c6c",
+              "surface-container-highest": "#353534",
+              "on-tertiary-container": "#004360",
+              "on-surface": "#e5e2e1",
+              "tertiary-fixed-dim": "#85cfff",
+              "on-tertiary": "#00344c",
+              "on-secondary-container": "#e9a771",
+              "primary-fixed-dim": "#ffb77d",
+              "on-primary-fixed": "#2f1500",
+              "inverse-on-surface": "#313030",
+              "on-surface-variant": "#ddc1ae",
+              "error-container": "#93000a",
+              "outline-variant": "#564334",
+              "background": "#131313",
+              "inverse-surface": "#e5e2e1",
+              "inverse-primary": "#904d00",
+              "surface-container": "#201f1f",
+              "tertiary-container": "#00b5fc",
+              "surface-variant": "#353534",
+              "secondary-fixed-dim": "#fdb881",
+              "surface-container-lowest": "#0e0e0e",
+              "on-secondary-fixed-variant": "#6a3b0f",
+              "surface-bright": "#3a3939",
+              "secondary-container": "#6a3b0f",
+              "tertiary-fixed": "#c7e7ff",
+              "surface": "#131313",
+              "error": "#ffb4ab"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(58, 57, 57, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(86, 67, 52, 0.15);
+        }
+        .lume-glow {
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface selection:bg-primary-container selection:text-white">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-neutral-900 dark:bg-[#0E0E0E] shadow-xl dark:shadow-[0_0_20px_rgba(255,140,0,0.08)] z-50">
+<div class="flex flex-col h-full py-6">
+<div class="px-6 mb-10">
+<h1 class="text-xl font-bold text-orange-500 dark:text-[#FF8C00] tracking-tighter">Culinary Lume</h1>
+<p class="text-neutral-500 text-xs mt-1 uppercase tracking-widest font-semibold">Super Admin</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Kiosks (Active) -->
+<a class="flex items-center gap-3 px-6 py-3 bg-orange-500/10 text-orange-500 border-r-4 border-orange-500 font-medium transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span>Kiosks</span>
+</a>
+<!-- Feedback -->
+<a class="flex items-center gap-3 px-6 py-3 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span>Feedback</span>
+</a>
+<!-- Polls -->
+<a class="flex items-center gap-3 px-6 py-3 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="poll">poll</span>
+<span>Polls</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 px-6 py-3 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<div class="p-4 rounded-xl bg-surface-container border border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold">SA</div>
+<div>
+<p class="text-sm font-bold text-white">CampusBite</p>
+<p class="text-[10px] text-neutral-500">Root Access</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="ml-64 min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 h-16 z-40 bg-neutral-900/80 dark:bg-[#131313]/80 backdrop-blur-xl border-b border-neutral-800 dark:border-[#564334]/15 flex justify-between items-center px-8">
+<div class="flex items-center gap-4">
+<span class="text-white font-black tracking-tighter text-lg">Super Admin — CampusBite</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="text-neutral-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-neutral-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+</div>
+<button class="px-4 py-1.5 rounded-full bg-surface-bright/20 border border-outline-variant/30 text-sm font-bold text-white hover:bg-surface-bright/40 transition-all">
+                    Logout
+                </button>
+</div>
+</header>
+<!-- Main Scrollable Canvas -->
+<main class="pt-24 pb-12 px-8 max-w-7xl mx-auto">
+<!-- Bento-Style Metric Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+<!-- Card 1 -->
+<div class="surface-container p-6 rounded-2xl lume-glow relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-5xl" data-icon="storefront">storefront</span>
+</div>
+<p class="text-neutral-400 text-sm font-medium mb-1">Total Kiosks</p>
+<h3 class="text-3xl font-black text-white">8</h3>
+<div class="mt-4 flex items-center gap-2">
+<span class="text-xs text-orange-500 bg-orange-500/10 px-2 py-0.5 rounded-full font-bold">+2 this month</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="surface-container p-6 rounded-2xl lume-glow relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-5xl" data-icon="verified">verified</span>
+</div>
+<p class="text-neutral-400 text-sm font-medium mb-1">Subscribed</p>
+<h3 class="text-3xl font-black text-white">5</h3>
+<div class="mt-4 flex items-center gap-2">
+<span class="text-xs text-tertiary px-2 py-0.5 rounded-full font-bold">62.5% Rate</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="surface-container p-6 rounded-2xl lume-glow relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-5xl" data-icon="restaurant_menu">restaurant_menu</span>
+</div>
+<p class="text-neutral-400 text-sm font-medium mb-1">Total Items</p>
+<h3 class="text-3xl font-black text-white">143</h3>
+<div class="mt-4 flex items-center gap-2">
+<span class="text-xs text-neutral-500 font-bold">Across all menus</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="surface-container p-6 rounded-2xl lume-glow relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-5xl" data-icon="touch_app">touch_app</span>
+</div>
+<p class="text-neutral-400 text-sm font-medium mb-1">Total Swipes</p>
+<h3 class="text-3xl font-black text-white">24,821</h3>
+<div class="mt-4 flex items-center gap-2">
+<span class="text-xs text-primary-container px-2 py-0.5 rounded-full font-bold">↑ 12% vs last week</span>
+</div>
+</div>
+</div>
+<!-- Management Section -->
+<div class="space-y-6">
+<div class="flex justify-between items-end px-2">
+<div>
+<h2 class="text-3xl font-bold text-white tracking-tight">Manage Kiosks</h2>
+<p class="text-neutral-400 text-sm mt-1">Review, authorize and moderate campus food vendors.</p>
+</div>
+<button class="bg-orange-500 text-white font-bold px-6 py-3 rounded-full flex items-center gap-2 hover:bg-orange-600 transition-all active:scale-95 shadow-lg shadow-orange-500/20">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                        Add Kiosk
+                    </button>
+</div>
+<!-- Data Table Container -->
+<div class="surface-container rounded-[1.5rem] overflow-hidden border border-outline-variant/10">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-bright/10 text-neutral-400 text-xs uppercase tracking-widest font-bold">
+<th class="px-8 py-5">Kiosk Name</th>
+<th class="px-6 py-5">Location</th>
+<th class="px-6 py-5">Owner Email</th>
+<th class="px-6 py-5">Subscribed</th>
+<th class="px-8 py-5 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-bright/5 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+</div>
+<span class="font-bold text-white">Punjabi Tadka</span>
+</div>
+</td>
+<td class="px-6 py-5 text-neutral-400 text-sm">Block B - Ground Floor</td>
+<td class="px-6 py-5 text-neutral-400 text-sm font-mono">owner1@lpu.edu</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-5 bg-orange-500 rounded-full relative flex items-center justify-end px-1 cursor-pointer transition-colors">
+<div class="w-3.5 h-3.5 bg-white rounded-full shadow-sm"></div>
+</div>
+<span class="text-xs font-bold text-orange-500">Yes</span>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="p-2 text-neutral-500 hover:text-error transition-colors rounded-lg hover:bg-error/10">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-bright/5 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined" data-icon="bakery_dining">bakery_dining</span>
+</div>
+<span class="font-bold text-white">South Delights</span>
+</div>
+</td>
+<td class="px-6 py-5 text-neutral-400 text-sm">Block A - Food Court</td>
+<td class="px-6 py-5 text-neutral-400 text-sm font-mono">owner2@lpu.edu</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-5 bg-neutral-700 rounded-full relative flex items-center justify-start px-1 cursor-pointer transition-colors">
+<div class="w-3.5 h-3.5 bg-neutral-400 rounded-full shadow-sm"></div>
+</div>
+<span class="text-xs font-bold text-neutral-500">No</span>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="p-2 text-neutral-500 hover:text-error transition-colors rounded-lg hover:bg-error/10">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-bright/5 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined" data-icon="dinner_dining">dinner_dining</span>
+</div>
+<span class="font-bold text-white">The Continental</span>
+</div>
+</td>
+<td class="px-6 py-5 text-neutral-400 text-sm">Block C - Level 1</td>
+<td class="px-6 py-5 text-neutral-400 text-sm font-mono">owner3@lpu.edu</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-5 bg-orange-500 rounded-full relative flex items-center justify-end px-1 cursor-pointer transition-colors">
+<div class="w-3.5 h-3.5 bg-white rounded-full shadow-sm"></div>
+</div>
+<span class="text-xs font-bold text-orange-500">Yes</span>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="p-2 text-neutral-500 hover:text-error transition-colors rounded-lg hover:bg-error/10">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-bright/5 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined" data-icon="bubble_tea">bubbles</span>
+</div>
+<span class="font-bold text-white">Boba Express</span>
+</div>
+</td>
+<td class="px-6 py-5 text-neutral-400 text-sm">Block B - Terrace</td>
+<td class="px-6 py-5 text-neutral-400 text-sm font-mono">owner4@lpu.edu</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-5 bg-orange-500 rounded-full relative flex items-center justify-end px-1 cursor-pointer transition-colors">
+<div class="w-3.5 h-3.5 bg-white rounded-full shadow-sm"></div>
+</div>
+<span class="text-xs font-bold text-orange-500">Yes</span>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="p-2 text-neutral-500 hover:text-error transition-colors rounded-lg hover:bg-error/10">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-bright/5 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined" data-icon="lunch_dining">lunch_dining</span>
+</div>
+<span class="font-bold text-white">Wrap n Roll</span>
+</div>
+</td>
+<td class="px-6 py-5 text-neutral-400 text-sm">Block D - Plaza</td>
+<td class="px-6 py-5 text-neutral-400 text-sm font-mono">owner5@lpu.edu</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-5 bg-neutral-700 rounded-full relative flex items-center justify-start px-1 cursor-pointer transition-colors">
+<div class="w-3.5 h-3.5 bg-neutral-400 rounded-full shadow-sm"></div>
+</div>
+<span class="text-xs font-bold text-neutral-500">No</span>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="p-2 text-neutral-500 hover:text-error transition-colors rounded-lg hover:bg-error/10">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Table Footer -->
+<div class="bg-surface-bright/5 px-8 py-4 flex items-center justify-between text-xs text-neutral-500">
+<span>Showing 5 of 8 Kiosks</span>
+<div class="flex items-center gap-2">
+<button class="p-1 hover:text-white transition-colors"><span class="material-symbols-outlined text-base" data-icon="chevron_left">chevron_left</span></button>
+<span class="font-bold text-white px-2">1</span>
+<button class="p-1 hover:text-white transition-colors"><span class="material-symbols-outlined text-base" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Dashboard Summary -->
+<div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="col-span-2 glass-card rounded-2xl p-8">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-bold text-white">Transaction Volume</h4>
+<div class="flex gap-2">
+<span class="w-3 h-3 rounded-full bg-orange-500"></span>
+<span class="text-[10px] text-neutral-400 uppercase font-bold tracking-tighter">Live Traffic</span>
+</div>
+</div>
+<div class="h-48 flex items-end gap-2 overflow-hidden">
+<!-- Mock chart bars -->
+<div class="bg-orange-500/20 w-full rounded-t-lg h-24 hover:bg-orange-500/40 transition-all"></div>
+<div class="bg-orange-500/20 w-full rounded-t-lg h-32 hover:bg-orange-500/40 transition-all"></div>
+<div class="bg-orange-500/20 w-full rounded-t-lg h-28 hover:bg-orange-500/40 transition-all"></div>
+<div class="bg-orange-500/20 w-full rounded-t-lg h-44 hover:bg-orange-500/40 transition-all"></div>
+<div class="bg-orange-500/20 w-full rounded-t-lg h-36 hover:bg-orange-500/40 transition-all"></div>
+<div class="bg-orange-500/20 w-full rounded-t-lg h-40 hover:bg-orange-500/40 transition-all"></div>
+<div class="bg-orange-500/40 w-full rounded-t-lg h-48 hover:bg-orange-500 transition-all"></div>
+<div class="bg-orange-500/20 w-full rounded-t-lg h-32 hover:bg-orange-500/40 transition-all"></div>
+<div class="bg-orange-500/20 w-full rounded-t-lg h-28 hover:bg-orange-500/40 transition-all"></div>
+<div class="bg-orange-500/20 w-full rounded-t-lg h-36 hover:bg-orange-500/40 transition-all"></div>
+</div>
+</div>
+<div class="surface-container rounded-2xl p-8 flex flex-col justify-center items-center text-center">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined text-3xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h4 class="text-white font-bold text-lg mb-2">Campus Analytics</h4>
+<p class="text-neutral-500 text-sm mb-6">Subscription revenue is up 18% compared to last semester. Peak usage detected between 1 PM and 2 PM.</p>
+<button class="w-full py-3 rounded-full bg-surface-bright/30 text-white font-bold text-sm hover:bg-surface-bright/50 transition-all">View Full Report</button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

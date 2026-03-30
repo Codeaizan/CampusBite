@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusBite - Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#2a2a2a",
+              "background": "#131313",
+              "surface-container-low": "#1c1b1b",
+              "on-surface": "#e5e2e1",
+              "surface-bright": "#3a3939",
+              "secondary-container": "#6a3b0f",
+              "on-primary-fixed": "#2f1500",
+              "secondary": "#fdb881",
+              "on-secondary-fixed-variant": "#6a3b0f",
+              "inverse-surface": "#e5e2e1",
+              "on-background": "#e5e2e1",
+              "on-tertiary-container": "#004360",
+              "surface-container-lowest": "#0e0e0e",
+              "tertiary-fixed": "#c7e7ff",
+              "surface": "#131313",
+              "on-secondary-container": "#e9a771",
+              "on-surface-variant": "#ddc1ae",
+              "error": "#ffb4ab",
+              "on-primary": "#4d2600",
+              "surface-dim": "#131313",
+              "on-tertiary": "#00344c",
+              "surface-container-highest": "#353534",
+              "on-primary-container": "#623200",
+              "tertiary-container": "#00b5fc",
+              "on-secondary-fixed": "#2f1500",
+              "inverse-on-surface": "#313030",
+              "error-container": "#93000a",
+              "surface-container": "#201f1f",
+              "primary-container": "#ff8c00",
+              "outline": "#a48c7a",
+              "primary-fixed-dim": "#ffb77d",
+              "tertiary-fixed-dim": "#85cfff",
+              "secondary-fixed-dim": "#fdb881",
+              "on-error-container": "#ffdad6",
+              "primary": "#ffb77d",
+              "primary-fixed": "#ffdcc3",
+              "surface-variant": "#353534",
+              "on-tertiary-fixed": "#001e2e",
+              "on-error": "#690005",
+              "secondary-fixed": "#ffdcc3",
+              "on-secondary": "#4d2600",
+              "surface-tint": "#ffb77d",
+              "on-tertiary-fixed-variant": "#004c6c",
+              "inverse-primary": "#904d00",
+              "tertiary": "#85cfff",
+              "outline-variant": "#564334",
+              "on-primary-fixed-variant": "#6e3900"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-border {
+            position: relative;
+        }
+        .glass-border::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(to bottom right, rgba(255, 183, 125, 0.3), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+          }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-on-surface min-h-screen pb-24">
+<!-- Top AppBar Component Mapping -->
+<header class="bg-[#131313] sticky top-0 z-50 flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#FF8C00] cursor-pointer" data-icon="arrow_back">arrow_back</span>
+<h1 class="font-bold text-lg text-[#E5E2E1]">Profile</h1>
+</div>
+<div class="flex items-center gap-2 text-error cursor-pointer active:scale-95 transition-all">
+<span class="text-xs tracking-wider uppercase font-bold">Logout</span>
+<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span>
+</div>
+</header>
+<main class="px-5 space-y-8 pt-6">
+<!-- Profile Header Section -->
+<section class="flex items-center gap-4">
+<div class="relative">
+<img alt="User Profile" class="w-20 h-20 rounded-full object-cover border-2 border-primary-container" data-alt="Professional studio headshot of a smiling young South Asian man with neat hair and a friendly expression, soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIkKTtYiFTQeHzUEWl0x60AHfo2lcxM86ggzwBzCGo9YkR1WrO7-K6J-ZwDl2K8TlTzQdtID2TDd1wuNhGCFPm1H1N9YC0S1GLyG3cnBWannlz_ZjBjj-fUksF1MCAnStHLS_oPxy8Oebx690OlH6Snry51hjM0TyYO26oM6VG7cED8kjLztnTjgHymAWi4tGC64FhKYJDrJUKgIxb4hrdJLtOXMn4p-9LzhXyFRr7fIqEmAJrTqGByZ7kmLCKsu71dGFsmXScuAFD"/>
+<div class="absolute -bottom-1 -right-1 bg-white p-1 rounded-full shadow-lg">
+<img alt="Google" class="w-4 h-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2Sx-Au94lS9O17veSZMp4YdijhBbZK7zhlAsRUGO_uCF69GBARZUHGHUzqSnvHXFqJ1XXBH9aw8LgYuHtRiDi0ouf3wG5QS0yNEq2mFOGKv62m4IEudUrYwT12CsijZwCGWyD6sEJkxEsD1l_yBvdnf9jze_lDpCMuVINJJp9_6OL-CgmSi7bg8cVM93odlaoi0sgKRqrLj87vLuFk0YIX0UuL4ris5btXI0CD8XoPFvBeVh8N3mzrXHV5yQVuSDcRH46rTu3x8Yz"/>
+</div>
+</div>
+<div class="flex-1">
+<h2 class="text-xl font-extrabold text-[#E5E2E1] tracking-tight">Faizan Rahman</h2>
+<p class="text-on-surface-variant text-sm font-medium">faizan.rahman@campus.edu</p>
+</div>
+</section>
+<!-- Activity Stats Card -->
+<div class="surface-container rounded-2xl p-5 space-y-4 glass-border">
+<h3 class="text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant">Activity Overview</h3>
+<div class="flex flex-wrap gap-3">
+<div class="bg-surface-container-high px-4 py-2.5 rounded-full flex items-center gap-2 border border-outline-variant/10">
+<span class="text-sm font-bold">84 Liked</span>
+<span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+</div>
+<div class="bg-surface-container-high px-4 py-2.5 rounded-full flex items-center gap-2 border border-outline-variant/10">
+<span class="text-sm font-bold">31 Disliked</span>
+<span class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]"></span>
+</div>
+<div class="bg-surface-container-high px-4 py-2.5 rounded-full flex items-center gap-2 border border-outline-variant/10">
+<span class="text-sm font-bold">22 Want to Try</span>
+<span class="w-2 h-2 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.6)]"></span>
+</div>
+</div>
+</div>
+<!-- Toggle Row -->
+<div class="surface-container rounded-2xl p-5 flex justify-between items-center glass-border">
+<div class="flex items-center gap-3">
+<span class="text-2xl">🥦</span>
+<span class="font-bold text-[#E5E2E1]">Veg Only Mode</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Tabbed Section Heading -->
+<section class="space-y-6">
+<div class="flex items-center gap-8 border-b border-outline-variant/10">
+<button class="pb-3 text-primary-container font-extrabold border-b-2 border-primary-container tracking-wide transition-all">Liked</button>
+<button class="pb-3 text-on-surface-variant/60 font-bold tracking-wide hover:text-on-surface transition-all">Disliked</button>
+</div>
+<!-- 3-Column Scrollable Grid -->
+<div class="grid grid-cols-3 gap-3 overflow-y-auto max-h-[400px] pr-1 pb-4 custom-scrollbar">
+<!-- Item 1 -->
+<div class="space-y-2 group">
+<div class="aspect-square rounded-2xl overflow-hidden bg-surface-container relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Gourmet double cheeseburger with melting cheddar, fresh lettuce, and toasted brioche bun on a dark slate background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwYhDsZisT_DTkvHeXK0Q60LNIKF4CaBU2-Gy2O_jWJi8pZhCoHt2r_DaLfon1ggu16YpK4kGd61CAi5WoFyzWnR1l1nizDefBkY_67PaGnrWptngcud5MF9su1AGXOEtJYdA3V9SWJKCrnCtfRcNDWBU7Vooe6ffEE1F8xP0f7mGa0QB3otfHpMNhCLSUQBp-20q2196LqW2ZXJHgV8TAtOSMozLrbDezo4xxm7HDwh5_-7FbsfOC5Mvy_gWGV0V_JwSU4waAk-jf"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<p class="text-[10px] font-bold text-center text-[#E5E2E1] truncate uppercase tracking-tighter">Cheeseburger</p>
+</div>
+<!-- Item 2 -->
+<div class="space-y-2 group">
+<div class="aspect-square rounded-2xl overflow-hidden bg-surface-container relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Neapolitan pizza with fresh basil, mozzarella, and san marzano tomato sauce, with charred bubbly crust edges" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzAzT3Ra54KgbCQ5FxHsqmBZK_Fuwk329-foiLdNYeKh7d8JD-Psebt2kBfWp-nYxdo1XgMbBtCMxF6-wRzkGWR3hAKOgrR6vDRa6pvlTbv2-N4uagOmIcfZQPDbr1Rp4enWs25iJQn92THn6GMh413sr7DNwWL6QdPIBhJLaVUiwzZ146oloBAlCwOq-54mKMuf5r_ScG_Ok5NUDC9Mps1KmaZHbO2jNwx-8TnokhxVz4Qq4LJKs2ChEnuCkdEnNlJ3qiiZbdohrF"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<p class="text-[10px] font-bold text-center text-[#E5E2E1] truncate uppercase tracking-tighter">Margherita</p>
+</div>
+<!-- Item 3 -->
+<div class="space-y-2 group">
+<div class="aspect-square rounded-2xl overflow-hidden bg-surface-container relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Healthy poke bowl with fresh salmon, avocado, edamame, and radish on a dark background, vibrant colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYiEgf5DhNYnOsgJXp91ywXjqcTWTTosSfqIhG_U421wRzdhzQ4SNEbsUhNl9pS__bg4p59ezUDXfwMyWzSRF3grW9EhkFgozBlKx1tscqInMuBIZ0Kd-Ra1N0EbGhBbGPtM4F-O50K8UCo0yLaCOuItmm2hGbJiRWu5IHy6OT23v2ecNzXjnsehwIp3EwBNb653IxMrjxZpS_nPVEw_xBC-w688qpDTLrudaLlVBqByWh_oJ1xYmOteJfTKzelD3_zERcUz1JugX_"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<p class="text-[10px] font-bold text-center text-[#E5E2E1] truncate uppercase tracking-tighter">Salmon Bowl</p>
+</div>
+<!-- Item 4 -->
+<div class="space-y-2 group">
+<div class="aspect-square rounded-2xl overflow-hidden bg-surface-container relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Fresh caesar salad with crispy croutons, shaved parmesan cheese, and creamy dressing in a minimalist black bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB53sRx5ISLmLVHoB3tYwDoKdIt4ABqelny67xKqgvkDyGE0hDbexJ4mpLqotGSN--LEXdGH4lWGXS6aUU5JV-poLOKLTzLBf-bnEQYDYTwdbBVbFRP_KnnUptCYDZR7gGGMawkyKRJl5r4BQ7IfimolPkaDepDWw5NK1kqn2Hl_2jAZepYj1t_AjqlartKvrcRFe_WrjfujlAkeIJGVyahvv9GEtM9Srhbsmz74QnzEjXhToYxF4IRsoATWcDq8l7t4BmRnXEMCvsD"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<p class="text-[10px] font-bold text-center text-[#E5E2E1] truncate uppercase tracking-tighter">Caesar Salad</p>
+</div>
+<!-- Item 5 -->
+<div class="space-y-2 group">
+<div class="aspect-square rounded-2xl overflow-hidden bg-surface-container relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Glazed chocolate donut with sprinkles and artistic drip, close-up with dramatic lighting and dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ46q_x7bZ1t2Ml5hVSdisQ1Mkjk9zanHUk4fWC2HU0kjaR4zlKYsTnDVllbBatdvHmmoOzEdzx5INdIq9PqhWxajvWsG4zsDOciKegs_Xe_sMafYUiLrMVNTZoGZ-7Rw33c1EHooGSaIhpc4KtIWYzgnAN2TseFPWMU5z8qykNVXdwgCbFuqUGWfqWhMjTq2IXPzZn3FvCdiR6fVFDvWT7yQ8zh4PeHofDHVch-Y6zR3SOaeGni-IswO6i1c7DhHSqItQhtrkD0Hq"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<p class="text-[10px] font-bold text-center text-[#E5E2E1] truncate uppercase tracking-tighter">Choco Glaze</p>
+</div>
+<!-- Item 6 -->
+<div class="space-y-2 group">
+<div class="aspect-square rounded-2xl overflow-hidden bg-surface-container relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Steaming hot vegetable dim sum in a bamboo steamer with soy dipping sauce and vibrant green garnish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjf4ts9tUBg-5y0WVRwf1ixBeNH-iHne3Nc3cCpgbEsuCUQ9cUPguVb4P9HQcNhNrK2MLIPZysjw7GVPfUx8iLCT_W3HGmX5B8M44Rbhe9jmC-mVvyvp5zgEoxMBfAA9c3QPg8Dq6JKPBFsmu3na_1i_K-92tPpt75NtrOv9W_cWfa41mULjvupMYI108CoI6U-o8M6jnP0SJxGSMuzdOXFyHdNNVapc04VCLhjgAoPCslGLdTMFzM79PXNUnY1Ikxrm15QZZvCoEz"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<p class="text-[10px] font-bold text-center text-[#E5E2E1] truncate uppercase tracking-tighter">Veg Dimsum</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Component Mapping -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 bg-[#131313]/90 backdrop-blur-xl z-50 rounded-t-[1.5rem] shadow-[0_-4px_20px_rgba(255,140,0,0.08)]">
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/50 px-4 py-2 hover:text-[#FFB77D] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="text-[10px] font-bold tracking-widest uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/50 px-4 py-2 hover:text-[#FFB77D] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="trending_up">trending_up</span>
+<span class="text-[10px] font-bold tracking-widest uppercase">Trends</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/50 px-4 py-2 hover:text-[#FFB77D] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="bar_chart">bar_chart</span>
+<span class="text-[10px] font-bold tracking-widest uppercase">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#FF8C00] bg-[#FF8C00]/10 rounded-2xl px-4 py-2 active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="text-[10px] font-bold tracking-widest uppercase">Profile</span>
+</a>
+</nav>
+<style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 2px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #FF8C00;
+            border-radius: 10px;
+        }
+    </style>
+</body></html>

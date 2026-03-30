@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Campus Analytics - Stats</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed-variant": "#6e3900",
+              "on-tertiary": "#00344c",
+              "surface-tint": "#ffb77d",
+              "surface-container": "#201f1f",
+              "on-tertiary-fixed-variant": "#004c6c",
+              "on-primary-fixed": "#2f1500",
+              "inverse-on-surface": "#313030",
+              "primary-fixed": "#ffdcc3",
+              "on-secondary-container": "#e9a771",
+              "on-error-container": "#ffdad6",
+              "tertiary-fixed": "#c7e7ff",
+              "tertiary": "#85cfff",
+              "surface-dim": "#131313",
+              "primary-fixed-dim": "#ffb77d",
+              "tertiary-fixed-dim": "#85cfff",
+              "inverse-primary": "#904d00",
+              "on-tertiary-fixed": "#001e2e",
+              "primary-container": "#ff8c00",
+              "on-tertiary-container": "#004360",
+              "error-container": "#93000a",
+              "inverse-surface": "#e5e2e1",
+              "on-secondary": "#4d2600",
+              "surface-container-high": "#2a2a2a",
+              "on-surface": "#e5e2e1",
+              "on-error": "#690005",
+              "surface-container-lowest": "#0e0e0e",
+              "secondary": "#fdb881",
+              "on-secondary-fixed-variant": "#6a3b0f",
+              "secondary-fixed-dim": "#fdb881",
+              "outline-variant": "#564334",
+              "surface-container-low": "#1c1b1b",
+              "on-primary": "#4d2600",
+              "secondary-container": "#6a3b0f",
+              "surface-container-highest": "#353534",
+              "surface-variant": "#353534",
+              "surface": "#131313",
+              "primary": "#ffb77d",
+              "on-surface-variant": "#ddc1ae",
+              "on-primary-container": "#623200",
+              "background": "#131313",
+              "secondary-fixed": "#ffdcc3",
+              "tertiary-container": "#00b5fc",
+              "on-secondary-fixed": "#2f1500",
+              "outline": "#a48c7a",
+              "surface-bright": "#3a3939",
+              "error": "#ffb4ab",
+              "on-background": "#e5e2e1"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .glass-card {
+        background: rgba(58, 57, 57, 0.15);
+        backdrop-filter: blur(20px);
+        position: relative;
+      }
+      .glass-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(to bottom right, rgba(255, 183, 125, 0.3), transparent, rgba(255, 140, 0, 0.1));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-on-surface font-body min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#131313]/80 backdrop-blur-xl shadow-[0_4px_20px_rgba(255,140,0,0.08)]">
+<div class="flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-orange-500" data-icon="analytics">analytics</span>
+<h1 class="text-orange-500 font-['Plus_Jakarta_Sans'] font-bold text-xl tracking-tight">Campus Analytics</h1>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-gray-400 hover:text-orange-400 transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-gray-400 hover:text-orange-400 transition-colors" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+<div class="bg-gradient-to-b from-orange-500/10 to-transparent h-px w-full"></div>
+</header>
+<main class="pt-24 px-6 space-y-10">
+<!-- Hero Metrics -->
+<section class="grid grid-cols-2 gap-4">
+<!-- Metric Card 1 -->
+<div class="glass-card p-5 rounded-xl space-y-2">
+<div class="flex justify-between items-start">
+<span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Total Swipes</span>
+<span class="material-symbols-outlined text-orange-500/50 text-xl" data-icon="touch_app">touch_app</span>
+</div>
+<div class="text-2xl font-extrabold text-orange-500">24,821</div>
+<div class="flex items-center gap-1 text-[10px] text-orange-400/70">
+<span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span>
+<span>+12% vs last week</span>
+</div>
+</div>
+<!-- Metric Card 2 -->
+<div class="glass-card p-5 rounded-xl space-y-2">
+<div class="flex justify-between items-start">
+<span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Active Items</span>
+<span class="material-symbols-outlined text-on-surface/50 text-xl" data-icon="restaurant">restaurant</span>
+</div>
+<div class="text-2xl font-extrabold text-on-surface">143</div>
+<div class="flex items-center gap-1 text-[10px] text-gray-500">
+<span class="material-symbols-outlined text-xs" data-icon="update">update</span>
+<span>Refreshed 2m ago</span>
+</div>
+</div>
+</section>
+<!-- Leaderboard Section -->
+<section class="space-y-6">
+<div class="flex items-center justify-between">
+<h2 class="text-xl font-bold text-on-surface">🏆 Top Rated Board</h2>
+<button class="text-orange-500 text-sm font-medium">View All</button>
+</div>
+<div class="space-y-4">
+<!-- Rank 1 -->
+<div class="group relative flex items-center gap-4 bg-surface-container-low p-4 rounded-xl transition-all hover:bg-surface-container">
+<div class="flex items-center justify-center w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-500 font-extrabold text-sm">1</div>
+<img alt="Top Food" class="w-14 h-14 rounded-xl object-cover shadow-lg" data-alt="Gourmet avocado toast with poached egg on artisanal sourdough with edible flowers on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQe9AojqhtoU1NAax0p-6-zilNXA-Ng8PTNJFU8nKYdARRpONVTY9K4SBDYbq8C1Sgc5ZdIBEtr-fCANgWXeyezcA4EtsAFm-gMY5nsBm0ogQXqlHWGfQ9Fn3zD8MvMSOULq1MVgxL_flh0qHfh_w6dCXRjOibJvkjKLa-ytMhP29Bqwyy1kXfZbSM_yxIGORyCNqPX_p60MhfF393RBBV_90zaAI9JueWtwEeLZcUKRgEv6bGUPy2aR5Plk6jskq8ki0R9cbmeyk5"/>
+<div class="flex-1 min-w-0">
+<h3 class="text-on-surface font-bold truncate">Zesty Avocado Bowl</h3>
+<p class="text-xs text-gray-500">Green Garden Kiosk</p>
+<div class="mt-2 h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-orange-500 w-[94%] shadow-[0_0_8px_rgba(255,140,0,0.4)]"></div>
+</div>
+</div>
+<div class="text-right">
+<span class="text-orange-500 font-bold">9.4</span>
+</div>
+</div>
+<!-- Rank 2 -->
+<div class="group relative flex items-center gap-4 bg-surface-container-low p-4 rounded-xl transition-all hover:bg-surface-container">
+<div class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-400/20 text-slate-300 font-extrabold text-sm">2</div>
+<img alt="Top Food" class="w-14 h-14 rounded-xl object-cover shadow-lg" data-alt="Juicy gourmet wagyu beef burger with melting cheese and caramelized onions under dramatic spotlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz4miNeYJj68TooQJrl60Ze3YELK5OgYGhNDEf5ekGnrkE5Um4l_zP9of9pV8c-ao4yprgYiXB7XQaFnJsylYGYoS2_V7czd0SUXOChpQRFh6u1xsBDyrIeKS1XBtyhgYpcfIDUfMg-xDHnRAu1Mza-3w-1tHzP_W1bOMWXmmo5yLD43IcgBMdE7SAGZYCgfYRUdgonaIp2qzeWQ4w4d5fJ-MRGrTRCy-47wdycoSOrKm6jj5Qb_56xkxZmsM7IzC4mMA3zF0m3ASm"/>
+<div class="flex-1 min-w-0">
+<h3 class="text-on-surface font-bold truncate">Midnight Smash Burger</h3>
+<p class="text-xs text-gray-500">The Grill House</p>
+<div class="mt-2 h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-orange-500 w-[89%]"></div>
+</div>
+</div>
+<div class="text-right">
+<span class="text-orange-500 font-bold">8.9</span>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="group relative flex items-center gap-4 bg-surface-container-low p-4 rounded-xl transition-all hover:bg-surface-container">
+<div class="flex items-center justify-center w-8 h-8 rounded-full bg-amber-700/20 text-amber-600 font-extrabold text-sm">3</div>
+<img alt="Top Food" class="w-14 h-14 rounded-xl object-cover shadow-lg" data-alt="Steaming bowl of spicy tonkotsu ramen with soft boiled egg and nori in dark editorial food style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxDBQ3VHy7Z976CL3bCVWDaj-ZN_V-cip48nIFethyoLBj0eK5Wpkrnv9B4YoThav2s23AYC8cUSUrVwzre-mCaRdmzk6kXLOV1kvpV3T539yw8NHaA721fhCtwLo4l5afJPylP83nAj3IlRxEiaikJuv2wZbc5-fJet2_FmMTm9FEJQJVsrgsofcSFVFdLCnY8vs3zNylnay6AZpgjX_clViWKexXAAsR3iXtyEYYexdEq8mN1O6ivB9jsEuydNzP7YPkmPy_2pu3"/>
+<div class="flex-1 min-w-0">
+<h3 class="text-on-surface font-bold truncate">Spicy Tonkotsu</h3>
+<p class="text-xs text-gray-500">Noodle Station</p>
+<div class="mt-2 h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-orange-500 w-[82%]"></div>
+</div>
+</div>
+<div class="text-right">
+<span class="text-orange-500 font-bold">8.2</span>
+</div>
+</div>
+<!-- Rank 4 -->
+<div class="group relative flex items-center gap-4 bg-surface-container-low p-4 rounded-xl transition-all hover:bg-surface-container">
+<div class="flex items-center justify-center w-8 h-8 rounded-full bg-surface-container-highest text-gray-500 font-extrabold text-sm">4</div>
+<img alt="Top Food" class="w-14 h-14 rounded-xl object-cover shadow-lg" data-alt="Authentic wood-fired pepperoni pizza with charred crust on dark stone slab with moody lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXDqPaxOI5rSZVPIaj2y-P4qEr_FslMVM5JuOmylUdc4pJRH_D8qct8z7Cv7IRpTTfqKUTJntdMuXofu40hqH7dvdySiQUGd_PFB0Vfr1hICIdQfMc_FUALwgiyc6ULwUbzuTyvqAHVJ6YPTR87Av1QcoSJLXuw9GwyxOw3UTB1iHKFstRScLXxSzmY3Z967nDIp9ZQDpPZMXqBQE5QKCXh3Rh-YPg8mwZgEbZNDGnnBN53khHnmvY6SuRMhpaTv1EKiayRdCvL61u"/>
+<div class="flex-1 min-w-0">
+<h3 class="text-on-surface font-bold truncate">Artisan Pepperoni</h3>
+<p class="text-xs text-gray-500">Campanile Pizza</p>
+<div class="mt-2 h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-orange-500 w-[78%]"></div>
+</div>
+</div>
+<div class="text-right">
+<span class="text-orange-500 font-bold">7.8</span>
+</div>
+</div>
+<!-- Rank 5 -->
+<div class="group relative flex items-center gap-4 bg-surface-container-low p-4 rounded-xl transition-all hover:bg-surface-container">
+<div class="flex items-center justify-center w-8 h-8 rounded-full bg-surface-container-highest text-gray-500 font-extrabold text-sm">5</div>
+<img alt="Top Food" class="w-14 h-14 rounded-xl object-cover shadow-lg" data-alt="Vibrant mediterranean quinoa salad with feta and olives in a glass bowl on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACPFpoWHCqStLhmUCBbQKKr28D9NdIqcjavDo8D0t85yY-ZDXjoSKoabqYGq8XUj56xwdtkpnWk-6e8ndtDGHCcQihiTjEgJRJBIw2ANlH2EuTkhrXg_5Iud8dN08RkaxivSMDMhMCz4Ll2XlFH3qQHVqNQMwa6KgSKa-aJpAZeeCAcPNbsc8oh_FhUk-OMSfAajR_vCMS8OfbJuXTx2TW0gEac93JcRaUe22M8CeP7PfSQnWNZ8C_RW5_vSXmenwK8yOWDkkW99Rf"/>
+<div class="flex-1 min-w-0">
+<h3 class="text-on-surface font-bold truncate">Quinoa Power Salad</h3>
+<p class="text-xs text-gray-500">Fresh &amp; Co</p>
+<div class="mt-2 h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-orange-500 w-[71%]"></div>
+</div>
+</div>
+<div class="text-right">
+<span class="text-orange-500 font-bold">7.1</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Secondary Stats Graph Preview -->
+<section class="pb-10">
+<div class="glass-card p-6 rounded-3xl overflow-hidden relative">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h4 class="text-lg font-bold">Rush Hour Heatmap</h4>
+<p class="text-xs text-gray-500">Live peak occupancy data</p>
+</div>
+<span class="material-symbols-outlined text-orange-500" data-icon="query_stats">query_stats</span>
+</div>
+<div class="flex items-end justify-between h-32 gap-2">
+<div class="w-full bg-orange-500/20 rounded-t-lg h-[40%]"></div>
+<div class="w-full bg-orange-500/30 rounded-t-lg h-[60%]"></div>
+<div class="w-full bg-orange-500/60 rounded-t-lg h-[85%]"></div>
+<div class="w-full bg-primary-container rounded-t-lg h-[100%] shadow-[0_0_15px_rgba(255,140,0,0.3)]"></div>
+<div class="w-full bg-orange-500/80 rounded-t-lg h-[90%]"></div>
+<div class="w-full bg-orange-500/40 rounded-t-lg h-[50%]"></div>
+<div class="w-full bg-orange-500/10 rounded-t-lg h-[30%]"></div>
+</div>
+<div class="flex justify-between mt-3 text-[10px] text-gray-500 uppercase tracking-tighter">
+<span>11am</span>
+<span>12pm</span>
+<span>1pm</span>
+<span>2pm</span>
+<span>3pm</span>
+<span>4pm</span>
+<span>5pm</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-[2rem] bg-[#0E0E0E]/90 backdrop-blur-2xl border-t border-orange-500/20 shadow-[0_-8px_30px_rgba(0,0,0,0.5)]">
+<div class="flex justify-around items-center h-20 px-4 pb-4">
+<!-- Feed -->
+<a class="flex flex-col items-center justify-center text-gray-500 opacity-60 hover:text-orange-300 transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium tracking-wider uppercase mt-1">Feed</span>
+</a>
+<!-- Stats (Active) -->
+<a class="flex flex-col items-center justify-center text-orange-500 scale-110 drop-shadow-[0_0_8px_rgba(255,140,0,0.5)] active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="equalizer">equalizer</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium tracking-wider uppercase mt-1">Stats</span>
+</a>
+<!-- Orders -->
+<a class="flex flex-col items-center justify-center text-gray-500 opacity-60 hover:text-orange-300 transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium tracking-wider uppercase mt-1">Orders</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-gray-500 opacity-60 hover:text-orange-300 transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium tracking-wider uppercase mt-1">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>

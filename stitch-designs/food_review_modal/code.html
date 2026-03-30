@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Culinary Lume - Review</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error": "#ffb4ab",
+              "surface": "#131313",
+              "secondary": "#fdb881",
+              "surface-container-lowest": "#0e0e0e",
+              "on-secondary": "#4d2600",
+              "surface-container": "#201f1f",
+              "primary-container": "#ff8c00",
+              "on-primary-container": "#623200",
+              "tertiary-container": "#00b5fc",
+              "inverse-surface": "#e5e2e1",
+              "on-primary": "#4d2600",
+              "secondary-container": "#6a3b0f",
+              "on-background": "#e5e2e1",
+              "surface-tint": "#ffb77d",
+              "surface-dim": "#131313",
+              "on-secondary-container": "#e9a771",
+              "on-surface": "#e5e2e1",
+              "inverse-on-surface": "#313030",
+              "on-tertiary-container": "#004360",
+              "on-tertiary": "#00344c",
+              "outline-variant": "#564334",
+              "on-tertiary-fixed": "#001e2e",
+              "surface-bright": "#3a3939",
+              "surface-container-highest": "#353534",
+              "secondary-fixed-dim": "#fdb881",
+              "primary-fixed-dim": "#ffb77d",
+              "on-error-container": "#ffdad6",
+              "surface-container-low": "#1c1b1b",
+              "on-primary-fixed": "#2f1500",
+              "tertiary-fixed": "#c7e7ff",
+              "on-secondary-fixed-variant": "#6a3b0f",
+              "surface-variant": "#353534",
+              "outline": "#a48c7a",
+              "on-primary-fixed-variant": "#6e3900",
+              "secondary-fixed": "#ffdcc3",
+              "on-surface-variant": "#ddc1ae",
+              "tertiary-fixed-dim": "#85cfff",
+              "on-error": "#690005",
+              "background": "#131313",
+              "error-container": "#93000a",
+              "primary": "#ffb77d",
+              "tertiary": "#85cfff",
+              "surface-container-high": "#2a2a2a",
+              "primary-fixed": "#ffdcc3",
+              "on-tertiary-fixed-variant": "#004c6c",
+              "on-secondary-fixed": "#2f1500",
+              "inverse-primary": "#904d00"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-sheet {
+            background: linear-gradient(180deg, rgba(58, 57, 57, 0.4) 0%, rgba(32, 31, 31, 0.9) 100%);
+            backdrop-filter: blur(24px);
+        }
+        .lume-glow {
+            box-shadow: 0 -4px 40px rgba(255, 140, 0, 0.12);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Mock Background Content (The Culinary Lume Context) -->
+<div class="absolute inset-0 z-0 p-6 opacity-40">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest"></div>
+<div class="flex-1">
+<div class="h-4 w-32 bg-surface-container-highest rounded mb-2"></div>
+<div class="h-3 w-20 bg-surface-container-highest rounded"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="aspect-[4/5] bg-surface-container rounded-xl"></div>
+<div class="aspect-[4/5] bg-surface-container rounded-xl"></div>
+<div class="aspect-[4/5] bg-surface-container rounded-xl"></div>
+<div class="aspect-[4/5] bg-surface-container rounded-xl"></div>
+</div>
+</div>
+<!-- Black Overlay -->
+<div class="fixed inset-0 bg-black/70 z-40 backdrop-blur-sm"></div>
+<!-- Bottom Sheet Container -->
+<div class="fixed bottom-0 left-0 right-0 z-50 flex justify-center">
+<div class="w-full max-w-md glass-sheet lume-glow rounded-t-[2.5rem] p-6 flex flex-col items-center border-t border-primary/10">
+<!-- Drag Handle Pill -->
+<div class="w-12 h-1.5 bg-on-surface-variant/30 rounded-full mb-8"></div>
+<!-- Food Item Header -->
+<div class="w-full flex items-center gap-5 mb-8">
+<div class="relative">
+<img alt="Chole Bhature" class="w-20 h-20 rounded-2xl object-cover ring-1 ring-white/10 shadow-lg" data-alt="close-up of fluffy deep-fried bhature bread and spicy chole chickpea curry served in a traditional bowl with rustic dark mood lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhE-uG5C5ApxelffYz0-nd9Y-2DBjtfk13TohY3kh-GVz6bxrkXe3nK5blJ3MliKIv1G5GHvhHr_xtMOTk7pV0v--5O9ot0R2khOILkMWp0QNvoOKq16-ucgj0cj4pgbU-4mkpOs0s_1gtRHoxH1kNLm9uA2vua13SGEsuzxvN2ffKZp66qosMrzEwjXxmYN_7SY5yTiBiutzA4ChIOiayYozGcEy5x6Jdt6Zn3_5cka-cRwcefF134P3GGMYST_T2FwRIB_wyUmlJ"/>
+</div>
+<div class="flex-1">
+<h3 class="text-on-surface font-headline font-bold text-xl tracking-tight mb-1">Chole Bhature</h3>
+<div class="flex items-center gap-1.5">
+<span class="flex items-center justify-center bg-[#2E7D32]/20 text-[#81C784] px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">thumb_up</span>
+                            Liked
+                        </span>
+</div>
+</div>
+</div>
+<!-- Review Prompt -->
+<div class="w-full mb-4">
+<h2 class="text-on-surface font-headline font-bold text-2xl tracking-tight leading-tight">Why did you like this?</h2>
+</div>
+<!-- Text Input Field -->
+<div class="w-full relative mb-8">
+<textarea class="w-full h-40 bg-surface-container-highest/40 border border-outline-variant/30 rounded-[1.5rem] p-5 text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none focus:border-primary-container/50 focus:ring-1 focus:ring-primary-container/50 transition-all resize-none font-body leading-relaxed" placeholder="Write your review here..."></textarea>
+<div class="absolute bottom-4 right-5 text-on-surface-variant/60 text-xs font-medium tracking-widest uppercase">
+                    0/200
+                </div>
+</div>
+<!-- Action Buttons -->
+<div class="w-full flex flex-col items-center gap-6">
+<button class="w-full py-4 bg-primary-container text-on-primary-container font-headline font-extrabold text-lg rounded-full shadow-[0_8px_24px_rgba(255,140,0,0.2)] active:scale-95 transition-transform">
+                    Submit Review
+                </button>
+<button class="text-on-surface-variant/60 font-medium tracking-wide text-sm hover:text-on-surface transition-colors">
+                    Cancel
+                </button>
+</div>
+<!-- Home Indicator Space (iOS Style) -->
+<div class="h-6 w-full"></div>
+</div>
+</div>
+</body></html>

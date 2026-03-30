@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Culinary Lume - Global Feedback</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary": "#4d2600",
+              "on-background": "#e5e2e1",
+              "inverse-on-surface": "#313030",
+              "on-secondary-container": "#e9a771",
+              "on-secondary-fixed-variant": "#6a3b0f",
+              "on-primary-container": "#623200",
+              "background": "#131313",
+              "primary-container": "#ff8c00",
+              "inverse-surface": "#e5e2e1",
+              "primary-fixed-dim": "#ffb77d",
+              "surface-variant": "#353534",
+              "on-primary-fixed-variant": "#6e3900",
+              "error": "#ffb4ab",
+              "on-secondary": "#4d2600",
+              "surface-bright": "#3a3939",
+              "secondary-container": "#6a3b0f",
+              "outline-variant": "#564334",
+              "tertiary-container": "#00b5fc",
+              "surface-container-highest": "#353534",
+              "on-tertiary-container": "#004360",
+              "tertiary-fixed": "#c7e7ff",
+              "surface": "#131313",
+              "error-container": "#93000a",
+              "on-error-container": "#ffdad6",
+              "primary-fixed": "#ffdcc3",
+              "on-surface": "#e5e2e1",
+              "on-surface-variant": "#ddc1ae",
+              "surface-tint": "#ffb77d",
+              "surface-container-high": "#2a2a2a",
+              "primary": "#ffb77d",
+              "surface-dim": "#131313",
+              "secondary-fixed-dim": "#fdb881",
+              "surface-container-low": "#1c1b1b",
+              "on-tertiary-fixed-variant": "#004c6c",
+              "on-tertiary": "#00344c",
+              "tertiary": "#85cfff",
+              "secondary": "#fdb881",
+              "on-error": "#690005",
+              "tertiary-fixed-dim": "#85cfff",
+              "surface-container-lowest": "#0e0e0e",
+              "on-primary-fixed": "#2f1500",
+              "secondary-fixed": "#ffdcc3",
+              "surface-container": "#201f1f",
+              "on-secondary-fixed": "#2f1500",
+              "outline": "#a48c7a",
+              "on-tertiary-fixed": "#001e2e",
+              "inverse-primary": "#904d00"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(58, 57, 57, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 183, 125, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-orange-500/5 bg-[#131313] dark:bg-[#201F1F] shadow-2xl z-50 flex flex-col py-6">
+<div class="px-6 mb-10">
+<h1 class="text-xl font-extrabold text-orange-500 tracking-tight">Lume Admin</h1>
+<p class="text-xs text-gray-500 font-medium tracking-wide">Super Admin Console</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-gray-500 hover:text-gray-200 py-3 px-6 flex items-center gap-3 font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-wide hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">devices</span>
+                Kiosks
+            </a>
+<!-- Active State: Feedback -->
+<a class="bg-orange-500/10 text-orange-500 border-r-4 border-orange-500 py-3 px-6 flex items-center gap-3 font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-wide transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">maps_ugc</span>
+                Feedback
+            </a>
+<a class="text-gray-500 hover:text-gray-200 py-3 px-6 flex items-center gap-3 font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-wide hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">poll</span>
+                Polls
+            </a>
+<a class="text-gray-500 hover:text-gray-200 py-3 px-6 flex items-center gap-3 font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-wide hover:bg-white/5 transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto px-6 flex items-center gap-3 py-4 border-t border-white/5">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a professional male administrator in a dark studio setting with soft warm rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe_eoLDkgobA6rEaeLoTU1kXeTxaEWlI4RMEOV3XDAX511gj_eiV7fsf9A6IJgB1NebN91iO1kfWI1sKkFz48PzqXPQ0tIYPo68d2TuBl2V9aanYiVAdVflKm2UYRd9tKzGzdAxxytsh1r8SPEovxZOnzi4DepLPRj_3084R2_Qn4FeyVwZ6q2vFHnxgqrQQStmz650EK6N8HQbV9XjvLs40iBke9iHbo0gRQ7rGyKNCUaQJZOauJDF5EEGK2t6kv4g86TuWV_hWEf"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Admin User</p>
+<p class="text-xs text-gray-500">Global Access</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 min-h-screen flex flex-col">
+<!-- TopAppBar Component -->
+<header class="bg-[#131313] dark:bg-[#0E0E0E] flex justify-between items-center px-8 py-4 w-full docked full-width top-0 z-40 border-b border-orange-500/10 shadow-[0_4px_20px_rgba(255,140,0,0.05)]">
+<h2 class="text-2xl font-black text-orange-500 tracking-tighter font-['Plus_Jakarta_Sans']">Global Feedback</h2>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 text-sm">search</span>
+<input class="bg-surface-container-highest border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary-container w-64 transition-all" placeholder="Search feedback..." type="text"/>
+</div>
+<button class="flex items-center gap-2 text-gray-400 hover:text-primary transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</button>
+</div>
+</header>
+<!-- Canvas Area -->
+<div class="p-8 space-y-12">
+<!-- Metrics Section -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="glass-card p-8 rounded-xl shadow-xl border-l-4 border-l-green-500 relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">thumb_up</span>
+</div>
+<div class="relative z-10">
+<p class="text-gray-400 font-medium tracking-wide mb-2 uppercase text-xs">Campus Engagement</p>
+<h3 class="text-4xl font-black text-on-surface mb-1">1,482</h3>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
+<span class="text-on-surface-variant font-medium">Total Likes Across Campus</span>
+</div>
+</div>
+</div>
+<div class="glass-card p-8 rounded-xl shadow-xl border-l-4 border-l-red-500 relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">thumb_down</span>
+</div>
+<div class="relative z-10">
+<p class="text-gray-400 font-medium tracking-wide mb-2 uppercase text-xs">Quality Monitor</p>
+<h3 class="text-4xl font-black text-on-surface mb-1">341</h3>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></span>
+<span class="text-on-surface-variant font-medium">Total Dislikes Across Campus</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Filters & Content -->
+<section class="space-y-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<div class="space-y-1">
+<label class="text-[10px] font-bold uppercase text-gray-500 tracking-widest px-1">Kiosk Origin</label>
+<select class="bg-surface-container-high border-none text-on-surface text-sm rounded-lg px-4 py-2.5 focus:ring-1 focus:ring-primary min-w-[180px]">
+<option>All Kiosks</option>
+<option>Kiosk 3 - Central Plaza</option>
+<option>Boba Express - Student Union</option>
+<option>The Burger Loft - North Hall</option>
+<option>Taco Tier - Gym</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-[10px] font-bold uppercase text-gray-500 tracking-widest px-1">Sentiment Type</label>
+<select class="bg-surface-container-high border-none text-on-surface text-sm rounded-lg px-4 py-2.5 focus:ring-1 focus:ring-primary min-w-[180px]">
+<option>All Types</option>
+<option>Liked Only</option>
+<option>Disliked Only</option>
+</select>
+</div>
+</div>
+<p class="text-gray-500 text-xs font-medium">Showing 124 recent entries</p>
+</div>
+<!-- Feedback List -->
+<div class="flex flex-col gap-4">
+<!-- Card 1 -->
+<div class="group surface-container p-6 rounded-xl hover:bg-surface-bright transition-all duration-300 relative shadow-lg">
+<div class="flex items-start justify-between">
+<div class="space-y-3 flex-1">
+<div class="flex items-center gap-3">
+<span class="bg-primary-container text-on-primary-container text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Kiosk 3</span>
+<h4 class="text-lg font-bold text-white tracking-tight">Truffle Umami Burger</h4>
+<span class="inline-flex items-center gap-1 bg-green-500/10 text-green-500 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-tighter">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">thumb_up</span>
+                                        Liked
+                                    </span>
+</div>
+<p class="text-gray-400 italic text-sm leading-relaxed max-w-2xl">
+                                    "The truffle mayo was absolutely incredible. Perfect balance of flavors and the bun was toasted just right. Best lunch on campus so far!"
+                                </p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-gray-600 font-medium">May 24, 2:45 PM</p>
+</div>
+</div>
+<div class="absolute right-6 bottom-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+<button class="p-2 hover:bg-white/5 rounded-full transition-colors"><span class="material-symbols-outlined text-gray-500 text-lg">reply</span></button>
+<button class="p-2 hover:bg-white/5 rounded-full transition-colors"><span class="material-symbols-outlined text-gray-500 text-lg">flag</span></button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group surface-container p-6 rounded-xl hover:bg-surface-bright transition-all duration-300 relative shadow-lg">
+<div class="flex items-start justify-between">
+<div class="space-y-3 flex-1">
+<div class="flex items-center gap-3">
+<span class="bg-primary-container text-on-primary-container text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Boba Express</span>
+<h4 class="text-lg font-bold text-white tracking-tight">Classic Milk Tea w/ Pearls</h4>
+<span class="inline-flex items-center gap-1 bg-red-500/10 text-red-500 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-tighter">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">thumb_down</span>
+                                        Disliked
+                                    </span>
+</div>
+<p class="text-gray-400 italic text-sm leading-relaxed max-w-2xl">
+                                    "Pearls were a bit too mushy today. Usually they are great but this batch seemed overcooked. Drink itself was fine though."
+                                </p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-gray-600 font-medium">May 24, 1:12 PM</p>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group surface-container p-6 rounded-xl hover:bg-surface-bright transition-all duration-300 relative shadow-lg">
+<div class="flex items-start justify-between">
+<div class="space-y-3 flex-1">
+<div class="flex items-center gap-3">
+<span class="bg-primary-container text-on-primary-container text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">The Burger Loft</span>
+<h4 class="text-lg font-bold text-white tracking-tight">Crispy Nashville Chicken</h4>
+<span class="inline-flex items-center gap-1 bg-green-500/10 text-green-500 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-tighter">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">thumb_up</span>
+                                        Liked
+                                    </span>
+</div>
+<p class="text-gray-400 italic text-sm leading-relaxed max-w-2xl">
+                                    "Perfect heat level. I appreciate that it stays crispy even after a 10-minute walk back to the dorms."
+                                </p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-gray-600 font-medium">May 24, 12:30 PM</p>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group surface-container p-6 rounded-xl hover:bg-surface-bright transition-all duration-300 relative shadow-lg">
+<div class="flex items-start justify-between">
+<div class="space-y-3 flex-1">
+<div class="flex items-center gap-3">
+<span class="bg-primary-container text-on-primary-container text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Kiosk 3</span>
+<h4 class="text-lg font-bold text-white tracking-tight">Garlic Parmesan Fries</h4>
+<span class="inline-flex items-center gap-1 bg-red-500/10 text-red-500 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-tighter">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">thumb_down</span>
+                                        Disliked
+                                    </span>
+</div>
+<p class="text-gray-400 italic text-sm leading-relaxed max-w-2xl">
+                                    "Way too much salt. Could barely taste the garlic. Had to throw most of it away which is a shame because they looked great."
+                                </p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-gray-600 font-medium">May 23, 6:58 PM</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-center pt-8">
+<button class="bg-surface-container-highest hover:bg-surface-bright text-on-surface px-8 py-3 rounded-full text-sm font-bold transition-all border border-white/5 active:scale-95">
+                        Load More Entries
+                    </button>
+</div>
+</section>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add New Item - Midnight Concierge Kiosk</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-container": "#6a3b0f",
+                        "inverse-primary": "#904d00",
+                        "surface-container-high": "#2a2a2a",
+                        "on-secondary": "#4d2600",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#353534",
+                        "secondary-fixed-dim": "#fdb881",
+                        "on-surface": "#e5e2e1",
+                        "tertiary": "#85cfff",
+                        "tertiary-container": "#00b5fc",
+                        "primary": "#ffb77d",
+                        "surface": "#131313",
+                        "primary-container": "#ff8c00",
+                        "on-primary-container": "#623200",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed": "#2f1500",
+                        "on-background": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "background": "#131313",
+                        "tertiary-fixed": "#c7e7ff",
+                        "secondary-fixed": "#ffdcc3",
+                        "primary-fixed": "#ffdcc3",
+                        "error-container": "#93000a",
+                        "surface-tint": "#ffb77d",
+                        "surface-container": "#201f1f",
+                        "surface-dim": "#131313",
+                        "on-tertiary-fixed-variant": "#004c6c",
+                        "on-surface-variant": "#ddc1ae",
+                        "outline-variant": "#564334",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "error": "#ffb4ab",
+                        "on-tertiary-container": "#004360",
+                        "on-secondary-container": "#e9a771",
+                        "on-tertiary": "#00344c",
+                        "outline": "#a48c7a",
+                        "on-secondary-fixed": "#2f1500",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary": "#fdb881",
+                        "inverse-on-surface": "#313030",
+                        "surface-bright": "#3a3939",
+                        "on-secondary-fixed-variant": "#6a3b0f",
+                        "surface-variant": "#353534",
+                        "on-tertiary-fixed": "#001e2e",
+                        "tertiary-fixed-dim": "#85cfff",
+                        "on-primary": "#4d2600",
+                        "primary-fixed-dim": "#ffb77d"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-glow-top {
+            box-shadow: inset 0 1px 0 0 rgba(255, 183, 125, 0.1);
+        }
+        .no-line { border: none !important; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #353534; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest font-body text-on-surface min-h-screen flex items-end justify-center overflow-hidden">
+<!-- Backdrop Overlay -->
+<div class="fixed inset-0 bg-black/80 backdrop-blur-sm z-40"></div>
+<!-- Bottom Sheet Modal -->
+<div class="relative w-full max-w-lg h-[751px] bg-surface rounded-t-[2rem] z-50 flex flex-col shadow-2xl shadow-primary-container/10 overflow-hidden">
+<!-- Drag Handle Pill -->
+<div class="flex justify-center pt-3 pb-1">
+<div class="w-12 h-1.5 bg-surface-container-highest rounded-full"></div>
+</div>
+<!-- TopAppBar (From JSON Anchor) -->
+<header class="flex items-center justify-between px-6 py-4 w-full no-line tonal-transition bg-gradient-to-b from-[#201F1F] to-[#131313] rounded-t-2xl">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#3A3939]/40 transition-all active:scale-95">
+<span class="material-symbols-outlined text-on-surface">close</span>
+</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg text-on-surface">Add New Item</h1>
+<div class="w-10"></div> <!-- Spacer for center alignment -->
+</header>
+<!-- Scrollable Form Area -->
+<main class="flex-1 overflow-y-auto px-6 py-8 space-y-8 pb-32">
+<!-- Item Name Input -->
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-on-surface-variant tracking-wide uppercase ml-1">Item Name</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-high border-none rounded-xl py-4 px-5 text-on-surface placeholder:text-on-surface/30 focus:ring-1 focus:ring-primary/50 transition-all outline-none" placeholder="e.g. Chole Bhature" type="text"/>
+<div class="absolute inset-0 rounded-xl border border-primary/0 group-focus-within:border-primary/20 pointer-events-none"></div>
+</div>
+</div>
+<!-- Price Input -->
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-on-surface-variant tracking-wide uppercase ml-1">Price (₹)</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-high border-none rounded-xl py-4 px-5 text-on-surface placeholder:text-on-surface/30 focus:ring-1 focus:ring-primary/50 transition-all outline-none" placeholder="e.g. 120" type="number"/>
+<div class="absolute inset-0 rounded-xl border border-primary/0 group-focus-within:border-primary/20 pointer-events-none"></div>
+</div>
+</div>
+<!-- Veg / Non-Veg Toggle -->
+<div class="space-y-3">
+<label class="block text-sm font-semibold text-on-surface-variant tracking-wide uppercase ml-1">Dietary Preference</label>
+<div class="grid grid-cols-2 gap-3 p-1.5 bg-surface-container-high rounded-2xl">
+<button class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-green-900/30 text-green-400 font-bold border border-green-500/30 shadow-lg shadow-green-500/5">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">fiber_manual_record</span>
+                        Veg
+                    </button>
+<button class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-on-surface/40 font-medium hover:bg-surface-bright/20 transition-all">
+<span class="material-symbols-outlined text-[18px]">fiber_manual_record</span>
+                        Non-Veg
+                    </button>
+</div>
+</div>
+<!-- Category Dropdown -->
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-on-surface-variant tracking-wide uppercase ml-1">Category</label>
+<button class="w-full flex items-center justify-between bg-surface-container-high rounded-xl py-4 px-5 text-on-surface hover:bg-surface-bright/40 transition-all">
+<span class="font-medium">North Indian</span>
+<span class="material-symbols-outlined text-primary">expand_more</span>
+</button>
+</div>
+<!-- Image URL and Preview -->
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-on-surface-variant tracking-wide uppercase ml-1">Item Visuals</label>
+<div class="flex gap-4 items-start">
+<div class="flex-1 relative group">
+<textarea class="w-full bg-surface-container-high border-none rounded-xl py-4 px-5 text-on-surface placeholder:text-on-surface/30 focus:ring-1 focus:ring-primary/50 transition-all outline-none resize-none" placeholder="Paste Image URL here..." rows="3"></textarea>
+</div>
+<div class="w-24 h-24 rounded-xl border-2 border-dashed border-outline-variant flex flex-col items-center justify-center bg-surface-container-lowest shrink-0">
+<span class="material-symbols-outlined text-outline text-3xl mb-1">image</span>
+<span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Preview</span>
+</div>
+</div>
+</div>
+<!-- Image Hint (Editorial Style) -->
+<div class="p-4 rounded-xl bg-primary-container/5 border border-primary-container/10 flex gap-3">
+<span class="material-symbols-outlined text-primary text-xl">info</span>
+<p class="text-xs text-on-surface/60 leading-relaxed italic">
+                    High-quality images with warm lighting tend to increase kiosk conversion rates by 24%. Use 1:1 aspect ratio for best results.
+                </p>
+</div>
+</main>
+<!-- Fixed Footer Action -->
+<footer class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-surface via-surface to-transparent pt-12">
+<button class="w-full py-5 bg-primary-container hover:bg-primary text-on-primary-container font-extrabold rounded-2xl shadow-xl shadow-primary-container/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add_circle</span>
+                Add Item
+            </button>
+</footer>
+</div>
+<!-- BottomNavBar (Suppressed as per Task Intent: focused journey/modal) -->
+<!-- Navigation shell is excluded to prioritize the focused task of adding a new item. -->
+</body></html>

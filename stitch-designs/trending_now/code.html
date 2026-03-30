@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusBite - Trending Now</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error": "#ffb4ab",
+              "on-tertiary-container": "#004360",
+              "on-secondary-container": "#e9a771",
+              "on-tertiary": "#00344c",
+              "outline-variant": "#564334",
+              "on-error": "#690005",
+              "on-primary-fixed-variant": "#6e3900",
+              "surface-bright": "#3a3939",
+              "on-secondary-fixed-variant": "#6a3b0f",
+              "surface-variant": "#353534",
+              "on-tertiary-fixed": "#001e2e",
+              "tertiary-fixed-dim": "#85cfff",
+              "on-primary": "#4d2600",
+              "primary-fixed-dim": "#ffb77d",
+              "outline": "#a48c7a",
+              "on-secondary-fixed": "#2f1500",
+              "surface-container-lowest": "#0e0e0e",
+              "secondary": "#fdb881",
+              "inverse-on-surface": "#313030",
+              "tertiary": "#85cfff",
+              "tertiary-container": "#00b5fc",
+              "primary": "#ffb77d",
+              "surface": "#131313",
+              "primary-container": "#ff8c00",
+              "on-primary-container": "#623200",
+              "inverse-surface": "#e5e2e1",
+              "secondary-container": "#6a3b0f",
+              "inverse-primary": "#904d00",
+              "surface-container-high": "#2a2a2a",
+              "on-secondary": "#4d2600",
+              "on-error-container": "#ffdad6",
+              "surface-container-highest": "#353534",
+              "secondary-fixed-dim": "#fdb881",
+              "on-surface": "#e5e2e1",
+              "error-container": "#93000a",
+              "surface-tint": "#ffb77d",
+              "surface-container": "#201f1f",
+              "surface-dim": "#131313",
+              "on-tertiary-fixed-variant": "#004c6c",
+              "on-surface-variant": "#ddc1ae",
+              "on-primary-fixed": "#2f1500",
+              "on-background": "#e5e2e1",
+              "surface-container-low": "#1c1b1b",
+              "background": "#131313",
+              "tertiary-fixed": "#c7e7ff",
+              "secondary-fixed": "#ffdcc3",
+              "primary-fixed": "#ffdcc3"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      
+      .glass-card {
+        background: rgba(58, 57, 57, 0.4);
+        backdrop-filter: blur(20px);
+      }
+      
+      .lume-glow-1 {
+        box-shadow: inset 0 0 12px rgba(255, 140, 0, 0.2), 0 0 20px rgba(255, 140, 0, 0.1);
+        border: 1px solid rgba(255, 183, 125, 0.15);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-[#131313] dark:bg-[#0E0E0E] docked full-width top-0 z-50 flex justify-between items-center w-full px-6 py-4 sticky top-0">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-orange-500 dark:text-[#FF8C00]">menu</span>
+</div>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-2xl tracking-tighter text-[#FF8C00] italic">CampusBite</h1>
+<div class="w-6 h-6"></div> <!-- Spacer -->
+</header>
+<main class="px-6 space-y-8 mt-4">
+<!-- Hero Header -->
+<section>
+<h2 class="text-4xl font-bold tracking-tight text-on-surface">Trending Now</h2>
+<p class="text-on-surface-variant text-sm mt-2 opacity-70">The most popular picks across campus right now.</p>
+</section>
+<!-- Filters Section -->
+<section class="space-y-6">
+<!-- Time Filter -->
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+<button class="px-6 py-2 rounded-full bg-primary-container text-on-primary-container font-semibold text-sm transition-all active:scale-95 whitespace-nowrap">Daily</button>
+<button class="px-6 py-2 rounded-full surface-container-highest text-on-surface-variant font-medium text-sm border border-outline-variant/20 whitespace-nowrap">Weekly</button>
+<button class="px-6 py-2 rounded-full surface-container-highest text-on-surface-variant font-medium text-sm border border-outline-variant/20 whitespace-nowrap">Monthly</button>
+</div>
+<!-- Category Filter -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+<button class="px-5 py-2 rounded-xl border-2 border-primary/40 text-primary font-bold text-xs uppercase tracking-widest whitespace-nowrap">All</button>
+<button class="px-5 py-2 rounded-xl border border-outline-variant text-on-surface-variant font-medium text-xs uppercase tracking-widest whitespace-nowrap">North Indian</button>
+<button class="px-5 py-2 rounded-xl border border-outline-variant text-on-surface-variant font-medium text-xs uppercase tracking-widest whitespace-nowrap">South Indian</button>
+<button class="px-5 py-2 rounded-xl border border-outline-variant text-on-surface-variant font-medium text-xs uppercase tracking-widest whitespace-nowrap">Continental</button>
+<button class="px-5 py-2 rounded-xl border border-outline-variant text-on-surface-variant font-medium text-xs uppercase tracking-widest whitespace-nowrap">Asian</button>
+<button class="px-5 py-2 rounded-xl border border-outline-variant text-on-surface-variant font-medium text-xs uppercase tracking-widest whitespace-nowrap">Drinks/Desserts</button>
+</div>
+<!-- Price Range -->
+<div class="space-y-4 pt-2">
+<div class="flex justify-between items-end">
+<label class="text-xs font-bold uppercase tracking-tighter text-on-surface-variant">Price Range</label>
+<span class="text-primary-fixed-dim font-bold text-lg">₹0 — ₹200</span>
+</div>
+<div class="relative w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-2/3 bg-primary-container"></div>
+<div class="absolute left-2/3 top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-primary-container rounded-full shadow-[0_0_15px_rgba(255,140,0,0.5)] border-4 border-surface ring-2 ring-primary-container/20"></div>
+</div>
+<div class="flex justify-between text-[10px] text-on-surface-variant font-medium">
+<span>₹0</span>
+<span>₹300</span>
+</div>
+</div>
+</section>
+<!-- Ranked Items List -->
+<section class="space-y-4">
+<!-- Rank #1 - Hero Spotlight -->
+<div class="lume-glow-1 glass-card rounded-2xl p-4 flex items-center gap-5 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-10">
+<span class="text-6xl font-black italic tracking-tighter">01</span>
+</div>
+<div class="text-primary-container font-black text-3xl italic w-8 shrink-0">#1</div>
+<div class="w-20 h-20 rounded-xl overflow-hidden shrink-0 ring-1 ring-primary/20">
+<img alt="Spicy Garlic Ramen" class="w-full h-full object-cover" data-alt="Close-up of a steaming bowl of spicy garlic ramen with soft boiled egg and spring onions, dark moody aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7VSOBS6yaUelgNKGRNft8VbdrIdtBkpq7n5gD7M-KhHet7iM-uHhWh1xmKgsd067fUwDcCkI7rNPTyN4DmVaWQciUp7Fmq9OnNPaQ-iIdqGi40H0q6ooZjePDCvNhJWgHupmBqyXAFRBbCtv3OzxpsN-Hk0vnwT8VIBxxwgpqGWuAEPqLPp1J2ck471z8zs9ZgII88yuw63oCb6a-Kpo_725V0hAs2KouZ2HOR1aVcAqLyMWTY2HgNmSF9MjBZvtHDbCECQWLe184"/>
+</div>
+<div class="flex-1">
+<h3 class="font-bold text-on-surface text-lg leading-tight">Spicy Garlic Ramen</h3>
+<p class="text-on-surface-variant text-xs mb-3">Noodle Bar • Block A</p>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-green-500 text-sm">arrow_upward</span>
+<span class="text-green-500 text-xs font-bold">2.4k</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-on-surface text-xs font-bold">4.8</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Rank #2 -->
+<div class="lume-glow-1 glass-card rounded-2xl p-4 flex items-center gap-5">
+<div class="text-primary-container font-black text-2xl italic w-8 shrink-0">#2</div>
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+<img alt="Classic Margherita Pizza" class="w-full h-full object-cover" data-alt="Delicious thin crust margherita pizza with fresh basil leaves on a dark slate background, professional food photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXLSmz7KmIb1Bmbdeafzvui3HonJ2DqL49szgdJc3387fH1XAJgqXxIIH0RsMhVd5yYTGokeqW6sFKWKTy1f2g-nKskt7-azlVIItYSH5lYeL08ZwiGt4Wc3WH4WbdqpA1hfn1245EKwMtD0Yi0T7FHGuo7g2A2oQuxtZ1go-lLvvAw15RoUlUJ8HUKI0yol3f-zeN0Cuj6x6lnXe7xKPwvZJOvjqOTKxq4IRCGQCWOl36HSRj28sjysyAmCVxg1J-FcGXcmcvCom6"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface">Margherita Pizza</h4>
+<p class="text-on-surface-variant text-xs mb-2">Pizza Planet • Food Court</p>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-green-500 text-sm">arrow_upward</span>
+<span class="text-green-500 text-[10px] font-bold">1.8k</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-on-surface text-[10px] font-bold">4.6</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Rank #3 -->
+<div class="lume-glow-1 glass-card rounded-2xl p-4 flex items-center gap-5">
+<div class="text-primary-container font-black text-2xl italic w-8 shrink-0">#3</div>
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+<img alt="Double Shot Latte" class="w-full h-full object-cover" data-alt="Artisanal latte with intricate leaf foam art in a dark ceramic cup, soft ambient lighting, coffee house vibe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC119fAHNwej2t1YS9gQxsUa0boxiT6gQuczmjIgFJA23UWojhTewpMsRSw3b6_WV0K_rAfv2EgbBqoiuCYKy3K4zQftFYpPVAkYWObWBGJoXPCO4-hWiNXpkzS5IC3FSatEYfVmg__X3W-dlEsFMoGrzzF8QPEs82S1dyRgIJH5H3hOZliyX7RkvBCe3kruYbedz0isXobQxPg0z_LS0IqATmueD7NjnT81jdP_aGkrnMtdSTKl1z24HTpSa-yIdWI__dN2hOZeRVu"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface">Double Shot Latte</h4>
+<p class="text-on-surface-variant text-xs mb-2">Brew &amp; Co • Library Plaza</p>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-green-500 text-sm">arrow_upward</span>
+<span class="text-green-500 text-[10px] font-bold">1.5k</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-on-surface text-[10px] font-bold">4.9</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Rank #4 - Standard -->
+<div class="bg-surface-container-low rounded-2xl p-4 flex items-center gap-5 border border-transparent">
+<div class="text-on-surface-variant font-bold text-xl w-8 shrink-0">#4</div>
+<div class="w-14 h-14 rounded-xl overflow-hidden shrink-0 opacity-80">
+<img alt="Paneer Tikka Roll" class="w-full h-full object-cover" data-alt="Authentic paneer tikka wrap with green chutney and onions, street food style, vibrant colors on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW7KuIN9cUuaPh_QwByi12htKHZ13fn1atBB-j3pXF7J1tSkrZWh5DIaewnYx5tBbyBMI_gCbb3G61UCJo-EuRGiKS_fhlTQXSVriYPLLsL1DoIhj5gnbZ6YNBKxkuDPFDE6GrcflmWcdmDzSwGCGN0pPdmpmIRmIkefNLvgYSNfIvyI5hjPPJJXhTu38ylc9fKfBQjA53xnErz-lZLzy9dRb_iFYT3_SRoiXqeNIfx4AbECwR7VpgPkgLcApBAJ3sg1-6lxQU0sxh"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface text-sm">Paneer Tikka Roll</h4>
+<p class="text-on-surface-variant text-[10px]">Desi Bites • Canteen</p>
+<div class="flex items-center gap-3 mt-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-green-500 text-xs">arrow_upward</span>
+<span class="text-green-500 text-[9px] font-bold">942</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-on-surface text-[9px] font-bold">4.5</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Rank #5 - Standard -->
+<div class="bg-surface-container-low rounded-2xl p-4 flex items-center gap-5 border border-transparent">
+<div class="text-on-surface-variant font-bold text-xl w-8 shrink-0">#5</div>
+<div class="w-14 h-14 rounded-xl overflow-hidden shrink-0 opacity-80">
+<img alt="Cheeseburger" class="w-full h-full object-cover" data-alt="Juicy double cheeseburger with melting cheese and fresh lettuce, high-end food commercial style lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChx5TPImjq9j8Jo_XqXV1GAqrR_roxEwTl08SP1v-m14aFMleWNRpKFBBvjj2BCnVCt8yzBCxgYiItD99_f8Nn-ffwHLIxnhgDaHw08njvuYnvvnJ1KuRiVGM3nitA5E-b2jKx6l3nP8MIa-i53f8ccmPQypMuobvweCZcEJxxKfXk_mh1BzOHFt7JnQIvpWB00swE7eoIn2xsaVT81U54fVYtSHhqHwNxKanoVX-NJy9flXX5oxb0mz4lbE4q-Jkg1tRBQ53n907Z"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface text-sm">Double Cheese Burger</h4>
+<p class="text-on-surface-variant text-[10px]">The Grill • North Gate</p>
+<div class="flex items-center gap-3 mt-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-green-500 text-xs">arrow_upward</span>
+<span class="text-green-500 text-[9px] font-bold">810</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-on-surface text-[9px] font-bold">4.3</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 bg-[#201F1F]/80 backdrop-blur-xl docked full-width bottom-0 z-50 rounded-t-[2rem] shadow-[0_-8px_30px_rgb(255,140,0,0.08)]">
+<div class="flex flex-col items-center justify-center text-[#E5E2E1]/50 px-4 py-2 hover:text-[#FFB77D] transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium tracking-widest uppercase mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#FF8C00] bg-[#3A3939]/40 rounded-full px-6 py-2 ring-1 ring-[#FFB77D]/30 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium tracking-widest uppercase mt-1">Trends</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#E5E2E1]/50 px-4 py-2 hover:text-[#FFB77D] transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium tracking-widest uppercase mt-1">Stats</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#E5E2E1]/50 px-4 py-2 hover:text-[#FFB77D] transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium tracking-widest uppercase mt-1">Profile</span>
+</div>
+</nav>
+</body></html>

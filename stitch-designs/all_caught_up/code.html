@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed-variant": "#6a3b0f",
+                        "on-primary-fixed": "#2f1500",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "tertiary-container": "#00b5fc",
+                        "surface-container-high": "#2a2a2a",
+                        "primary-container": "#ff8c00",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#353534",
+                        "on-surface": "#e5e2e1",
+                        "inverse-surface": "#e5e2e1",
+                        "primary": "#ffb77d",
+                        "on-primary": "#4d2600",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface": "#131313",
+                        "surface-bright": "#3a3939",
+                        "primary-fixed": "#ffdcc3",
+                        "on-tertiary-fixed": "#001e2e",
+                        "background": "#131313",
+                        "tertiary": "#85cfff",
+                        "surface-dim": "#131313",
+                        "outline": "#a48c7a",
+                        "inverse-on-surface": "#313030",
+                        "on-secondary-container": "#e9a771",
+                        "on-error": "#690005",
+                        "outline-variant": "#564334",
+                        "on-tertiary-container": "#004360",
+                        "surface-container": "#201f1f",
+                        "on-background": "#e5e2e1",
+                        "on-surface-variant": "#ddc1ae",
+                        "secondary-fixed-dim": "#fdb881",
+                        "secondary": "#fdb881",
+                        "on-secondary-fixed": "#2f1500",
+                        "tertiary-fixed": "#c7e7ff",
+                        "inverse-primary": "#904d00",
+                        "secondary-fixed": "#ffdcc3",
+                        "on-primary-container": "#623200",
+                        "surface-tint": "#ffb77d",
+                        "secondary-container": "#6a3b0f",
+                        "surface-variant": "#353534",
+                        "on-tertiary-fixed-variant": "#004c6c",
+                        "surface-container-low": "#1c1b1b",
+                        "error-container": "#93000a",
+                        "tertiary-fixed-dim": "#85cfff",
+                        "primary-fixed-dim": "#ffb77d",
+                        "on-secondary": "#4d2600",
+                        "on-tertiary": "#00344c"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #131313;
+        }
+        .glass-glow {
+            border: 1px solid rgba(255, 183, 125, 0.15);
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col items-center justify-between selection:bg-primary-container/30">
+<!-- Top AppBar (from JSON) -->
+<header class="fixed top-0 w-full z-50 bg-[#131313] dark:bg-[#0E0E0E] flex items-center justify-between px-6 h-16 w-full max-w-none">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-orange-500 hover:opacity-80 transition-opacity active:scale-95 duration-200" data-icon="menu">menu</span>
+</div>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-2xl font-extrabold tracking-tighter text-orange-500 dark:text-orange-500">CampusBite</h1>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant/20 overflow-hidden active:scale-95 duration-200">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="professional headshot of a young student smiling with soft studio lighting and blurred background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBiidur4btfURmY7OmMpSWRFZTeyM0TML5qa4YvOPpQb4Hb-jM0T-gX8GUSaDydfnJ97GmginK2Bi8ImldhYm5dvLFN-YA6DdeQwsiQRHoKKlLJAxZPTDPiHaeDgSTvRLpG_JS1EOAFUndy8SypUmX3ZuTiRnHzHVXdOJ2Df0LTQt42qsZJz8Yw3IDNSrCGvXvKttd79gQVx3AA93sa78Xya9tgLSMfKF2Cah4N3CpSqeH1POhd4ojKvtXyHaAb_mfNssdYjujVJbA"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center px-8 pt-16 pb-32 w-full max-w-md mx-auto text-center space-y-12">
+<!-- Hero Illustration Area -->
+<div class="relative group">
+<!-- Background Glow -->
+<div class="absolute inset-0 bg-primary-container/10 blur-[80px] rounded-full scale-150"></div>
+<div class="relative z-10 w-64 h-64 flex items-center justify-center">
+<div class="absolute inset-0 bg-surface-container rounded-full glass-glow backdrop-blur-xl opacity-40"></div>
+<!-- Large Modern Icon -->
+<div class="relative flex flex-col items-center">
+<span class="material-symbols-outlined text-[100px] text-primary" data-icon="nights_stay" style="font-variation-settings: 'FILL' 1;">nights_stay</span>
+<div class="absolute top-0 right-0 -mr-4 mt-2">
+<span class="material-symbols-outlined text-4xl text-primary/40" data-icon="restaurant" style="transform: rotate(15deg);">restaurant</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Typography Section -->
+<div class="space-y-4">
+<h2 class="text-4xl font-extrabold tracking-tight text-on-surface">You're all caught up!</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed px-4">
+                You've reached today's swipe limit. Come back tomorrow to discover more food!
+            </p>
+</div>
+<!-- Stats Chips Section -->
+<div class="flex flex-wrap justify-center gap-3 w-full">
+<!-- Liked Stat -->
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full border border-outline-variant/10 shadow-lg">
+<span class="text-sm font-bold text-on-surface">12 Liked</span>
+<div class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+</div>
+<!-- Disliked Stat -->
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full border border-outline-variant/10 shadow-lg">
+<span class="text-sm font-bold text-on-surface">4 Disliked</span>
+<div class="w-2 h-2 rounded-full bg-error shadow-[0_0_8px_rgba(255,180,171,0.5)]"></div>
+</div>
+<!-- Want to Try Stat -->
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full border border-outline-variant/10 shadow-lg">
+<span class="text-sm font-bold text-on-surface">6 Want to Try</span>
+<div class="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.5)]"></div>
+</div>
+</div>
+<!-- Secondary Action -->
+<button class="px-8 py-4 bg-surface-container-highest/50 text-primary font-bold rounded-full border border-outline-variant/20 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+            View My Favorites
+        </button>
+</main>
+<!-- Bottom Navigation Bar (from JSON) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-[#201F1F]/80 dark:bg-[#131313]/90 backdrop-blur-xl z-50 rounded-t-[2rem] border-t border-orange-500/10 shadow-[0_-8px_30px_rgb(255,140,0,0.08)]">
+<!-- Home (Active) -->
+<div class="flex flex-col items-center justify-center text-orange-500 font-bold bg-orange-500/10 rounded-full px-4 py-1 hover:text-orange-400 transition-colors active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="style" style="font-variation-settings: 'FILL' 1;">style</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium tracking-widest uppercase mt-1">Home</span>
+</div>
+<!-- Trends -->
+<div class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 hover:text-orange-400 transition-colors active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium tracking-widest uppercase mt-1">Trends</span>
+</div>
+<!-- Stats -->
+<div class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 hover:text-orange-400 transition-colors active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium tracking-widest uppercase mt-1">Stats</span>
+</div>
+<!-- Profile -->
+<div class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 hover:text-orange-400 transition-colors active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-medium tracking-widest uppercase mt-1">Profile</span>
+</div>
+</nav>
+<!-- Decorative Corner Light Leak -->
+<div class="fixed top-0 right-0 w-64 h-64 bg-primary-container/5 blur-[120px] -z-10 pointer-events-none"></div>
+<div class="fixed bottom-0 left-0 w-64 h-64 bg-primary-container/5 blur-[120px] -z-10 pointer-events-none"></div>
+</body></html>

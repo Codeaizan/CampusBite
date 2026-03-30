@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-surface": "#e5e2e1",
+              "primary-fixed-dim": "#ffb77d",
+              "on-primary": "#4d2600",
+              "on-tertiary-fixed": "#001e2e",
+              "on-primary-container": "#623200",
+              "inverse-primary": "#904d00",
+              "surface-container": "#201f1f",
+              "outline-variant": "#564334",
+              "error-container": "#93000a",
+              "outline": "#a48c7a",
+              "on-secondary-fixed": "#2f1500",
+              "on-secondary-container": "#e9a771",
+              "background": "#131313",
+              "on-primary-fixed": "#2f1500",
+              "error": "#ffb4ab",
+              "surface-container-high": "#2a2a2a",
+              "surface": "#131313",
+              "surface-container-highest": "#353534",
+              "on-surface": "#e5e2e1",
+              "primary-fixed": "#ffdcc3",
+              "surface-container-low": "#1c1b1b",
+              "secondary-container": "#6a3b0f",
+              "surface-variant": "#353534",
+              "surface-tint": "#ffb77d",
+              "secondary-fixed-dim": "#fdb881",
+              "on-error": "#690005",
+              "secondary-fixed": "#ffdcc3",
+              "primary-container": "#ff8c00",
+              "surface-bright": "#3a3939",
+              "on-primary-fixed-variant": "#6e3900",
+              "on-secondary-fixed-variant": "#6a3b0f",
+              "tertiary-fixed": "#c7e7ff",
+              "secondary": "#fdb881",
+              "on-secondary": "#4d2600",
+              "on-error-container": "#ffdad6",
+              "tertiary": "#85cfff",
+              "surface-dim": "#131313",
+              "primary": "#ffb77d",
+              "tertiary-fixed-dim": "#85cfff",
+              "on-tertiary-container": "#004360",
+              "on-tertiary": "#00344c",
+              "on-surface-variant": "#ddc1ae",
+              "on-background": "#e5e2e1",
+              "surface-container-lowest": "#0e0e0e",
+              "on-tertiary-fixed-variant": "#004c6c",
+              "inverse-on-surface": "#313030",
+              "tertiary-container": "#00b5fc"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background: radial-gradient(circle at top right, #1a1a2e 0%, #131313 100%);
+            min-height: 100vh;
+        }
+        .glass-effect {
+            background: rgba(58, 57, 57, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .border-glow {
+            position: relative;
+        }
+        .border-glow::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255, 183, 125, 0.3) 0%, rgba(255, 140, 0, 0) 100%);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            -webkit-mask-composite: xor;
+            pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body text-on-surface flex flex-col items-center justify-between min-h-screen">
+<!-- Top Navigation Anchor (Manual suppressed shell version as per task) -->
+<header class="flex items-center justify-center px-6 py-10 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 28px;">restaurant</span>
+<span class="font-headline font-bold tracking-tighter text-2xl text-on-surface">CampusBite</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center w-full px-8 max-w-md">
+<!-- Hero Section -->
+<div class="w-full text-center space-y-4 mb-12">
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface leading-tight">
+                Welcome, Student
+            </h1>
+<p class="text-on-surface-variant/80 text-lg">
+                Login to start discovering food
+            </p>
+</div>
+<!-- Login Card -->
+<div class="w-full space-y-6">
+<div class="relative group">
+<button class="w-full flex items-center justify-center gap-4 bg-white text-black font-semibold py-4 px-6 rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-xl shadow-primary-container/5">
+<svg class="w-6 h-6" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+<span>Continue with Google</span>
+</button>
+</div>
+<!-- Visual Divider -->
+<div class="flex items-center gap-4 py-2">
+<div class="h-[1px] flex-1 bg-surface-container-highest"></div>
+<span class="text-xs uppercase tracking-widest text-on-surface-variant/40 font-bold">or</span>
+<div class="h-[1px] flex-1 bg-surface-container-highest"></div>
+</div>
+<!-- Subtle secondary option -->
+<button class="w-full glass-effect border-glow text-on-surface font-medium py-4 px-6 rounded-full hover:bg-surface-bright/20 transition-colors">
+                Use Student ID
+            </button>
+</div>
+<!-- Decorative Background Element (Lume) -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary-container/10 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+</main>
+<!-- Footer Area -->
+<footer class="w-full px-8 pb-12 text-center space-y-6">
+<p class="text-xs text-on-surface-variant/40 tracking-wide leading-relaxed max-w-[240px] mx-auto">
+            By continuing you agree to our <a class="text-on-surface-variant/60 hover:text-primary transition-colors underline underline-offset-4" href="#">Terms of Use</a> &amp; <a class="text-on-surface-variant/60 hover:text-primary transition-colors underline underline-offset-4" href="#">Privacy Policy</a>
+</p>
+<!-- Branding Copyright from JSON Guidance -->
+<div class="pt-4 opacity-50">
+<p class="font-label text-[10px] uppercase tracking-[0.2em] text-[#E5E2E1]/40">
+                © 2024 CampusBite. Discover. Swipe. Eat.
+            </p>
+</div>
+</footer>
+<!-- Image for visual depth (Abstract Food Photography) -->
+<div class="fixed inset-0 pointer-events-none -z-20 opacity-20">
+<img alt="" class="w-full h-full object-cover grayscale mix-blend-overlay" data-alt="dramatic close-up of dark gourmet food texture with warm ember-like glowing highlights and deep shadows in a minimalist setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjHfrQQ2aB5P0oap7uz_JeEI1oLwBh28pJWDOmgGTlFpgQ7pzaJg_uu4u185sVttSRAywxFBIupqc-0w5dNInnyLEOpWwnsgH_YE6daTpm82-6CnOhCGjqeKGmsFWTVMg7tycUX1_eJfhCuV_Iw01qhHVEGivTyz7O_zzePmzRX7WRziQo1KQf91bW0OO9jDV_ypKATM7rTn5HlCjK3t3FWDBq43Sb3daSNYaeys1x7yGEeYdAD_2M7uBYsvnUeIq-vBwDRGgQJ8tq"/>
+</div>
+</body></html>

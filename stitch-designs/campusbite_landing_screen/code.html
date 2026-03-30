@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#fdb881",
+              "primary-fixed": "#ffdcc3",
+              "surface-variant": "#353534",
+              "error": "#ffb4ab",
+              "surface": "#131313",
+              "surface-container-high": "#2a2a2a",
+              "inverse-primary": "#904d00",
+              "surface-tint": "#ffb77d",
+              "primary": "#ffb77d",
+              "secondary-container": "#6a3b0f",
+              "primary-container": "#ff8c00",
+              "surface-container-highest": "#353534",
+              "on-error-container": "#ffdad6",
+              "surface-dim": "#131313",
+              "secondary": "#fdb881",
+              "on-secondary": "#4d2600",
+              "outline": "#a48c7a",
+              "on-surface": "#e5e2e1",
+              "on-primary": "#4d2600",
+              "tertiary-fixed": "#c7e7ff",
+              "primary-fixed-dim": "#ffb77d",
+              "error-container": "#93000a",
+              "tertiary-fixed-dim": "#85cfff",
+              "surface-container-lowest": "#0e0e0e",
+              "on-surface-variant": "#ddc1ae",
+              "on-error": "#690005",
+              "on-background": "#e5e2e1",
+              "on-tertiary": "#00344c",
+              "on-primary-fixed-variant": "#6e3900",
+              "on-tertiary-fixed-variant": "#004c6c",
+              "surface-bright": "#3a3939",
+              "tertiary": "#85cfff",
+              "background": "#131313",
+              "inverse-on-surface": "#313030",
+              "on-primary-fixed": "#2f1500",
+              "surface-container": "#201f1f",
+              "on-tertiary-fixed": "#001e2e",
+              "on-secondary-container": "#e9a771",
+              "outline-variant": "#564334",
+              "secondary-fixed": "#ffdcc3",
+              "tertiary-container": "#00b5fc",
+              "on-tertiary-container": "#004360",
+              "on-secondary-fixed": "#2f1500",
+              "surface-container-low": "#1c1b1b",
+              "on-secondary-fixed-variant": "#6a3b0f",
+              "on-primary-container": "#623200",
+              "inverse-surface": "#e5e2e1"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(58, 57, 57, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 183, 125, 0.1);
+        }
+        .glow-border {
+            box-shadow: inset 0 0 15px rgba(255, 140, 0, 0.05), 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+        .bg-mesh {
+            background-color: #0e0e0e;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(255, 140, 0, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(255, 140, 0, 0.05) 0px, transparent 50%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-on-surface font-body min-h-screen flex flex-col items-center justify-between bg-mesh selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+<!-- Top Section: Brand Identity -->
+<header class="w-full pt-16 flex flex-col items-center text-center px-8">
+<div class="relative mb-6">
+<!-- Animated Glow Behind Logo -->
+<div class="absolute inset-0 bg-primary-container/20 blur-3xl rounded-full"></div>
+<div class="relative flex items-center justify-center w-20 h-20 glass-card rounded-2xl glow-border">
+<div class="flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-primary-container text-4xl" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<span class="material-symbols-outlined text-primary-container text-2xl -mt-2 rotate-45" style="font-variation-settings: 'FILL' 1;">trending_flat</span>
+</div>
+</div>
+</div>
+<h1 class="font-headline font-extrabold text-4xl tracking-tighter text-on-surface mb-2">
+            CampusBite
+        </h1>
+<p class="font-label text-primary tracking-[0.2em] text-xs uppercase font-semibold">
+            Discover. Swipe. Eat.
+        </p>
+</header>
+<!-- Center Section: Role Selection Bento -->
+<main class="w-full max-w-sm px-6 flex flex-col gap-6 py-12">
+<!-- Student Card -->
+<button class="group relative w-full glass-card rounded-3xl p-8 flex flex-col items-start text-left transition-all duration-300 hover:scale-[1.02] active:scale-95 glow-border overflow-hidden">
+<!-- Background Image Accent -->
+<div class="absolute right-0 top-0 w-32 h-32 opacity-10 group-hover:opacity-20 transition-opacity">
+<img alt="student life abstract" class="w-full h-full object-cover rounded-bl-full" data-alt="close-up of colorful sticky notes and a blurred laptop on a dark desk representing modern student productivity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASc9vE2htg5IdjGybSSnOZu74K_eJqIzcn8pqMp24CUmCHe_fBbhVO2cmR-eCFt_sx__yuLJHcrQOgcD8x1iBL3WsW6Gk_CB41E3McAFfQomz70U6N6HAxOl6n3b-m0UEnhlGOWvIelkASFvxQvd2EHEagAwAaqX-cSxfjPvGj9aRbjlYtuJdzLkyzOOKiCm5WrFoDUqoxujw1Bz0SELfzCQ43iBnLyoQvGjO5ULQeLBhSjMxsUEpek4ZvlSeu2lh3XH8qS3uY3vda"/>
+</div>
+<div class="mb-4 bg-primary-container/20 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary-container text-3xl" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<h2 class="text-2xl font-bold font-headline mb-1 group-hover:text-primary transition-colors">I'm a Student</h2>
+<p class="text-on-surface/60 text-sm leading-relaxed max-w-[80%]">Swipe through campus menus and grab your next meal in seconds.</p>
+<div class="mt-6 flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-widest">
+<span>Start Exploring</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</button>
+<!-- Kiosk Owner Card -->
+<button class="group relative w-full glass-card rounded-3xl p-8 flex flex-col items-start text-left transition-all duration-300 hover:scale-[1.02] active:scale-95 glow-border overflow-hidden">
+<!-- Background Image Accent -->
+<div class="absolute right-0 top-0 w-32 h-32 opacity-10 group-hover:opacity-20 transition-opacity">
+<img alt="chef at work" class="w-full h-full object-cover rounded-bl-full" data-alt="close-up of a chef preparing gourmet food in a modern kitchen with dramatic warm lighting and steam" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQCPu4jv1WsQ0i5h5iQ3n44Xzx0zd6NQk_c9rIeG3jNQ2bzTTEjiUZbN5c2iVuEeSeIUv85CNPv-zm_TMrxDyizqAkepwkesL2lw0ZqsFlkek4CFiuL9Y8Nw3zFXEnciq3snNM-KiVBD9Xi3OZU4vLiAaft8vfRdLrpgv8bi9PJA5oPgJD3SZoHKcPkBrw-9m3qUKtvBn3RjNwuFpeT1hJpjxFQhnZDp0JV587XJJCwYN52i1c4z1vI9ZQVQMokSscz5UwAkKm0iAl"/>
+</div>
+<div class="mb-4 bg-primary-container/20 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary-container text-3xl" data-icon="storefront" style="font-variation-settings: 'FILL' 1;">storefront</span>
+</div>
+<h2 class="text-2xl font-bold font-headline mb-1 group-hover:text-primary transition-colors">I'm a Kiosk Owner</h2>
+<p class="text-on-surface/60 text-sm leading-relaxed max-w-[80%]">Manage your digital menu and reach more hungry students daily.</p>
+<div class="mt-6 flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-widest">
+<span>Dashboard Login</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</button>
+</main>
+<!-- Bottom Section: Minimal Footer -->
+<footer class="w-full pb-10 px-8 flex flex-col items-center gap-4">
+<div class="w-12 h-[1px] bg-outline-variant/30"></div>
+<p class="font-label text-[10px] text-on-surface/40 uppercase tracking-[0.2em] font-medium">
+            © 2024 LPU Campus Food Network
+        </p>
+<!-- Subtle Interactive Indicator -->
+<div class="mt-2 w-32 h-1 bg-surface-bright/20 rounded-full overflow-hidden">
+<div class="h-full w-1/3 bg-primary-container/40 rounded-full"></div>
+</div>
+</footer>
+</body></html>

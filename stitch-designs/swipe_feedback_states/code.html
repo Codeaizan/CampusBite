@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#fdb881",
+              "inverse-primary": "#904d00",
+              "secondary": "#fdb881",
+              "on-primary-fixed": "#2f1500",
+              "on-error": "#690005",
+              "primary-container": "#ff8c00",
+              "on-surface-variant": "#ddc1ae",
+              "outline": "#a48c7a",
+              "inverse-surface": "#e5e2e1",
+              "tertiary-container": "#00b5fc",
+              "secondary-fixed": "#ffdcc3",
+              "primary-fixed-dim": "#ffb77d",
+              "on-primary-container": "#623200",
+              "surface-container": "#201f1f",
+              "surface": "#131313",
+              "on-primary-fixed-variant": "#6e3900",
+              "surface-container-lowest": "#0e0e0e",
+              "surface-bright": "#3a3939",
+              "inverse-on-surface": "#313030",
+              "on-secondary-container": "#e9a771",
+              "surface-container-highest": "#353534",
+              "on-secondary-fixed": "#2f1500",
+              "secondary-container": "#6a3b0f",
+              "on-secondary": "#4d2600",
+              "on-background": "#e5e2e1",
+              "on-error-container": "#ffdad6",
+              "surface-tint": "#ffb77d",
+              "on-tertiary-fixed": "#001e2e",
+              "surface-container-low": "#1c1b1b",
+              "surface-dim": "#131313",
+              "on-surface": "#e5e2e1",
+              "tertiary-fixed": "#c7e7ff",
+              "surface-variant": "#353534",
+              "on-tertiary": "#00344c",
+              "on-tertiary-fixed-variant": "#004c6c",
+              "background": "#131313",
+              "tertiary-fixed-dim": "#85cfff",
+              "tertiary": "#85cfff",
+              "primary-fixed": "#ffdcc3",
+              "error": "#ffb4ab",
+              "outline-variant": "#564334",
+              "surface-container-high": "#2a2a2a",
+              "primary": "#ffb77d",
+              "on-primary": "#4d2600",
+              "error-container": "#93000a",
+              "on-tertiary-container": "#004360",
+              "on-secondary-fixed-variant": "#6a3b0f"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .stamp-nope {
+            border: 6px solid #ef4444;
+            color: #ef4444;
+            transform: rotate(-15deg);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+        }
+        .stamp-like {
+            border: 6px solid #22c55e;
+            color: #22c55e;
+            transform: rotate(15deg);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+            text-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
+        }
+        .glass-overlay {
+            background: linear-gradient(180deg, rgba(19, 19, 19, 0) 0%, rgba(19, 19, 19, 0.9) 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen overflow-hidden">
+<!-- Screen Container: Splits the view side-by-side -->
+<main class="flex h-screen w-full items-center justify-center p-4 gap-4 overflow-hidden">
+<!-- LEFT STATE: SWIPING NOPE -->
+<div class="relative w-1/2 h-full flex items-center justify-center">
+<!-- Swiped Card (Tilted Left) -->
+<div class="relative w-full aspect-[3/5] max-w-[280px] bg-surface-container rounded-2xl overflow-hidden transform -rotate-[15deg] transition-transform shadow-2xl scale-95 border-glow">
+<!-- Food Image -->
+<div class="absolute inset-0 w-full h-full">
+<img class="w-full h-full object-cover" data-alt="Close-up of vibrant red Tandoori chicken pieces with charred edges on a dark platter with garnish in dramatic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGgRkNR6H2BGnPpv6hlHLDs9EmV4UJnj2GKP3-kS8JwS5LaKgNxrk0IvYMwXs2GKwzZRJe1B3n6b_0n-xn-REJgEMUkjzVK8PtJREWVr_tmIYRzWOdydh0TbJdEg00Ft3WuKYgwZFhv-akITxcLXNC1_IwOZ12XeflQONg9_RMnn9xySozChDlPHUCKL2aVmW4qdr487NJ-othshxS5qxNxfOzL7JmrSjVOdGNmrKE_I9_AVkTiKMwbt6xFYoHo0lW-pkrOs7Gqrs2"/>
+<div class="absolute inset-0 glass-overlay"></div>
+</div>
+<!-- Price Tag (Glassmorphic) -->
+<div class="absolute top-4 right-4 bg-surface-bright/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-outline-variant/20">
+<span class="text-primary-container font-bold text-sm tracking-tight">₹180</span>
+</div>
+<!-- Content Area -->
+<div class="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-1">
+<h3 class="text-on-surface font-bold text-xl leading-tight tracking-tight">Tandoori Chicken</h3>
+<div class="flex items-center gap-1.5 opacity-80">
+<span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
+<span class="text-xs font-medium tracking-wide">Kiosk 1 - Block A</span>
+</div>
+</div>
+<!-- FEEDBACK OVERLAY: NOPE -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="stamp-nope px-6 py-2 rounded-xl text-4xl font-black tracking-widest bg-surface/10 backdrop-blur-[2px]">
+                        NOPE 👎
+                    </div>
+</div>
+</div>
+<!-- Context Label -->
+<div class="absolute bottom-10 text-error font-bold uppercase tracking-[0.2em] text-[10px] opacity-60">Swiping Left</div>
+</div>
+<!-- RIGHT STATE: SWIPING LIKE -->
+<div class="relative w-1/2 h-full flex items-center justify-center">
+<!-- Swiped Card (Tilted Right) -->
+<div class="relative w-full aspect-[3/5] max-w-[280px] bg-surface-container rounded-2xl overflow-hidden transform rotate-[15deg] transition-transform shadow-2xl scale-95 border-glow">
+<!-- Food Image -->
+<div class="absolute inset-0 w-full h-full">
+<img class="w-full h-full object-cover" data-alt="Creamy orange Paneer Butter Masala curry in a traditional copper bowl with cilantro garnish on a dark rustic surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-aY2wojDoaNjcYOHbSdUnX906o5eTjg7J9aZ8sYdcUQI4LK92pwzpOUNW0oxp6m3Zgw81HBR3iM5hKEJrvd8Aa5ObgMxvQOdi7dS1OTv29FiOYL2PfYOdwwziaJBAIP5zXVeKGyGRSYP9oubLKsBHNtQ4Kl8FkUBCzO07w4SD-inAeyAz1O6vSrBMHHOI2rNE9Wl7QyLVB1nxphb6cS69cnBXHpHnRw4yHYF8nzazMEFw1EcW5fT0HM2di75aYEcE23hja_V3Sjx9"/>
+<div class="absolute inset-0 glass-overlay"></div>
+</div>
+<!-- Price Tag (Glassmorphic) -->
+<div class="absolute top-4 right-4 bg-surface-bright/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-outline-variant/20">
+<span class="text-primary-container font-bold text-sm tracking-tight">₹120</span>
+</div>
+<!-- Content Area -->
+<div class="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-1">
+<h3 class="text-on-surface font-bold text-xl leading-tight tracking-tight">Paneer Butter Masala</h3>
+<div class="flex items-center gap-1.5 opacity-80">
+<span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
+<span class="text-xs font-medium tracking-wide">Kiosk 3 - Block B</span>
+</div>
+</div>
+<!-- FEEDBACK OVERLAY: LIKE -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="stamp-like px-6 py-2 rounded-xl text-4xl font-black tracking-widest bg-surface/10 backdrop-blur-[2px]">
+                        LIKE 👍
+                    </div>
+</div>
+</div>
+<!-- Context Label -->
+<div class="absolute bottom-10 text-secondary font-bold uppercase tracking-[0.2em] text-[10px] opacity-60">Swiping Right</div>
+</div>
+</main>
+<!-- Subtle Background Element for Depth -->
+<div class="fixed inset-0 pointer-events-none z-[-1] opacity-20">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary-container/20 blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary-container/20 blur-[120px]"></div>
+</div>
+</body></html>

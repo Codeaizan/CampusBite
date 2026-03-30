@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusBite - The Midnight Concierge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#2a2a2a",
+              "on-primary-container": "#623200",
+              "inverse-on-surface": "#313030",
+              "on-secondary-container": "#e9a771",
+              "error-container": "#93000a",
+              "on-surface": "#e5e2e1",
+              "background": "#131313",
+              "tertiary-container": "#00b5fc",
+              "on-secondary-fixed": "#2f1500",
+              "tertiary-fixed-dim": "#85cfff",
+              "surface-container-low": "#1c1b1b",
+              "outline": "#a48c7a",
+              "on-tertiary": "#00344c",
+              "primary-fixed-dim": "#ffb77d",
+              "on-primary-fixed-variant": "#6e3900",
+              "primary": "#ffb77d",
+              "on-primary-fixed": "#2f1500",
+              "on-secondary": "#4d2600",
+              "surface-bright": "#3a3939",
+              "on-tertiary-fixed-variant": "#004c6c",
+              "on-tertiary-container": "#004360",
+              "on-primary": "#4d2600",
+              "on-background": "#e5e2e1",
+              "surface-tint": "#ffb77d",
+              "surface-dim": "#131313",
+              "on-surface-variant": "#ddc1ae",
+              "error": "#ffb4ab",
+              "inverse-surface": "#e5e2e1",
+              "primary-container": "#ff8c00",
+              "on-error": "#690005",
+              "surface-container-highest": "#353534",
+              "secondary-fixed": "#ffdcc3",
+              "tertiary-fixed": "#c7e7ff",
+              "surface-container-lowest": "#0e0e0e",
+              "secondary": "#fdb881",
+              "outline-variant": "#564334",
+              "on-tertiary-fixed": "#001e2e",
+              "inverse-primary": "#904d00",
+              "primary-fixed": "#ffdcc3",
+              "secondary-container": "#6a3b0f",
+              "on-secondary-fixed-variant": "#6a3b0f",
+              "secondary-fixed-dim": "#fdb881",
+              "tertiary": "#85cfff",
+              "surface": "#131313",
+              "on-error-container": "#ffdad6",
+              "surface-container": "#201f1f",
+              "surface-variant": "#353534"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-card {
+        background: rgba(58, 57, 57, 0.4);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .lume-glow {
+        box-shadow: 0 0 20px 2px rgba(255, 140, 0, 0.08);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+<!-- Top App Bar -->
+<header class="bg-[#131313] dark:bg-[#0E0E0E] docked full-width top-0 z-50">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-500 dark:text-[#FF8C00]">restaurant</span>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-2xl tracking-tighter text-[#E5E2E1]">CampusBite</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#E5E2E1]/60 hover:opacity-80 transition-opacity">notifications</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="User Profile" data-alt="close-up portrait of a smiling young college student in a dark modern setting with soft amber lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDokBaQ1irXaVuyoTfbY45hka08nUr9Y9x8uISSBSgBB_K4pvietZ6rPwEyrBZg3pCv56OH5qWL7OecYNsd0xTABrdtBI3k1AocNVBozruBlF3lUvOlUrnv9XnkZD7o7FCxbC9Qqql_0GjkKUenFcerzdrEygQKfZ2L7alULMf75PkFZqg6EvHOZtYHrBcTlo9jhBxJAmcj6cZdH9Nknx8uBtGbFaazNOa9yrwVeGgKZNGhET0INVomfZdm8xZOgpSRww_Nr80ZXy_Y"/>
+</div>
+</div>
+</div>
+</header>
+<main class="relative h-[calc(100vh-140px)] flex flex-col items-center px-4 pt-2 pb-24 overflow-hidden">
+<!-- Poll Banner -->
+<div class="w-full mb-6 z-10">
+<div class="bg-primary-container/10 border-l-4 border-primary-container rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3 lume-glow">
+<p class="text-sm font-bold text-primary-fixed-dim tracking-tight">Poll: Which cuisine should we add next?</p>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 bg-primary-container text-on-primary-fixed text-xs font-bold rounded-full active:scale-95 transition-transform">Italian</button>
+<button class="px-4 py-1.5 bg-surface-container-highest text-on-surface text-xs font-bold rounded-full active:scale-95 transition-transform">Mexican</button>
+</div>
+</div>
+</div>
+<!-- Swipe Card Deck Container -->
+<div class="relative w-full max-w-md flex-1 flex flex-col items-center justify-center">
+<!-- Stacked Card 3 (Back) -->
+<div class="absolute w-[85%] h-[75%] bg-surface-container-low rounded-[2rem] translate-y-[-24px] opacity-20 scale-90"></div>
+<!-- Stacked Card 2 (Middle) -->
+<div class="absolute w-[92%] h-[78%] bg-surface-container rounded-[2rem] translate-y-[-12px] opacity-60 scale-95 border-t border-outline-variant/10"></div>
+<!-- Front Card -->
+<div class="relative w-full h-[85%] bg-surface-container-low rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl border-t border-outline-variant/20 group">
+<!-- Image Area (60%) -->
+<div class="relative h-[60%] w-full">
+<img alt="Paneer Butter Masala" class="w-full h-full object-cover" data-alt="Gourmet Paneer Butter Masala in a dark bowl, rich orange sauce, fresh cream swirl, coriander garnish, dark moody stone background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgcqD0oTwlXckhzDcv1lcI_0sREkVD9t-ntbCJJiXHBOxVYGllWfwjJ_UOdgkvuhvzb4rr78wezybZHbGLUvQmwNg5Yiv-BkblGNXxgFxCPLehWRilxlxsMgVK-c9T1ggBOYl-NdP05eSNxvLlbVAzhxy_i3IyNKpEqQQgwzxWQtccPf5y4if2XlxN7oBdzgQfi3wcNruJrLZepQv7UYZxCW5rT3ip2eSZMzXxTk3j_Yi97bCmDZEzVErD0RECm-F7-_9XHd9an8d5"/>
+<!-- Veg Badge -->
+<div class="absolute top-6 right-6 w-8 h-8 glass-card rounded-lg flex items-center justify-center border border-white/10">
+<div class="w-3 h-3 bg-green-500 rounded-full"></div>
+</div>
+<!-- Glass Tags -->
+<div class="absolute bottom-4 left-6 flex gap-2">
+<div class="glass-card px-3 py-1 rounded-full border border-white/5">
+<span class="text-[10px] font-bold tracking-widest uppercase text-on-surface">Trending #1</span>
+</div>
+</div>
+</div>
+<!-- Content Area (40%) -->
+<div class="flex-1 p-8 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h2 class="text-3xl font-bold font-headline text-on-surface tracking-tight leading-none">Paneer Butter Masala</h2>
+<div class="bg-primary-container px-3 py-1 rounded-xl">
+<span class="text-on-primary-fixed font-black text-lg">₹120</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 opacity-60">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="text-sm font-medium">Kiosk 3 - Block B</span>
+</div>
+</div>
+<!-- Hint Icons -->
+<div class="flex justify-center items-center gap-8 mt-4">
+<div class="w-12 h-12 rounded-full border border-error/20 flex items-center justify-center text-error hover:bg-error/10 active:scale-90 transition-all">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<div class="w-14 h-14 rounded-full border border-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary/10 active:scale-90 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">arrow_upward</span>
+</div>
+<div class="w-12 h-12 rounded-full border border-tertiary/20 flex items-center justify-center text-tertiary hover:bg-tertiary/10 active:scale-90 transition-all">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="bg-[#131313]/90 dark:bg-[#0E0E0E]/95 backdrop-blur-xl fixed bottom-0 w-full z-50 rounded-t-[2rem] shadow-[0_-8px_30px_rgb(255,140,0,0.08)]">
+<div class="flex justify-around items-center px-6 pt-3 pb-8 w-full">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center text-[#FF8C00] bg-[#FF8C00]/10 rounded-2xl px-4 py-2 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest mt-1">Home</span>
+</a>
+<!-- Trends -->
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/40 px-4 py-2 hover:text-orange-400 transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest mt-1">Trends</span>
+</a>
+<!-- Stats -->
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/40 px-4 py-2 hover:text-orange-400 transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest mt-1">Stats</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/40 px-4 py-2 hover:text-orange-400 transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest mt-1">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>
