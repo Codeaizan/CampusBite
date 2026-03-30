@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -16,6 +17,7 @@ export default function KioskLoginPage() {
   const [resetSent, setResetSent] = useState(false);
 
   const supabase = createClient();
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,8 +32,9 @@ export default function KioskLoginPage() {
     if (authError) {
       setError(authError.message);
       setLoading(false);
+    } else {
+      router.push("/kiosk/items");
     }
-    // On success, middleware handles redirect
   };
 
   const handleForgotPassword = async () => {

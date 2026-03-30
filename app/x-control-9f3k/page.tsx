@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,6 +15,7 @@ export default function SuperAdminLoginPage() {
   const [loading, setLoading] = useState(false);
 
   const supabase = createClient();
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,8 +30,9 @@ export default function SuperAdminLoginPage() {
     if (authError) {
       setError(authError.message);
       setLoading(false);
+    } else {
+      router.push("/admin/kiosks");
     }
-    // On success, middleware handles redirect to /admin/kiosks
   };
 
   return (
