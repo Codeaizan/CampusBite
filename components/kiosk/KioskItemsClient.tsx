@@ -19,7 +19,6 @@ export interface KioskItem {
 
 interface KioskItemsClientProps {
   kioskId: string;
-  kioskName: string;
   initialItems: KioskItem[];
   categories: { id: string; name: string }[];
 }
@@ -28,7 +27,6 @@ type FilterTab = "all" | "active" | "paused";
 
 export function KioskItemsClient({
   kioskId,
-  kioskName,
   initialItems,
   categories,
 }: KioskItemsClientProps) {

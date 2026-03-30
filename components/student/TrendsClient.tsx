@@ -67,7 +67,7 @@ export function TrendsClient({ categories, maxPrice }: TrendsClientProps) {
       const timeStart = getTimeStart(timePeriod);
 
       // Build query: get items with swipe counts
-      let query = supabase
+      const query = supabase
         .from("swipes")
         .select(
           "item_id, direction, items!inner(id, name, price, image_url, is_veg, category_id, kiosk_id, is_available, deleted_at, kiosks(name))"
@@ -117,7 +117,7 @@ export function TrendsClient({ categories, maxPrice }: TrendsClientProps) {
       }
 
       // Sort
-      let sorted = Array.from(itemMap.values());
+      const sorted = Array.from(itemMap.values());
       sorted.sort((a, b) => b[sortBy] - a[sortBy]);
 
       // Paginate

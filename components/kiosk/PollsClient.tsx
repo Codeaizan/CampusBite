@@ -263,7 +263,6 @@ export function PollsClient({
               Past Polls
             </h3>
             {history.map((poll) => {
-              const total = totalVotes(poll.votes);
               const winnerIdx = poll.votes.reduce(
                 (best, v) => (v.count > (best?.count ?? 0) ? v : best),
                 poll.votes[0]

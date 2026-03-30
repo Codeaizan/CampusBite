@@ -64,7 +64,6 @@ export default async function KioskItemsPage() {
   return (
     <KioskItemsClient
       kioskId={kiosk.id}
-      kioskName={kiosk.name}
       initialItems={items}
       categories={categories}
     />
