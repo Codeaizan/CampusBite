@@ -136,13 +136,12 @@
   }
   body {
     @apply bg-background text-foreground;
-    overscroll-behavior-y: none;
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
+    min-height: 100dvh;
   }
   html {
     @apply font-sans;
-    height: 100dvh;
     overflow-x: hidden;
   }
 }
