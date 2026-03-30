@@ -14,7 +14,7 @@ const roleHomeRoutes: Record<string, string> = {
 // Auth routes (redirect away if already logged in)
 const authRoutes = ["/auth/student", "/auth/kiosk", "/x-control-9f3k"];
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Refresh Supabase auth session
