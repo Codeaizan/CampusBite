@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import {
   Store,
   MessageSquare,
@@ -38,6 +39,15 @@ export function AdminShellClient({
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
+
+  // Prefetch all admin routes for instant sidebar switching
+  useEffect(() => {
+    navItems.forEach((item) => {
+      if (!pathname.startsWith(item.href)) {
+        router.prefetch(item.href);
+      }
+    });
+  }, [pathname, router]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();

@@ -2,6 +2,9 @@ import { createClient } from "@/lib/supabase/server";
 import Image from "next/image";
 import { MousePointerClick, Utensils, BarChart3 } from "lucide-react";
 
+// Cache this page for 30 seconds — stats don't need to be real-time
+export const revalidate = 30;
+
 export default async function StatsPage() {
   const supabase = await createClient();
 

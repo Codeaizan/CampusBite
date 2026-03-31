@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Home, TrendingUp, BarChart2, User } from "lucide-react";
 
 const navItems = [
@@ -13,6 +14,16 @@ const navItems = [
 
 export function StudentBottomNav() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  // Prefetch all sibling routes so tab switching is near-instant
+  useEffect(() => {
+    navItems.forEach((item) => {
+      if (!pathname.startsWith(item.href)) {
+        router.prefetch(item.href);
+      }
+    });
+  }, [pathname, router]);
 
   return (
     <nav
@@ -54,3 +65,4 @@ export function StudentBottomNav() {
     </nav>
   );
 }
+

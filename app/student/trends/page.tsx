@@ -1,6 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import { TrendsClient } from "@/components/student/TrendsClient";
 
+// Cache this page for 30 seconds
+export const revalidate = 30;
+
 export default async function TrendsPage() {
   const supabase = await createClient();
 

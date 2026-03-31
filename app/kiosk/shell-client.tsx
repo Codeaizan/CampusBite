@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Package, BarChart, MessageSquare, TrendingUp, Store } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -22,6 +23,15 @@ export function KioskShellClient({
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
+
+  // Prefetch all kiosk routes for instant tab switching
+  useEffect(() => {
+    navItems.forEach((item) => {
+      if (!pathname.startsWith(item.href)) {
+        router.prefetch(item.href);
+      }
+    });
+  }, [pathname, router]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
