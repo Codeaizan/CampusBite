@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { AddKioskModal } from "./AddKioskModal";
+import { ExportButton } from "./ExportButton";
 
 interface Kiosk {
   id: string;
@@ -190,14 +191,17 @@ export function AdminKiosksClient({
                 Review, authorize and moderate campus food vendors.
               </p>
             </div>
-            <button
-              onClick={() => setShowAdd(true)}
-              className="bg-primary-container text-surface-dim font-bold px-6 py-3 rounded-full flex items-center gap-2 hover:brightness-110 transition-all active:scale-95"
-              style={{ boxShadow: "0 8px 20px rgba(255, 140, 0, 0.2)" }}
-            >
-              <Plus size={18} />
-              Add Kiosk
-            </button>
+            <div className="flex items-center gap-3">
+              <ExportButton data={kiosks} filename="campusbite_kiosks" />
+              <button
+                onClick={() => setShowAdd(true)}
+                className="bg-primary-container text-surface-dim font-bold px-6 py-3 rounded-full flex items-center gap-2 hover:brightness-110 transition-all active:scale-95"
+                style={{ boxShadow: "0 8px 20px rgba(255, 140, 0, 0.2)" }}
+              >
+                <Plus size={18} />
+                Add Kiosk
+              </button>
+            </div>
           </div>
 
           {/* Table */}

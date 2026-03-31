@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { Package, BarChart, MessageSquare, TrendingUp, Store, Settings } from "lucide-react";
+import { Package, BarChart, MessageSquare, TrendingUp, Store, Settings, QrCode } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 const navItems = [
   { href: "/kiosk/items", label: "Items", icon: Package },
   { href: "/kiosk/polls", label: "Polls", icon: BarChart },
   { href: "/kiosk/feedback", label: "Feedback", icon: MessageSquare },
+  { href: "/kiosk/promote", label: "Promote", icon: QrCode },
   { href: "/kiosk/stats", label: "Stats", icon: TrendingUp },
   { href: "/kiosk/settings", label: "Settings", icon: Settings },
 ];

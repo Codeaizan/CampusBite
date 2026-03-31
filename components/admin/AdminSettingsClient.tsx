@@ -9,6 +9,7 @@ import {
   Tags,
   X,
   Plus,
+  Megaphone,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -19,15 +20,20 @@ interface Category {
 
 interface AdminSettingsClientProps {
   initialDailyLimit: number;
+  initialBroadcastMessage: string;
   initialCategories: Category[];
 }
 
 export function AdminSettingsClient({
   initialDailyLimit,
+  initialBroadcastMessage,
   initialCategories,
 }: AdminSettingsClientProps) {
   const [dailyLimit, setDailyLimit] = useState(initialDailyLimit);
   const [savingLimit, setSavingLimit] = useState(false);
+  
+  const [broadcastMessage, setBroadcastMessage] = useState(initialBroadcastMessage);
+  const [savingBroadcast, setSavingBroadcast] = useState(false);
   const [categories, setCategories] = useState<Category[]>(initialCategories);
   const [newCategory, setNewCategory] = useState("");
   const [addingCategory, setAddingCategory] = useState(false);
@@ -41,6 +47,14 @@ export function AdminSettingsClient({
       .from("config")
       .upsert({ key: "daily_swipe_limit", value: { limit: dailyLimit } });
     setSavingLimit(false);
+  };
+
+  const handleSaveBroadcast = async () => {
+    setSavingBroadcast(true);
+    await supabase
+      .from("config")
+      .upsert({ key: "broadcast_message", value: { message: broadcastMessage.trim() } });
+    setSavingBroadcast(false);
   };
 
   const handleAddCategory = async (e: React.FormEvent) => {
@@ -146,6 +160,40 @@ export function AdminSettingsClient({
                     className="px-6 py-2 bg-primary-container text-surface-dim font-bold rounded-full text-sm hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {savingLimit ? "Saving..." : "Save"}
+                  </button>
+                </div>
+              </div>
+
+              {/* Global Broadcast Message Row */}
+              <div className="flex flex-col p-6 rounded-2xl bg-surface-container-highest/30 hover:bg-surface-container-highest/50 transition-colors gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="h-12 w-12 shrink-0 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500">
+                    <Megaphone size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-on-surface">
+                      Global Announcement Banner
+                    </h4>
+                    <p className="text-xs text-on-surface/40">
+                      Displays a dismissible banner at the top of the student app. Leave blank to disable.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="text"
+                    value={broadcastMessage}
+                    onChange={(e) => setBroadcastMessage(e.target.value)}
+                    placeholder="e.g. App maintenance scheduled for midnight..."
+                    className="flex-1 bg-surface-container-highest/50 border-none rounded-2xl py-3 px-4 text-sm text-on-surface placeholder:text-on-surface/30 focus:ring-1 focus:ring-blue-500 transition-all font-mono"
+                  />
+                  <button
+                    onClick={handleSaveBroadcast}
+                    disabled={savingBroadcast || broadcastMessage === initialBroadcastMessage}
+                    className="px-6 py-3 sm:py-2 bg-blue-500 text-white font-bold rounded-2xl sm:rounded-full text-sm hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                  >
+                    {savingBroadcast ? "Saving..." : "Update Banner"}
                   </button>
                 </div>
               </div>

@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { FeedbackModal } from "./FeedbackModal";
+import Link from "next/link";
+import { ChevronRight, ListTodo } from "lucide-react";
 
 interface ProfileProps {
   userId: string;
@@ -200,6 +202,29 @@ export function ProfileClient({ userId, profile, stats }: ProfileProps) {
               <span className="w-2 h-2 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.6)]" />
             </div>
           </div>
+        </div>
+
+        {/* Wishlist Link */}
+        <div className="bg-surface-container rounded-2xl p-2 glow-border" style={{ marginTop: '1rem' }}>
+          <Link
+            href="/student/profile/wishlist"
+            className="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-highest/20 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-[0.8rem] bg-yellow-500/10 flex items-center justify-center text-yellow-500">
+                <ListTodo size={20} />
+              </div>
+              <div>
+                <p className="font-bold text-on-surface tracking-wide">My Wishlist</p>
+                <p className="text-[11px] text-on-surface/50 font-medium">
+                  {stats.want_to_try} places you want to visit
+                </p>
+              </div>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center">
+              <ChevronRight size={16} className="text-on-surface/50" />
+            </div>
+          </Link>
         </div>
 
         {/* Veg Only Toggle */}

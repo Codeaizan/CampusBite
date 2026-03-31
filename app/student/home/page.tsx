@@ -2,8 +2,14 @@ import { createClient } from "@/lib/supabase/server";
 import { HomeClient } from "@/components/student/HomeClient";
 import type { FoodItem } from "@/components/student/FoodCard";
 
-export default async function StudentHomePage() {
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function StudentHomePage({ searchParams }: Props) {
   const supabase = await createClient();
+  const resolvedParams = await searchParams;
+  const kiosk_id = resolvedParams?.kiosk_id as string | undefined;
 
   // Get current user
   const {
@@ -43,14 +49,22 @@ export default async function StudentHomePage() {
       .eq("key", "daily_swipe_limit")
       .single(),
 
-    // 4. Get all available items with kiosk info
-    supabase
-      .from("items")
-      .select(
-        "id, name, price, image_url, is_veg, kiosk_id, kiosks(name, location)"
-      )
-      .eq("is_available", true)
-      .is("deleted_at", null),
+    // 4. Get all available items with kiosk info (filtered if returning from QR code)
+    (async () => {
+      let q = supabase
+        .from("items")
+        .select(
+          "id, name, price, image_url, is_veg, kiosk_id, kiosks(name, location)"
+        )
+        .eq("is_available", true)
+        .is("deleted_at", null);
+      
+      if (kiosk_id) {
+        q = q.eq("kiosk_id", kiosk_id);
+      }
+      
+      return await q;
+    })(),
 
     // 5. Check for active poll
     supabase

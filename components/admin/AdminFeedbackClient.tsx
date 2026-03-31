@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ThumbsUp, ThumbsDown, Filter } from "lucide-react";
+import { ExportButton } from "./ExportButton";
 
 interface Kiosk {
   id: string;
@@ -56,6 +57,7 @@ export function AdminFeedbackClient({
         <h2 className="text-4xl font-extrabold text-[#FF8C00] tracking-tighter">
           Global Feedback
         </h2>
+        <ExportButton data={feedback} filename="campusbite_global_feedback" />
       </header>
 
       {/* Metrics Section */}

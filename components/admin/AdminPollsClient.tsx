@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Plus, History, ChevronRight, X } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { CreatePollModal } from "./CreatePollModal";
+import { ExportButton } from "./ExportButton";
 
 interface Poll {
   id: string;
@@ -116,13 +117,16 @@ export function AdminPollsClient({
               Gather insights and community preferences.
             </p>
           </div>
-          <button
-            onClick={() => setShowCreate(true)}
-            className="flex items-center gap-2 bg-[#00b5fc] text-surface-dim px-6 py-3 rounded-full font-bold transition-all active:scale-95"
-            style={{ boxShadow: "0 8px 20px rgba(0, 181, 252, 0.2)" }}
-          >
-            <Plus size={18} /> Create New Poll
-          </button>
+          <div className="flex items-center gap-3">
+            <ExportButton data={pastPolls} filename="campusbite_past_polls" />
+            <button
+              onClick={() => setShowCreate(true)}
+              className="flex items-center gap-2 bg-[#00b5fc] text-surface-dim px-6 py-3 rounded-full font-bold transition-all active:scale-95"
+              style={{ boxShadow: "0 8px 20px rgba(0, 181, 252, 0.2)" }}
+            >
+              <Plus size={18} /> Create New Poll
+            </button>
+          </div>
         </header>
 
         {/* Active Poll Section */}
