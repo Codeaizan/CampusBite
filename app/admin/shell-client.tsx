@@ -9,6 +9,7 @@ import {
   Settings,
   LogOut,
   Utensils,
+  Map,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -16,6 +17,7 @@ const navItems = [
   { href: "/admin/kiosks", label: "Kiosks", icon: Store },
   { href: "/admin/feedback", label: "Feedback", icon: MessageSquare },
   { href: "/admin/polls", label: "Polls", icon: BarChart },
+  { href: "/admin/live", label: "Live Map", icon: Map },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
@@ -24,6 +26,7 @@ const pageTitles: Record<string, string> = {
   "/admin/kiosks": "Manage Kiosks",
   "/admin/feedback": "Global Feedback",
   "/admin/polls": "Poll Manager",
+  "/admin/live": "Real-time Map",
   "/admin/settings": "Settings",
 };
 
