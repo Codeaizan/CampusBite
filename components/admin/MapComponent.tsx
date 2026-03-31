@@ -120,8 +120,8 @@ export default function MapComponent() {
         center={LPU_CENTER}
         zoom={16}
         scrollWheelZoom={true}
-        style={{ height: "100%", width: "100%", backgroundColor: "#131313" }}
-        className="z-0 grayscale contrast-125 brightness-75"
+        style={{ height: "100%", width: "100%", backgroundColor: "#0E0E0E" }}
+        className="z-0"
       >
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
