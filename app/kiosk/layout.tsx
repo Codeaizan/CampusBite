@@ -16,7 +16,7 @@ export default async function KioskLayout({
     redirect("/auth/kiosk");
   }
 
-  // Verify role
+  // Fetch profile + verify role in a single query
   const { data: profile } = await supabase
     .from("profiles")
     .select("role, kiosk_id")
@@ -27,7 +27,7 @@ export default async function KioskLayout({
     redirect("/");
   }
 
-  // Fetch kiosk name
+  // Only fetch kiosk name if we have a kiosk_id — single conditional query
   let kioskName = "My Kiosk";
   if (profile?.kiosk_id) {
     const { data: kiosk } = await supabase

@@ -4,10 +4,8 @@ import { AdminFeedbackClient } from "@/components/admin/AdminFeedbackClient";
 export default async function AdminFeedbackPage() {
   const supabase = await createClient();
 
-  // 1. Fetch total metrics
-  await supabase.rpc("get_feedback_metrics"); // We'll mock this if RPC doesn't exist, since I can just do .select count
-
-  const [likesRes, dislikesRes, kiosks] = await Promise.all([
+  // All queries in parallel — no sequential waterfalls
+  const [likesRes, dislikesRes, kiosksRes, feedbackRes] = await Promise.all([
     supabase
       .from("feedback")
       .select("id", { count: "exact", head: true })
@@ -17,23 +15,21 @@ export default async function AdminFeedbackPage() {
       .select("id", { count: "exact", head: true })
       .eq("type", "disliked"),
     supabase.from("kiosks").select("id, name").order("name"),
+    supabase
+      .from("feedback")
+      .select(
+        `
+        id,
+        type,
+        comment,
+        created_at,
+        items(name, image_url),
+        kiosks(id, name)
+        `
+      )
+      .order("created_at", { ascending: false })
+      .limit(100),
   ]);
-
-  // 2. Fetch feedback list (with related item and kiosk names)
-  const { data: feedbackList } = await supabase
-    .from("feedback")
-    .select(
-      `
-      id,
-      type,
-      comment,
-      created_at,
-      items(name, image_url),
-      kiosks(id, name)
-      `
-    )
-    .order("created_at", { ascending: false })
-    .limit(100);
 
   const metrics = {
     totalLikes: likesRes.count || 0,
@@ -41,7 +37,7 @@ export default async function AdminFeedbackPage() {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const formattedFeedback = (feedbackList || []).map((f: any) => ({
+  const formattedFeedback = (feedbackRes.data || []).map((f: any) => ({
     id: f.id,
     type: f.type,
     comment: f.comment,
@@ -53,7 +49,7 @@ export default async function AdminFeedbackPage() {
   return (
     <AdminFeedbackClient
       initialFeedback={formattedFeedback}
-      kiosks={kiosks.data || []}
+      kiosks={kiosksRes.data || []}
       metrics={metrics}
     />
   );

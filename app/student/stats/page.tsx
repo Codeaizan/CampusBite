@@ -5,36 +5,34 @@ import { MousePointerClick, Utensils, BarChart3 } from "lucide-react";
 export default async function StatsPage() {
   const supabase = await createClient();
 
-  // Parallel fetches
-  const [swipeCountRes, activeItemsRes, topRatedRes, heatmapRes] =
-    await Promise.all([
-      // Total swipes
-      supabase
-        .from("swipes")
-        .select("id", { count: "exact", head: true }),
+  // All 3 independent queries in parallel
+  const [swipeCountRes, activeItemsRes, topRatedRes] = await Promise.all([
+    // Total swipes (count only, no rows transferred)
+    supabase
+      .from("swipes")
+      .select("id", { count: "exact", head: true }),
 
-      // Active items
-      supabase
-        .from("items")
-        .select("id", { count: "exact", head: true })
-        .eq("is_available", true)
-        .is("deleted_at", null),
+    // Active items count
+    supabase
+      .from("items")
+      .select("id", { count: "exact", head: true })
+      .eq("is_available", true)
+      .is("deleted_at", null),
 
-      // Top rated using wilson_score — raw query via RPC or client-side aggregation
-      supabase
-        .from("swipes")
-        .select(
-          "direction, items!inner(id, name, price, image_url, kiosk_id, is_available, deleted_at, kiosks(name))"
-        ),
-
-      // Rush hour heatmap: swipes grouped by hour
-      supabase.from("swipes").select("created_at"),
-    ]);
+    // Top rated: fetch grouped swipe data per item
+    // Only fetch the columns we need, with item details via join
+    supabase
+      .from("swipes")
+      .select(
+        "direction, item_id, items!inner(id, name, price, image_url, is_available, deleted_at, kiosks(name))"
+      )
+      .in("direction", ["like", "dislike"]),
+  ]);
 
   const totalSwipes = swipeCountRes.count ?? 0;
   const activeItems = activeItemsRes.count ?? 0;
 
-  // Compute wilson scores client-side from swipe data
+  // Compute wilson scores from swipe data — only likes/dislikes needed
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const swipeData = (topRatedRes.data ?? []) as any[];
   const itemStats = new Map<
@@ -100,14 +98,31 @@ export default async function StatsPage() {
     .sort((a, b) => b.score - a.score)
     .slice(0, 10);
 
-  // Rush hour heatmap
+  // Rush hour heatmap: use the swipe data we already have instead of a separate query
   const hourCounts = new Array(7).fill(0); // 11am-5pm
-  for (const swipe of (heatmapRes.data ?? [])) {
+  // We can reuse topRatedRes.data since it has all the swipes
+  for (const swipe of swipeData) {
+    // created_at is not in our select, so we compute heatmap from a lightweight count approach
+    // Since we don't have created_at in this optimized query, we'll show static heatmap
+    // or fetch it separately with a minimal query
+    void swipe; // consumed above
+    break;
+  }
+
+  // Lightweight heatmap query — only fetches created_at, no joins
+  const { data: heatmapData } = await supabase
+    .from("swipes")
+    .select("created_at")
+    .order("created_at", { ascending: false })
+    .limit(2000); // Cap at recent 2000 instead of ALL swipes
+
+  for (const swipe of (heatmapData ?? [])) {
     const hour = new Date(swipe.created_at).getHours();
     if (hour >= 11 && hour <= 17) {
       hourCounts[hour - 11]++;
     }
   }
+
   const maxHourCount = Math.max(...hourCounts, 1);
   const hourLabels = ["11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
 
