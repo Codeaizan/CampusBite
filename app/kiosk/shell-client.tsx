@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { Package, BarChart, MessageSquare, TrendingUp, Store } from "lucide-react";
+import { Package, BarChart, MessageSquare, TrendingUp, Store, Settings } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 const navItems = [
@@ -11,6 +11,7 @@ const navItems = [
   { href: "/kiosk/polls", label: "Polls", icon: BarChart },
   { href: "/kiosk/feedback", label: "Feedback", icon: MessageSquare },
   { href: "/kiosk/stats", label: "Stats", icon: TrendingUp },
+  { href: "/kiosk/settings", label: "Settings", icon: Settings },
 ];
 
 export function KioskShellClient({
