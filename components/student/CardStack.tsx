@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import {
   motion,
   useMotionValue,
   useTransform,
+  animate,
   AnimatePresence,
   type PanInfo,
 } from "framer-motion";
@@ -32,38 +33,39 @@ export function CardStack({
 }: CardStackProps) {
   const [items, setItems] = useState(initialItems);
   const [dailyCount, setDailyCount] = useState(initialDailyCount);
-  const [swiping, setSwiping] = useState(false);
+  const swipingRef = useRef(false);
 
   const supabase = createClient();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotate = useTransform(x, [-200, 0, 200], [-12, 0, 12]);
+  const rotate = useTransform(x, [-200, 0, 200], [-15, 0, 15]);
 
   const recordSwipe = useCallback(
-    async (itemId: string, direction: SwipeDirection) => {
-      // Check limit
+    (itemId: string, direction: SwipeDirection) => {
+      // Check limit synchronously
       if (dailyCount >= dailyLimit) {
         onLimitReached();
         return false;
       }
 
-      // Insert swipe
-      await supabase.from("swipes").insert({
+      // Fire-and-forget — don't await DB writes, let the animation fly
+      const today = new Date().toISOString().split("T")[0];
+
+      supabase.from("swipes").insert({
         user_id: userId,
         item_id: itemId,
         direction,
+      }).then(() => {
+        // Upsert daily count after swipe is recorded
+        supabase.from("daily_swipe_counts").upsert(
+          {
+            user_id: userId,
+            swipe_date: today,
+            count: dailyCount + 1,
+          },
+          { onConflict: "user_id,swipe_date" }
+        );
       });
-
-      // Upsert daily count
-      const today = new Date().toISOString().split("T")[0];
-      await supabase.from("daily_swipe_counts").upsert(
-        {
-          user_id: userId,
-          swipe_date: today,
-          count: dailyCount + 1,
-        },
-        { onConflict: "user_id,swipe_date" }
-      );
 
       setDailyCount((prev) => prev + 1);
       onSwipeComplete();
@@ -72,9 +74,16 @@ export function CardStack({
     [dailyCount, dailyLimit, userId, supabase, onSwipeComplete, onLimitReached]
   );
 
+  const removeTopCard = useCallback(() => {
+    setItems((prev) => prev.slice(1));
+    x.set(0);
+    y.set(0);
+    swipingRef.current = false;
+  }, [x, y]);
+
   const handleDragEnd = useCallback(
-    async (_: unknown, info: PanInfo) => {
-      if (swiping) return;
+    (_: unknown, info: PanInfo) => {
+      if (swipingRef.current) return;
 
       const { offset, velocity } = info;
       const currentItem = items[0];
@@ -84,65 +93,68 @@ export function CardStack({
       let exitX = 0;
       let exitY = 0;
 
-      // Mobile-tuned thresholds (lower for touch)
-      const OFFSET_THRESHOLD = 60;
-      const VELOCITY_THRESHOLD = 300;
-      const MIN_OFFSET = 30;
+      // Responsive thresholds — lower = more responsive
+      const SWIPE_THRESHOLD = 50;
+      const VELOCITY_THRESHOLD = 250;
+      const MIN_OFFSET = 25;
 
       // Check vertical first (up = want to try)
       if (
-        offset.y < -OFFSET_THRESHOLD ||
+        offset.y < -SWIPE_THRESHOLD ||
         (velocity.y < -VELOCITY_THRESHOLD && offset.y < -MIN_OFFSET)
       ) {
         direction = "want_to_try";
-        exitY = -800;
+        exitY = -1000;
+        exitX = offset.x * 2; // Maintain horizontal momentum
       }
       // Check horizontal
       else if (
-        offset.x > OFFSET_THRESHOLD ||
+        offset.x > SWIPE_THRESHOLD ||
         (velocity.x > VELOCITY_THRESHOLD && offset.x > MIN_OFFSET)
       ) {
         direction = "like";
-        exitX = 600;
+        exitX = 800;
+        exitY = offset.y; // Maintain vertical angle
       } else if (
-        offset.x < -OFFSET_THRESHOLD ||
+        offset.x < -SWIPE_THRESHOLD ||
         (velocity.x < -VELOCITY_THRESHOLD && offset.x < -MIN_OFFSET)
       ) {
         direction = "dislike";
-        exitX = -600;
+        exitX = -800;
+        exitY = offset.y;
       }
 
       if (direction) {
-        setSwiping(true);
-        const success = await recordSwipe(currentItem.id, direction);
-        if (success) {
-          // Animate exit
-          if (exitX !== 0) {
-            x.set(exitX);
-          }
-          if (exitY !== 0) {
-            y.set(exitY);
-          }
+        swipingRef.current = true;
 
-          setTimeout(() => {
-            setItems((prev) => prev.slice(1));
-            x.set(0);
-            y.set(0);
-            setSwiping(false);
-          }, 250);
-        } else {
+        // Record swipe instantly (fire-and-forget)
+        const success = recordSwipe(currentItem.id, direction);
+        if (!success) {
           // Snap back — limit reached
-          x.set(0);
-          y.set(0);
-          setSwiping(false);
+          animate(x, 0, { type: "spring", stiffness: 500, damping: 35 });
+          animate(y, 0, { type: "spring", stiffness: 500, damping: 35 });
+          swipingRef.current = false;
+          return;
         }
+
+        // Animate the card out with velocity-based physics
+        const exitDuration = 0.2;
+        animate(x, exitX, {
+          duration: exitDuration,
+          ease: [0.32, 0.72, 0, 1],
+          onComplete: removeTopCard,
+        });
+        animate(y, exitY, {
+          duration: exitDuration,
+          ease: [0.32, 0.72, 0, 1],
+        });
       } else {
-        // Not enough drag — snap back
-        x.set(0);
-        y.set(0);
+        // Not enough drag — spring back smoothly
+        animate(x, 0, { type: "spring", stiffness: 600, damping: 30 });
+        animate(y, 0, { type: "spring", stiffness: 600, damping: 30 });
       }
     },
-    [items, recordSwipe, x, y, swiping]
+    [items, recordSwipe, x, y, removeTopCard]
   );
 
   // Empty state
@@ -181,6 +193,7 @@ export function CardStack({
                   style={{
                     zIndex: 30 - index * 10,
                     touchAction: "none",
+                    willChange: isTop ? "transform" : "auto",
                     ...(isTop ? { x, y, rotate } : {}),
                   }}
                   initial={{
@@ -195,18 +208,18 @@ export function CardStack({
                   }}
                   exit={{
                     opacity: 0,
-                    transition: { duration: 0.2 },
+                    transition: { duration: 0.15 },
                   }}
-                  drag={isTop && !swiping}
-                  dragElastic={0.9}
-                  dragConstraints={{ top: -200, bottom: 200, left: -200, right: 200 }}
-                  dragSnapToOrigin
+                  drag={isTop && !swipingRef.current}
+                  dragElastic={0.7}
+                  dragConstraints={{ top: -300, bottom: 300, left: -300, right: 300 }}
                   onDragEnd={isTop ? handleDragEnd : undefined}
-                  whileDrag={isTop ? { scale: 1.02, cursor: "grabbing" } : undefined}
+                  whileDrag={isTop ? { scale: 1.03, cursor: "grabbing" } : undefined}
                   transition={{
                     type: "spring",
-                    damping: 25,
-                    stiffness: 350,
+                    damping: 30,
+                    stiffness: 400,
+                    mass: 0.8,
                   }}
                 >
                   <FoodCard
