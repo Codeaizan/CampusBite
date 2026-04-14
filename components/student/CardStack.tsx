@@ -67,6 +67,51 @@ export function CardStack({
     setDailyCount(initialDailyCount);
   }, [initialDailyCount]);
 
+  const legacyRecordSwipe = useCallback(
+    async (itemId: string, direction: SwipeDirection) => {
+      if (dailyCount >= dailyLimit) {
+        onLimitReached();
+        return false;
+      }
+
+      const today = new Date().toISOString().split("T")[0];
+
+      const { error: swipeError } = await supabase.from("swipes").insert({
+        user_id: userId,
+        item_id: itemId,
+        direction,
+      });
+
+      if (swipeError) {
+        if (swipeError.code !== "23505") {
+          console.error("Legacy swipe insert failed:", swipeError.message);
+        }
+        return false;
+      }
+
+      const nextCount = dailyCount + 1;
+      const { error: countError } = await supabase
+        .from("daily_swipe_counts")
+        .upsert(
+          {
+            user_id: userId,
+            swipe_date: today,
+            count: nextCount,
+          },
+          { onConflict: "user_id,swipe_date" }
+        );
+
+      if (countError) {
+        console.error("Legacy daily count upsert failed:", countError.message);
+      }
+
+      setDailyCount((prev) => prev + 1);
+      onSwipeComplete();
+      return true;
+    },
+    [dailyCount, dailyLimit, onLimitReached, onSwipeComplete, supabase, userId]
+  );
+
   const recordSwipe = useCallback(
     async (itemId: string, direction: SwipeDirection) => {
       // Check limit synchronously
@@ -83,7 +128,8 @@ export function CardStack({
 
       if (error) {
         console.error("record_swipe_with_limit failed:", error.message);
-        return false;
+        // Fallback keeps swiping functional if the migration wasn't applied yet.
+        return legacyRecordSwipe(itemId, direction);
       }
 
       const result = data as SwipeRpcResult | null;
@@ -93,6 +139,9 @@ export function CardStack({
             setDailyCount(result.count);
           }
           onLimitReached();
+        }
+        if (result?.reason === "db_error") {
+          return legacyRecordSwipe(itemId, direction);
         }
         return false;
       }
@@ -106,7 +155,14 @@ export function CardStack({
       onSwipeComplete();
       return true;
     },
-    [dailyCount, dailyLimit, supabase, onSwipeComplete, onLimitReached]
+    [
+      dailyCount,
+      dailyLimit,
+      legacyRecordSwipe,
+      onLimitReached,
+      onSwipeComplete,
+      supabase,
+    ]
   );
 
   const removeTopCard = useCallback(() => {
