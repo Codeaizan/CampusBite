@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { ArrowLeft, Utensils } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -30,16 +31,42 @@ function GoogleIcon() {
 
 export default function StudentLoginPage() {
   const [loading, setLoading] = useState(false);
+  const [localError, setLocalError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
   const supabase = createClient();
 
+  const queryError = searchParams.get("error");
+  const queryErrorDescription = searchParams.get("error_description");
+
+  const queryErrorMessage =
+    queryErrorDescription ||
+    (queryError === "oauth_start_failed"
+      ? "Google sign-in could not be started."
+      : queryError === "oauth_callback_failed"
+        ? "Google sign-in failed during callback."
+        : queryError === "profile_sync_failed"
+          ? "Login worked, but profile setup failed."
+          : queryError === "auth_failed"
+            ? "Authentication failed. Please try again."
+            : null);
+
+  const visibleError = localError || queryErrorMessage;
+
   const handleGoogleLogin = async () => {
+    setLocalError(null);
     setLoading(true);
-    await supabase.auth.signInWithOAuth({
+
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${window.location.origin}/auth/callback?next=/student/home`,
       },
     });
+
+    if (error) {
+      setLocalError(error.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -91,6 +118,12 @@ export default function StudentLoginPage() {
             <GoogleIcon />
             <span>{loading ? "Redirecting…" : "Continue with Google"}</span>
           </button>
+
+          {visibleError && (
+            <p className="text-red-400 text-sm text-center bg-red-400/10 rounded-xl py-3 px-4">
+              {visibleError}
+            </p>
+          )}
         </div>
       </main>
 
