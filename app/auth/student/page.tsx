@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { ArrowLeft, Utensils } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -32,11 +31,15 @@ function GoogleIcon() {
 export default function StudentLoginPage() {
   const [loading, setLoading] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
-  const searchParams = useSearchParams();
+  const [queryError, setQueryError] = useState<string | null>(null);
+  const [queryErrorDescription, setQueryErrorDescription] = useState<string | null>(null);
   const supabase = createClient();
 
-  const queryError = searchParams.get("error");
-  const queryErrorDescription = searchParams.get("error_description");
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setQueryError(params.get("error"));
+    setQueryErrorDescription(params.get("error_description"));
+  }, []);
 
   const queryErrorMessage =
     queryErrorDescription ||
