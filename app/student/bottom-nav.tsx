@@ -3,12 +3,11 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { Home, TrendingUp, BarChart2, User } from "lucide-react";
+import { Home, TrendingUp, User } from "lucide-react";
 
 const navItems = [
   { href: "/student/home", label: "Home", icon: Home },
   { href: "/student/trends", label: "Trends", icon: TrendingUp },
-  { href: "/student/stats", label: "Stats", icon: BarChart2 },
   { href: "/student/profile", label: "Profile", icon: User },
 ];
 

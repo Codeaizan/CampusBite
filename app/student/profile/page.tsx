@@ -2,6 +2,9 @@ import { createClient } from "@/lib/supabase/server";
 import { ProfileClient } from "@/components/student/ProfileClient";
 import { normalizeAndFilterAds } from "@/lib/ads";
 
+const HEATMAP_HOUR_LABELS = ["11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
+const SHOW_HEATMAP_IN_PROFILE = false;
+
 export default async function ProfilePage() {
   const supabase = await createClient();
 
@@ -50,6 +53,28 @@ export default async function ProfilePage() {
 
   const profileAds = normalizeAndFilterAds(adsRes.data, "profile_slot");
 
+  const hourCounts = new Array(7).fill(0);
+  if (SHOW_HEATMAP_IN_PROFILE) {
+    const { data: heatmapRows } = await supabase
+      .from("swipes")
+      .select("created_at")
+      .order("created_at", { ascending: false })
+      .limit(2000);
+
+    for (const swipe of heatmapRows ?? []) {
+      const hour = new Date(swipe.created_at).getHours();
+      if (hour >= 11 && hour <= 17) {
+        hourCounts[hour - 11] += 1;
+      }
+    }
+  }
+
+  const heatmap = {
+    hourLabels: HEATMAP_HOUR_LABELS,
+    hourCounts,
+    maxHourCount: Math.max(...hourCounts, 1),
+  };
+
   return (
     <ProfileClient
       userId={user.id}
@@ -60,6 +85,8 @@ export default async function ProfilePage() {
       }}
       stats={stats}
       ads={profileAds}
+      showHeatmap={SHOW_HEATMAP_IN_PROFILE}
+      heatmap={heatmap}
     />
   );
 }

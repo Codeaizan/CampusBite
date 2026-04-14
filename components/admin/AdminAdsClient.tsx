@@ -41,15 +41,18 @@ interface AdminAdsClientProps {
   metrics: Metrics;
 }
 
-const placementLabels: Record<AdPlacement, string> = {
+const placementLabels: Partial<Record<AdPlacement, string>> = {
   swipe_deck: "Swipe Deck",
   trends_inline: "Trends Inline",
   daily_limit: "Daily Limit",
   all_caught_up: "All Caught Up",
   profile_slot: "Profile Slot",
-  stats_slot: "Stats Slot",
   wishlist_inline: "Wishlist Inline",
 };
+
+const creatablePlacements = AD_PLACEMENTS.filter(
+  (placement) => placement !== "stats_slot"
+);
 
 function parseDateTime(value: string): string | null {
   if (!value) return null;
@@ -351,7 +354,7 @@ export function AdminAdsClient({ initialAds, metrics }: AdminAdsClientProps) {
             <div className="space-y-2">
               <p className="text-xs uppercase tracking-widest text-on-surface/40 font-bold">Placements</p>
               <div className="grid grid-cols-2 gap-2">
-                {AD_PLACEMENTS.map((placement) => (
+                {creatablePlacements.map((placement) => (
                   <label
                     key={placement}
                     className="flex items-center gap-2 rounded-xl bg-surface-container-highest/50 px-3 py-2 text-xs text-on-surface"
@@ -361,7 +364,7 @@ export function AdminAdsClient({ initialAds, metrics }: AdminAdsClientProps) {
                       checked={selectedPlacements.includes(placement)}
                       onChange={() => handlePlacementToggle(placement)}
                     />
-                    {placementLabels[placement]}
+                    {placementLabels[placement] ?? "Hidden Placement"}
                   </label>
                 ))}
               </div>
@@ -429,12 +432,14 @@ export function AdminAdsClient({ initialAds, metrics }: AdminAdsClientProps) {
                         </p>
 
                         <div className="flex flex-wrap gap-2">
-                          {ad.placements.map((placement) => (
+                          {ad.placements
+                            .filter((placement) => placement !== "stats_slot")
+                            .map((placement) => (
                             <span
                               key={`${ad.id}-${placement}`}
                               className="text-[10px] font-bold px-2 py-1 rounded-full bg-blue-500/10 text-blue-300"
                             >
-                              {placementLabels[placement]}
+                              {placementLabels[placement] ?? "Hidden Placement"}
                             </span>
                           ))}
                         </div>

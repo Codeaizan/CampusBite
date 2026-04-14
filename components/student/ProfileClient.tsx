@@ -24,6 +24,12 @@ interface ProfileProps {
     want_to_try: number;
   };
   ads: AppAd[];
+  showHeatmap: boolean;
+  heatmap: {
+    hourLabels: string[];
+    hourCounts: number[];
+    maxHourCount: number;
+  };
 }
 
 interface HistoryItem {
@@ -36,7 +42,7 @@ interface HistoryItem {
   direction: "like" | "dislike";
 }
 
-export function ProfileClient({ userId, profile, stats, ads }: ProfileProps) {
+export function ProfileClient({ userId, profile, stats, ads, showHeatmap, heatmap }: ProfileProps) {
   const router = useRouter();
   const supabase = createClient();
 
@@ -389,6 +395,45 @@ export function ProfileClient({ userId, profile, stats, ads }: ProfileProps) {
             </div>
           )}
         </section>
+
+        {showHeatmap && (
+          <section className="pb-2">
+            <div className="glass-card-strong p-6 rounded-3xl overflow-hidden relative">
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h4 className="text-lg font-bold text-on-surface">
+                    Rush Hour Heatmap
+                  </h4>
+                  <p className="text-xs text-on-surface/40">
+                    Peak swiping hours
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-end justify-between h-32 gap-2">
+                {heatmap.hourCounts.map((count, i) => {
+                  const height = (count / heatmap.maxHourCount) * 100;
+                  const isMax = count === heatmap.maxHourCount && count > 0;
+                  return (
+                    <div
+                      key={i}
+                      className={`w-full rounded-t-lg transition-all ${
+                        isMax
+                          ? "bg-primary-container shadow-[0_0_15px_rgba(255,140,0,0.3)]"
+                          : "bg-primary-container/30"
+                      }`}
+                      style={{ height: `${Math.max(height, 5)}%` }}
+                    />
+                  );
+                })}
+              </div>
+              <div className="flex justify-between mt-3 text-[10px] text-on-surface/40 uppercase tracking-tighter">
+                {heatmap.hourLabels.map((label) => (
+                  <span key={label}>{label}</span>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </div>
 
       {/* Feedback Modal */}
