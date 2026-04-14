@@ -20,7 +20,7 @@ export default async function AdminSettingsPage() {
     .eq("key", "broadcast_message")
     .single();
 
-  const initialBroadcastMessage = broadcastConfig?.value?.message ?? "";
+  const initialBroadcastMessage = (broadcastConfig?.value?.message ?? "").trim();
 
   // Fetch categories
   const { data: categories } = await supabase

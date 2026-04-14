@@ -33,7 +33,10 @@ export function AdminSettingsClient({
   const [savingLimit, setSavingLimit] = useState(false);
   
   const [broadcastMessage, setBroadcastMessage] = useState(initialBroadcastMessage);
+  const [savedBroadcastMessage, setSavedBroadcastMessage] = useState(initialBroadcastMessage);
   const [savingBroadcast, setSavingBroadcast] = useState(false);
+  const [broadcastStatus, setBroadcastStatus] = useState<string | null>(null);
+  const [broadcastError, setBroadcastError] = useState<string | null>(null);
   const [categories, setCategories] = useState<Category[]>(initialCategories);
   const [newCategory, setNewCategory] = useState("");
   const [addingCategory, setAddingCategory] = useState(false);
@@ -49,12 +52,40 @@ export function AdminSettingsClient({
     setSavingLimit(false);
   };
 
-  const handleSaveBroadcast = async () => {
+  const persistBroadcastMessage = async (nextMessage: string) => {
+    const normalizedMessage = nextMessage.trim();
+
     setSavingBroadcast(true);
-    await supabase
+    setBroadcastStatus(null);
+    setBroadcastError(null);
+
+    const { error } = await supabase
       .from("config")
-      .upsert({ key: "broadcast_message", value: { message: broadcastMessage.trim() } });
+      .upsert(
+        { key: "broadcast_message", value: { message: normalizedMessage } },
+        { onConflict: "key" }
+      );
+
+    if (error) {
+      setBroadcastError(error.message);
+      setSavingBroadcast(false);
+      return;
+    }
+
+    setBroadcastMessage(normalizedMessage);
+    setSavedBroadcastMessage(normalizedMessage);
+    setBroadcastStatus(
+      normalizedMessage ? "Banner updated successfully." : "Banner removed successfully."
+    );
     setSavingBroadcast(false);
+  };
+
+  const handleSaveBroadcast = async () => {
+    await persistBroadcastMessage(broadcastMessage);
+  };
+
+  const handleClearBroadcast = async () => {
+    await persistBroadcastMessage("");
   };
 
   const handleAddCategory = async (e: React.FormEvent) => {
@@ -190,12 +221,38 @@ export function AdminSettingsClient({
                   />
                   <button
                     onClick={handleSaveBroadcast}
-                    disabled={savingBroadcast || broadcastMessage === initialBroadcastMessage}
+                    disabled={
+                      savingBroadcast ||
+                      broadcastMessage.trim() === savedBroadcastMessage
+                    }
                     className="px-6 py-3 sm:py-2 bg-blue-500 text-white font-bold rounded-2xl sm:rounded-full text-sm hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                   >
                     {savingBroadcast ? "Saving..." : "Update Banner"}
                   </button>
+                  <button
+                    onClick={handleClearBroadcast}
+                    disabled={
+                      savingBroadcast ||
+                      (savedBroadcastMessage.length === 0 &&
+                        broadcastMessage.trim().length === 0)
+                    }
+                    className="px-6 py-3 sm:py-2 bg-red-500/90 text-white font-bold rounded-2xl sm:rounded-full text-sm hover:bg-red-500 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                  >
+                    {savingBroadcast ? "Working..." : "Remove Banner"}
+                  </button>
                 </div>
+
+                {broadcastStatus && (
+                  <p className="text-xs text-green-300 bg-green-400/10 rounded-xl px-4 py-2">
+                    {broadcastStatus}
+                  </p>
+                )}
+
+                {broadcastError && (
+                  <p className="text-xs text-red-300 bg-red-400/10 rounded-xl px-4 py-2">
+                    {broadcastError}
+                  </p>
+                )}
               </div>
             </div>
           </div>

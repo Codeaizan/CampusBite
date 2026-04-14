@@ -23,7 +23,7 @@ export default async function StudentLayout({
     .eq("key", "broadcast_message")
     .single();
     
-  const broadcastMessage = config?.value?.message ?? "";
+  const broadcastMessage = (config?.value?.message ?? "").trim();
 
   return (
     <div className="flex min-h-[100dvh] flex-col bg-surface-dim relative">
