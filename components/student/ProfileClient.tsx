@@ -45,6 +45,7 @@ export function ProfileClient({ userId, profile, stats, ads }: ProfileProps) {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [liveStats, setLiveStats] = useState(stats);
   const [vegOnly, setVegOnly] = useState(false);
   const [feedbackItem, setFeedbackItem] = useState<HistoryItem | null>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
@@ -57,6 +58,52 @@ export function ProfileClient({ userId, profile, stats, ads }: ProfileProps) {
     const stored = localStorage.getItem("campusbite_veg_only");
     if (stored === "true") setVegOnly(true);
   }, []);
+
+  // Keep profile stats fresh without requiring a full page reload.
+  useEffect(() => {
+    const fetchLiveStats = async () => {
+      const [likedRes, dislikedRes, wishlistRes] = await Promise.all([
+        supabase
+          .from("swipes")
+          .select("id", { count: "exact", head: true })
+          .eq("user_id", userId)
+          .eq("direction", "like"),
+        supabase
+          .from("swipes")
+          .select("id", { count: "exact", head: true })
+          .eq("user_id", userId)
+          .eq("direction", "dislike"),
+        supabase
+          .from("swipes")
+          .select("id", { count: "exact", head: true })
+          .eq("user_id", userId)
+          .eq("direction", "want_to_try"),
+      ]);
+
+      setLiveStats({
+        liked: likedRes.count ?? 0,
+        disliked: dislikedRes.count ?? 0,
+        want_to_try: wishlistRes.count ?? 0,
+      });
+    };
+
+    fetchLiveStats();
+
+    const channel = supabase
+      .channel(`profile-stats-${userId}`)
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "swipes", filter: `user_id=eq.${userId}` },
+        () => {
+          fetchLiveStats();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [supabase, userId]);
 
   const handleVegToggle = () => {
     const newVal = !vegOnly;
@@ -193,19 +240,19 @@ export function ProfileClient({ userId, profile, stats, ads }: ProfileProps) {
           <div className="flex flex-wrap gap-3">
             <div className="bg-surface-container-high px-4 py-2.5 rounded-full flex items-center gap-2">
               <span className="text-sm font-bold text-on-surface">
-                {stats.liked} Liked
+                {liveStats.liked} Liked
               </span>
               <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
             </div>
             <div className="bg-surface-container-high px-4 py-2.5 rounded-full flex items-center gap-2">
               <span className="text-sm font-bold text-on-surface">
-                {stats.disliked} Disliked
+                {liveStats.disliked} Disliked
               </span>
               <span className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]" />
             </div>
             <div className="bg-surface-container-high px-4 py-2.5 rounded-full flex items-center gap-2">
               <span className="text-sm font-bold text-on-surface">
-                {stats.want_to_try} Want to Try
+                {liveStats.want_to_try} Want to Try
               </span>
               <span className="w-2 h-2 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.6)]" />
             </div>
@@ -225,7 +272,7 @@ export function ProfileClient({ userId, profile, stats, ads }: ProfileProps) {
               <div>
                 <p className="font-bold text-on-surface tracking-wide">My Wishlist</p>
                 <p className="text-[11px] text-on-surface/50 font-medium">
-                  {stats.want_to_try} places you want to visit
+                  {liveStats.want_to_try} places you want to visit
                 </p>
               </div>
             </div>

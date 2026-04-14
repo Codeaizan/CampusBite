@@ -103,8 +103,10 @@ export default async function StudentHomePage({ searchParams }: Props) {
   const dailyCount = (dailyCountResult.data?.count as number) ?? 0;
 
   // Daily limit
-  const limitConfig = configResult.data?.value as { value?: number } | null;
-  const dailyLimit = limitConfig?.value ?? 50;
+  const limitConfig = configResult.data?.value as
+    | { value?: number; limit?: number }
+    | null;
+  const dailyLimit = limitConfig?.limit ?? limitConfig?.value ?? 50;
 
   // Filter items: remove already swiped
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

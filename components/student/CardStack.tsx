@@ -32,6 +32,12 @@ interface CardStackProps {
 
 type SwipeDirection = "like" | "dislike" | "want_to_try";
 
+type SwipeRpcResult = {
+  ok?: boolean;
+  reason?: "limit_reached" | "already_swiped" | "unauthenticated" | "forbidden" | "db_error";
+  count?: number;
+};
+
 export function CardStack({
   items: initialItems,
   ads,
@@ -57,38 +63,50 @@ export function CardStack({
     setEntries(interleaveWithAds(initialItems, ads));
   }, [initialItems, ads]);
 
+  useEffect(() => {
+    setDailyCount(initialDailyCount);
+  }, [initialDailyCount]);
+
   const recordSwipe = useCallback(
-    (itemId: string, direction: SwipeDirection) => {
+    async (itemId: string, direction: SwipeDirection) => {
       // Check limit synchronously
       if (dailyCount >= dailyLimit) {
         onLimitReached();
         return false;
       }
 
-      // Fire-and-forget — don't await DB writes, let the animation fly
-      const today = new Date().toISOString().split("T")[0];
-
-      supabase.from("swipes").insert({
-        user_id: userId,
-        item_id: itemId,
-        direction,
-      }).then(() => {
-        // Upsert daily count after swipe is recorded
-        supabase.from("daily_swipe_counts").upsert(
-          {
-            user_id: userId,
-            swipe_date: today,
-            count: dailyCount + 1,
-          },
-          { onConflict: "user_id,swipe_date" }
-        );
+      const { data, error } = await supabase.rpc("record_swipe_with_limit", {
+        p_item_id: itemId,
+        p_direction: direction,
+        p_daily_limit: dailyLimit,
       });
 
-      setDailyCount((prev) => prev + 1);
+      if (error) {
+        console.error("record_swipe_with_limit failed:", error.message);
+        return false;
+      }
+
+      const result = data as SwipeRpcResult | null;
+      if (!result?.ok) {
+        if (result?.reason === "limit_reached") {
+          if (typeof result.count === "number") {
+            setDailyCount(result.count);
+          }
+          onLimitReached();
+        }
+        return false;
+      }
+
+      if (typeof result.count === "number") {
+        setDailyCount(result.count);
+      } else {
+        setDailyCount((prev) => prev + 1);
+      }
+
       onSwipeComplete();
       return true;
     },
-    [dailyCount, dailyLimit, userId, supabase, onSwipeComplete, onLimitReached]
+    [dailyCount, dailyLimit, supabase, onSwipeComplete, onLimitReached]
   );
 
   const removeTopCard = useCallback(() => {
@@ -99,7 +117,7 @@ export function CardStack({
   }, [x, y]);
 
   const handleDragEnd = useCallback(
-    (_: unknown, info: PanInfo) => {
+    async (_: unknown, info: PanInfo) => {
       if (swipingRef.current) return;
 
       const { offset, velocity } = info;
@@ -145,8 +163,8 @@ export function CardStack({
         swipingRef.current = true;
 
         if (currentEntry.kind === "content") {
-          // Record swipe instantly (fire-and-forget)
-          const success = recordSwipe(currentEntry.item.id, direction);
+          // Record swipe atomically in DB before removing the card.
+          const success = await recordSwipe(currentEntry.item.id, direction);
           if (!success) {
             // Snap back — limit reached
             animate(x, 0, { type: "spring", stiffness: 500, damping: 35 });

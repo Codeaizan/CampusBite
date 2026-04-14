@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { CardStack } from "@/components/student/CardStack";
 import { PollBanner } from "@/components/student/PollBanner";
 import { DailyLimitScreen } from "@/components/student/DailyLimitScreen";
@@ -74,7 +74,10 @@ export function HomeClient({
     };
   }, [initialVegOnly]);
 
-  const visibleItems = vegOnly ? items.filter((item) => item.is_veg) : items;
+  const visibleItems = useMemo(
+    () => (vegOnly ? items.filter((item) => item.is_veg) : items),
+    [items, vegOnly]
+  );
 
   useLiveLocation({ userId, isEnabled: locState === "granted" });
 
