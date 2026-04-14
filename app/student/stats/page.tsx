@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import Image from "next/image";
 import { MousePointerClick, Utensils, BarChart3 } from "lucide-react";
+import { normalizeAndFilterAds, pickTopAd } from "@/lib/ads";
+import { SponsoredCard } from "@/components/student/SponsoredCard";
 
 // Cache this page for 30 seconds — stats don't need to be real-time
 export const revalidate = 30;
@@ -8,8 +10,14 @@ export const revalidate = 30;
 export default async function StatsPage() {
   const supabase = await createClient();
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return null;
+
   // All 3 independent queries in parallel
-  const [swipeCountRes, activeItemsRes, topRatedRes] = await Promise.all([
+  const [swipeCountRes, activeItemsRes, topRatedRes, adsRes] = await Promise.all([
     // Total swipes (count only, no rows transferred)
     supabase
       .from("swipes")
@@ -30,6 +38,15 @@ export default async function StatsPage() {
         "direction, item_id, items!inner(id, name, price, image_url, is_available, deleted_at, kiosks(name))"
       )
       .in("direction", ["like", "dislike"]),
+
+    supabase
+      .from("ads")
+      .select(
+        "id, title, description, image_url, click_url, cta_label, placements, is_active, priority, weight, starts_at, ends_at, created_at"
+      )
+      .eq("is_active", true)
+      .order("priority", { ascending: false })
+      .order("created_at", { ascending: false }),
   ]);
 
   const totalSwipes = swipeCountRes.count ?? 0;
@@ -128,6 +145,7 @@ export default async function StatsPage() {
 
   const maxHourCount = Math.max(...hourCounts, 1);
   const hourLabels = ["11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
+  const statsAd = pickTopAd(normalizeAndFilterAds(adsRes.data, "stats_slot"));
 
   const rankBadge = (rank: number) => {
     if (rank === 1)
@@ -263,6 +281,17 @@ export default async function StatsPage() {
 
         {/* Rush Hour Heatmap */}
         <section className="pb-10">
+          {statsAd && (
+            <div className="mb-8">
+              <SponsoredCard
+                ad={statsAd}
+                placement="stats_slot"
+                userId={user.id}
+                variant="spotlight"
+              />
+            </div>
+          )}
+
           <div className="glass-card-strong p-6 rounded-3xl overflow-hidden relative">
             <div className="flex justify-between items-center mb-6">
               <div>

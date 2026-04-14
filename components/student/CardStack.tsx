@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import {
   motion,
   useMotionValue,
@@ -11,9 +11,18 @@ import {
 } from "framer-motion";
 import { FoodCard, type FoodItem } from "./FoodCard";
 import { createClient } from "@/lib/supabase/client";
+import {
+  interleaveWithAds,
+  pickTopAd,
+  type AppAd,
+  type InterleavedEntry,
+} from "@/lib/ads";
+import { SponsoredCard } from "./SponsoredCard";
 
 interface CardStackProps {
   items: FoodItem[];
+  ads: AppAd[];
+  allCaughtUpAds: AppAd[];
   userId: string;
   dailyCount: number;
   dailyLimit: number;
@@ -25,13 +34,17 @@ type SwipeDirection = "like" | "dislike" | "want_to_try";
 
 export function CardStack({
   items: initialItems,
+  ads,
+  allCaughtUpAds,
   userId,
   dailyCount: initialDailyCount,
   dailyLimit,
   onSwipeComplete,
   onLimitReached,
 }: CardStackProps) {
-  const [items, setItems] = useState(initialItems);
+  const [entries, setEntries] = useState<InterleavedEntry<FoodItem>[]>(() =>
+    interleaveWithAds(initialItems, ads)
+  );
   const [dailyCount, setDailyCount] = useState(initialDailyCount);
   const swipingRef = useRef(false);
 
@@ -39,6 +52,10 @@ export function CardStack({
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotate = useTransform(x, [-200, 0, 200], [-15, 0, 15]);
+
+  useEffect(() => {
+    setEntries(interleaveWithAds(initialItems, ads));
+  }, [initialItems, ads]);
 
   const recordSwipe = useCallback(
     (itemId: string, direction: SwipeDirection) => {
@@ -75,7 +92,7 @@ export function CardStack({
   );
 
   const removeTopCard = useCallback(() => {
-    setItems((prev) => prev.slice(1));
+    setEntries((prev) => prev.slice(1));
     x.set(0);
     y.set(0);
     swipingRef.current = false;
@@ -86,8 +103,8 @@ export function CardStack({
       if (swipingRef.current) return;
 
       const { offset, velocity } = info;
-      const currentItem = items[0];
-      if (!currentItem) return;
+      const currentEntry = entries[0];
+      if (!currentEntry) return;
 
       let direction: SwipeDirection | null = null;
       let exitX = 0;
@@ -127,14 +144,16 @@ export function CardStack({
       if (direction) {
         swipingRef.current = true;
 
-        // Record swipe instantly (fire-and-forget)
-        const success = recordSwipe(currentItem.id, direction);
-        if (!success) {
-          // Snap back — limit reached
-          animate(x, 0, { type: "spring", stiffness: 500, damping: 35 });
-          animate(y, 0, { type: "spring", stiffness: 500, damping: 35 });
-          swipingRef.current = false;
-          return;
+        if (currentEntry.kind === "content") {
+          // Record swipe instantly (fire-and-forget)
+          const success = recordSwipe(currentEntry.item.id, direction);
+          if (!success) {
+            // Snap back — limit reached
+            animate(x, 0, { type: "spring", stiffness: 500, damping: 35 });
+            animate(y, 0, { type: "spring", stiffness: 500, damping: 35 });
+            swipingRef.current = false;
+            return;
+          }
         }
 
         // Animate the card out with velocity-based physics
@@ -154,11 +173,13 @@ export function CardStack({
         animate(y, 0, { type: "spring", stiffness: 600, damping: 30 });
       }
     },
-    [items, recordSwipe, x, y, removeTopCard]
+    [entries, recordSwipe, x, y, removeTopCard]
   );
 
+  const allCaughtUpAd = pickTopAd(allCaughtUpAds);
+
   // Empty state
-  if (items.length === 0) {
+  if (entries.length === 0) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center text-center px-8">
         <div className="relative mb-8">
@@ -171,24 +192,39 @@ export function CardStack({
         <p className="text-on-surface/50 text-sm leading-relaxed max-w-[250px]">
           Check back tomorrow for new items from campus kiosks.
         </p>
+
+        {allCaughtUpAd && (
+          <div className="w-full max-w-md mt-8">
+            <SponsoredCard
+              ad={allCaughtUpAd}
+              placement="all_caught_up"
+              userId={userId}
+              variant="spotlight"
+            />
+          </div>
+        )}
       </div>
     );
   }
 
   // Render top 3 cards
-  const visibleCards = items.slice(0, 3);
+  const visibleCards = entries.slice(0, 3);
 
   return (
     <div className="relative w-full flex-1 flex items-center justify-center">
       <div className="relative w-full" style={{ aspectRatio: "3/4", maxHeight: "calc(100dvh - 200px)" }}>
         <AnimatePresence mode="popLayout">
           {visibleCards
-            .map((item, index) => {
+            .map((entry, index) => {
               const isTop = index === 0;
+              const cardKey =
+                entry.kind === "content"
+                  ? `food-${entry.item.id}-${index}`
+                  : `ad-${entry.ad.id}-${index}`;
 
               return (
                 <motion.div
-                  key={item.id}
+                  key={cardKey}
                   className="absolute inset-0"
                   style={{
                     zIndex: 30 - index * 10,
@@ -222,12 +258,22 @@ export function CardStack({
                     mass: 0.8,
                   }}
                 >
-                  <FoodCard
-                    item={item}
-                    isTop={isTop}
-                    dragX={isTop ? x : undefined}
-                    dragY={isTop ? y : undefined}
-                  />
+                  {entry.kind === "content" ? (
+                    <FoodCard
+                      item={entry.item}
+                      isTop={isTop}
+                      dragX={isTop ? x : undefined}
+                      dragY={isTop ? y : undefined}
+                    />
+                  ) : (
+                    <SponsoredCard
+                      ad={entry.ad}
+                      placement="swipe_deck"
+                      userId={userId}
+                      variant="swipe"
+                      trackImpression={isTop}
+                    />
+                  )}
                 </motion.div>
               );
             })

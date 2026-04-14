@@ -8,6 +8,8 @@ import { createClient } from "@/lib/supabase/client";
 import { FeedbackModal } from "./FeedbackModal";
 import Link from "next/link";
 import { ChevronRight, ListTodo } from "lucide-react";
+import { pickTopAd, type AppAd } from "@/lib/ads";
+import { SponsoredCard } from "./SponsoredCard";
 
 interface ProfileProps {
   userId: string;
@@ -21,6 +23,7 @@ interface ProfileProps {
     disliked: number;
     want_to_try: number;
   };
+  ads: AppAd[];
 }
 
 interface HistoryItem {
@@ -28,11 +31,12 @@ interface HistoryItem {
   item_id: string;
   name: string;
   image_url: string | null;
+  is_veg: boolean;
   kiosk_id: string;
   direction: "like" | "dislike";
 }
 
-export function ProfileClient({ userId, profile, stats }: ProfileProps) {
+export function ProfileClient({ userId, profile, stats, ads }: ProfileProps) {
   const router = useRouter();
   const supabase = createClient();
 
@@ -46,6 +50,7 @@ export function ProfileClient({ userId, profile, stats }: ProfileProps) {
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   const PAGE_SIZE = 20;
+  const featuredAd = pickTopAd(ads);
 
   // Init veg-only from localStorage
   useEffect(() => {
@@ -76,21 +81,24 @@ export function ProfileClient({ userId, profile, stats }: ProfileProps) {
 
       const { data } = await supabase
         .from("swipes")
-        .select("id, item_id, direction, items(id, name, image_url, kiosk_id)")
+        .select("id, item_id, direction, items(id, name, image_url, is_veg, kiosk_id)")
         .eq("user_id", userId)
         .eq("direction", activeTab)
         .order("created_at", { ascending: false })
         .range(from, to);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const items: HistoryItem[] = ((data ?? []) as any[]).map((s) => ({
-        id: s.id,
-        item_id: s.items?.id ?? s.item_id,
-        name: s.items?.name ?? "Unknown Item",
-        image_url: s.items?.image_url ?? null,
-        kiosk_id: s.items?.kiosk_id ?? "",
-        direction: s.direction as "like" | "dislike",
-      }));
+      const items: HistoryItem[] = ((data ?? []) as any[])
+        .map((s) => ({
+          id: s.id,
+          item_id: s.items?.id ?? s.item_id,
+          name: s.items?.name ?? "Unknown Item",
+          image_url: s.items?.image_url ?? null,
+          is_veg: (s.items?.is_veg as boolean) ?? false,
+          kiosk_id: s.items?.kiosk_id ?? "",
+          direction: s.direction as "like" | "dislike",
+        }))
+        .filter((item) => !vegOnly || item.is_veg);
 
       if (reset) {
         setHistoryItems(items);
@@ -101,7 +109,7 @@ export function ProfileClient({ userId, profile, stats }: ProfileProps) {
       setHasMore(items.length === PAGE_SIZE);
       setLoading(false);
     },
-    [activeTab, userId, supabase, loading]
+    [activeTab, userId, supabase, loading, vegOnly]
   );
 
   // Reset on tab change
@@ -111,7 +119,7 @@ export function ProfileClient({ userId, profile, stats }: ProfileProps) {
     setHistoryItems([]);
     fetchHistory(0, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab]);
+  }, [activeTab, vegOnly]);
 
   // Intersection Observer
   useEffect(() => {
@@ -226,6 +234,15 @@ export function ProfileClient({ userId, profile, stats }: ProfileProps) {
             </div>
           </Link>
         </div>
+
+        {featuredAd && (
+          <SponsoredCard
+            ad={featuredAd}
+            placement="profile_slot"
+            userId={userId}
+            variant="spotlight"
+          />
+        )}
 
         {/* Veg Only Toggle */}
         <div className="bg-surface-container rounded-2xl p-5 flex justify-between items-center glow-border">

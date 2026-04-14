@@ -11,6 +11,7 @@ import {
   LogOut,
   Utensils,
   Map,
+  Megaphone,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -19,6 +20,7 @@ const navItems = [
   { href: "/admin/feedback", label: "Feedback", icon: MessageSquare },
   { href: "/admin/polls", label: "Polls", icon: BarChart },
   { href: "/admin/live", label: "Live Map", icon: Map },
+  { href: "/admin/ads", label: "Ads", icon: Megaphone },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
@@ -28,6 +30,7 @@ const pageTitles: Record<string, string> = {
   "/admin/feedback": "Global Feedback",
   "/admin/polls": "Poll Manager",
   "/admin/live": "Real-time Map",
+  "/admin/ads": "Ads Manager",
   "/admin/settings": "Settings",
 };
 

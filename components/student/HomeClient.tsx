@@ -8,6 +8,7 @@ import { InstallSystem } from "@/components/InstallSystem";
 import { LocationPermissionModal } from "@/components/student/LocationPermissionModal";
 import { useLiveLocation } from "@/hooks/useLiveLocation";
 import type { FoodItem } from "@/components/student/FoodCard";
+import type { AppAd } from "@/lib/ads";
 
 interface HomeClientProps {
   items: FoodItem[];
@@ -15,6 +16,10 @@ interface HomeClientProps {
   dailyCount: number;
   dailyLimit: number;
   hasActivePoll: boolean;
+  initialVegOnly: boolean;
+  swipeAds: AppAd[];
+  dailyLimitAds: AppAd[];
+  allCaughtUpAds: AppAd[];
 }
 
 export function HomeClient({
@@ -23,11 +28,15 @@ export function HomeClient({
   dailyCount,
   dailyLimit,
   hasActivePoll,
+  initialVegOnly,
+  swipeAds,
+  dailyLimitAds,
+  allCaughtUpAds,
 }: HomeClientProps) {
   const [limitReached, setLimitReached] = useState(dailyCount >= dailyLimit);
   const [swipeCount, setSwipeCount] = useState(0);
   const [locState, setLocState] = useState<"pending" | "prompt" | "granted" | "denied">("pending");
-  const [vegOnly, setVegOnly] = useState(false);
+  const [vegOnly, setVegOnly] = useState(initialVegOnly);
 
   useEffect(() => {
     const saved = localStorage.getItem("campusbite_location_permission");
@@ -40,12 +49,18 @@ export function HomeClient({
 
   useEffect(() => {
     const syncVegPreference = () => {
-      setVegOnly(localStorage.getItem("campusbite_veg_only") === "true");
+      const stored = localStorage.getItem("campusbite_veg_only");
+      const nextVegOnly =
+        stored === null ? initialVegOnly : stored === "true";
+      setVegOnly(nextVegOnly);
+      document.cookie = `veg_only=${nextVegOnly}; path=/; max-age=${365 * 24 * 60 * 60}`;
     };
 
     const handleStorage = (event: StorageEvent) => {
       if (event.key === "campusbite_veg_only") {
-        setVegOnly(event.newValue === "true");
+        const nextVegOnly = event.newValue === "true";
+        setVegOnly(nextVegOnly);
+        document.cookie = `veg_only=${nextVegOnly}; path=/; max-age=${365 * 24 * 60 * 60}`;
       }
     };
 
@@ -57,7 +72,7 @@ export function HomeClient({
       window.removeEventListener("storage", handleStorage);
       window.removeEventListener("focus", syncVegPreference);
     };
-  }, []);
+  }, [initialVegOnly]);
 
   const visibleItems = vegOnly ? items.filter((item) => item.is_veg) : items;
 
@@ -84,7 +99,7 @@ export function HomeClient({
   if (limitReached) {
     return (
       <div className="flex flex-col h-[calc(100dvh-96px)] overflow-hidden">
-        <DailyLimitScreen userId={userId} />
+        <DailyLimitScreen userId={userId} ads={dailyLimitAds} />
         <InstallSystem swipeCount={swipeCount} />
       </div>
     );
@@ -101,6 +116,8 @@ export function HomeClient({
       {/* Card Stack */}
       <CardStack
         items={visibleItems}
+        ads={swipeAds}
+        allCaughtUpAds={allCaughtUpAds}
         userId={userId}
         dailyCount={dailyCount}
         dailyLimit={dailyLimit}

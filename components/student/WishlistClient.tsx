@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Trash2, MapPin, Store } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { interleaveWithAds, type AppAd } from "@/lib/ads";
+import { SponsoredCard } from "./SponsoredCard";
 
 interface WishlistItem {
   swipe_id: string;
@@ -21,9 +23,10 @@ interface WishlistItem {
 interface WishlistClientProps {
   initialItems: WishlistItem[];
   userId: string;
+  ads: AppAd[];
 }
 
-export function WishlistClient({ initialItems, userId }: WishlistClientProps) {
+export function WishlistClient({ initialItems, userId, ads }: WishlistClientProps) {
   const router = useRouter();
   const supabase = createClient();
   const [items, setItems] = useState<WishlistItem[]>(initialItems);
@@ -52,6 +55,7 @@ export function WishlistClient({ initialItems, userId }: WishlistClientProps) {
   }, []);
 
   const visibleItems = vegOnly ? items.filter((item) => item.is_veg) : items;
+  const feedEntries = interleaveWithAds(visibleItems, ads);
 
   const handleRemove = async (swipeId: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -117,7 +121,20 @@ export function WishlistClient({ initialItems, userId }: WishlistClientProps) {
             </p>
           </div>
         ) : (
-          visibleItems.map((item) => {
+          feedEntries.map((entry, index) => {
+            if (entry.kind === "ad") {
+              return (
+                <SponsoredCard
+                  key={`ad-${entry.ad.id}-${index}`}
+                  ad={entry.ad}
+                  placement="wishlist_inline"
+                  userId={userId}
+                  variant="inline"
+                />
+              );
+            }
+
+            const item = entry.item;
             const isRemoving = removingIds.has(item.swipe_id);
 
             return (

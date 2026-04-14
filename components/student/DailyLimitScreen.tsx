@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { Moon } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { pickTopAd, type AppAd } from "@/lib/ads";
+import { SponsoredCard } from "./SponsoredCard";
 
 interface SwipeStats {
   liked: number;
@@ -10,12 +12,20 @@ interface SwipeStats {
   want_to_try: number;
 }
 
-export function DailyLimitScreen({ userId }: { userId: string }) {
+export function DailyLimitScreen({
+  userId,
+  ads,
+}: {
+  userId: string;
+  ads: AppAd[];
+}) {
   const [stats, setStats] = useState<SwipeStats>({
     liked: 0,
     disliked: 0,
     want_to_try: 0,
   });
+
+  const featuredAd = pickTopAd(ads);
 
   useEffect(() => {
     async function loadStats() {
@@ -92,6 +102,17 @@ export function DailyLimitScreen({ userId }: { userId: string }) {
           <div className="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.5)]" />
         </div>
       </div>
+
+      {featuredAd && (
+        <div className="w-full max-w-md">
+          <SponsoredCard
+            ad={featuredAd}
+            placement="daily_limit"
+            userId={userId}
+            variant="spotlight"
+          />
+        </div>
+      )}
     </div>
   );
 }

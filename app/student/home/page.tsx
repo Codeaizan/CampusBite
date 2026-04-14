@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { HomeClient } from "@/components/student/HomeClient";
 import type { FoodItem } from "@/components/student/FoodCard";
+import { normalizeAndFilterAds } from "@/lib/ads";
+import { cookies } from "next/headers";
 
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -8,6 +10,8 @@ type Props = {
 
 export default async function StudentHomePage({ searchParams }: Props) {
   const supabase = await createClient();
+  const cookieStore = await cookies();
+  const initialVegOnly = cookieStore.get("veg_only")?.value === "true";
   const resolvedParams = await searchParams;
   const kiosk_id = resolvedParams?.kiosk_id as string | undefined;
 
@@ -27,6 +31,7 @@ export default async function StudentHomePage({ searchParams }: Props) {
     configResult,
     itemsResult,
     activePollResult,
+    adsResult,
   ] = await Promise.all([
     // 1. Get already-swiped item IDs
     supabase
@@ -62,6 +67,10 @@ export default async function StudentHomePage({ searchParams }: Props) {
       if (kiosk_id) {
         q = q.eq("kiosk_id", kiosk_id);
       }
+
+      if (initialVegOnly) {
+        q = q.eq("is_veg", true);
+      }
       
       return await q;
     })(),
@@ -73,6 +82,16 @@ export default async function StudentHomePage({ searchParams }: Props) {
       .eq("status", "active")
       .limit(1)
       .single(),
+
+    // 6. Fetch ads once and split by placement in memory
+    supabase
+      .from("ads")
+      .select(
+        "id, title, description, image_url, click_url, cta_label, placements, is_active, priority, weight, starts_at, ends_at, created_at"
+      )
+      .eq("is_active", true)
+      .order("priority", { ascending: false })
+      .order("created_at", { ascending: false }),
   ]);
 
   // Process swiped IDs
@@ -106,6 +125,10 @@ export default async function StudentHomePage({ searchParams }: Props) {
   // Check active poll
   const hasActivePoll = !!activePollResult.data?.id;
 
+  const swipeAds = normalizeAndFilterAds(adsResult.data, "swipe_deck");
+  const dailyLimitAds = normalizeAndFilterAds(adsResult.data, "daily_limit");
+  const allCaughtUpAds = normalizeAndFilterAds(adsResult.data, "all_caught_up");
+
   // Check if user voted on active poll
   let activePollNotVoted = hasActivePoll;
   if (hasActivePoll && activePollResult.data?.id) {
@@ -127,6 +150,10 @@ export default async function StudentHomePage({ searchParams }: Props) {
       dailyCount={dailyCount}
       dailyLimit={dailyLimit}
       hasActivePoll={activePollNotVoted}
+      initialVegOnly={initialVegOnly}
+      swipeAds={swipeAds}
+      dailyLimitAds={dailyLimitAds}
+      allCaughtUpAds={allCaughtUpAds}
     />
   );
 }

@@ -5,6 +5,12 @@ import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import { Slider } from "@/components/ui/slider";
 import { ArrowUp, ArrowDown, Minus, ChevronDown } from "lucide-react";
+import {
+  interleaveWithAds,
+  type AppAd,
+  type InterleavedEntry,
+} from "@/lib/ads";
+import { SponsoredCard } from "./SponsoredCard";
 
 interface Category {
   id: string;
@@ -30,9 +36,16 @@ type SortBy = "likes" | "dislikes" | "want_to_try";
 interface TrendsClientProps {
   categories: Category[];
   maxPrice: number;
+  userId: string;
+  ads: AppAd[];
 }
 
-export function TrendsClient({ categories, maxPrice }: TrendsClientProps) {
+export function TrendsClient({
+  categories,
+  maxPrice,
+  userId,
+  ads,
+}: TrendsClientProps) {
   const [timePeriod, setTimePeriod] = useState<TimePeriod>("daily");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [priceMax, setPriceMax] = useState(maxPrice);
@@ -214,6 +227,9 @@ export function TrendsClient({ categories, maxPrice }: TrendsClientProps) {
     return "text-on-surface/50 font-bold";
   };
 
+  const feedEntries = interleaveWithAds(items, ads) as InterleavedEntry<TrendItem>[];
+  let contentRank = 0;
+
   return (
     <div className="px-6 space-y-8 pb-8">
       {/* Header */}
@@ -330,8 +346,22 @@ export function TrendsClient({ categories, maxPrice }: TrendsClientProps) {
 
       {/* Ranked List */}
       <section className="space-y-4">
-        {items.map((item, index) => {
-          const rank = index + 1;
+        {feedEntries.map((entry, index) => {
+          if (entry.kind === "ad") {
+            return (
+              <SponsoredCard
+                key={`ad-${entry.ad.id}-${index}`}
+                ad={entry.ad}
+                placement="trends_inline"
+                userId={userId}
+                variant="inline"
+              />
+            );
+          }
+
+          const item = entry.item;
+          contentRank += 1;
+          const rank = contentRank;
           return (
             <div key={item.id} className={getRankStyle(rank)}>
               {/* Large faded rank number for top 3 */}
