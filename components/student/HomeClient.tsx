@@ -27,6 +27,7 @@ export function HomeClient({
   const [limitReached, setLimitReached] = useState(dailyCount >= dailyLimit);
   const [swipeCount, setSwipeCount] = useState(0);
   const [locState, setLocState] = useState<"pending" | "prompt" | "granted" | "denied">("pending");
+  const [vegOnly, setVegOnly] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("campusbite_location_permission");
@@ -36,6 +37,29 @@ export function HomeClient({
       setLocState("prompt");
     }
   }, []);
+
+  useEffect(() => {
+    const syncVegPreference = () => {
+      setVegOnly(localStorage.getItem("campusbite_veg_only") === "true");
+    };
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === "campusbite_veg_only") {
+        setVegOnly(event.newValue === "true");
+      }
+    };
+
+    syncVegPreference();
+    window.addEventListener("storage", handleStorage);
+    window.addEventListener("focus", syncVegPreference);
+
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("focus", syncVegPreference);
+    };
+  }, []);
+
+  const visibleItems = vegOnly ? items.filter((item) => item.is_veg) : items;
 
   useLiveLocation({ userId, isEnabled: locState === "granted" });
 
@@ -76,7 +100,7 @@ export function HomeClient({
 
       {/* Card Stack */}
       <CardStack
-        items={items}
+        items={visibleItems}
         userId={userId}
         dailyCount={dailyCount}
         dailyLimit={dailyLimit}

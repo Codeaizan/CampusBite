@@ -36,6 +36,7 @@ export function TrendsClient({ categories, maxPrice }: TrendsClientProps) {
   const [timePeriod, setTimePeriod] = useState<TimePeriod>("daily");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [priceMax, setPriceMax] = useState(maxPrice);
+  const [vegOnly, setVegOnly] = useState(false);
   const [sortBy, setSortBy] = useState<SortBy>("likes");
   const [sortOpen, setSortOpen] = useState(false);
   const [items, setItems] = useState<TrendItem[]>([]);
@@ -46,6 +47,27 @@ export function TrendsClient({ categories, maxPrice }: TrendsClientProps) {
   const supabase = createClient();
 
   const PAGE_SIZE = 20;
+
+  useEffect(() => {
+    const syncVegPreference = () => {
+      setVegOnly(localStorage.getItem("campusbite_veg_only") === "true");
+    };
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === "campusbite_veg_only") {
+        setVegOnly(event.newValue === "true");
+      }
+    };
+
+    syncVegPreference();
+    window.addEventListener("storage", handleStorage);
+    window.addEventListener("focus", syncVegPreference);
+
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("focus", syncVegPreference);
+    };
+  }, []);
 
   const getTimeStart = useCallback((period: TimePeriod) => {
     const now = new Date();
@@ -90,6 +112,7 @@ export function TrendsClient({ categories, maxPrice }: TrendsClientProps) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const item = swipe.items as any;
         if (!item || item.deleted_at || !item.is_available) continue;
+        if (vegOnly && !item.is_veg) continue;
         if (selectedCategory && item.category_id !== selectedCategory) continue;
         if (item.price !== null && item.price > priceMax) continue;
 
@@ -133,7 +156,16 @@ export function TrendsClient({ categories, maxPrice }: TrendsClientProps) {
       setHasMore(start + PAGE_SIZE < sorted.length);
       setLoading(false);
     },
-    [timePeriod, selectedCategory, priceMax, sortBy, supabase, getTimeStart, loading]
+    [
+      timePeriod,
+      selectedCategory,
+      priceMax,
+      vegOnly,
+      sortBy,
+      supabase,
+      getTimeStart,
+      loading,
+    ]
   );
 
   // Reset and re-fetch on filter change
@@ -142,7 +174,7 @@ export function TrendsClient({ categories, maxPrice }: TrendsClientProps) {
     setHasMore(true);
     fetchItems(0, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timePeriod, selectedCategory, priceMax, sortBy]);
+  }, [timePeriod, selectedCategory, priceMax, vegOnly, sortBy]);
 
   // Intersection Observer for infinite scroll
   useEffect(() => {

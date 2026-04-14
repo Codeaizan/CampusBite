@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Trash2, MapPin, Store } from "lucide-react";
@@ -27,7 +27,31 @@ export function WishlistClient({ initialItems, userId }: WishlistClientProps) {
   const router = useRouter();
   const supabase = createClient();
   const [items, setItems] = useState<WishlistItem[]>(initialItems);
+  const [vegOnly, setVegOnly] = useState(false);
   const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    const syncVegPreference = () => {
+      setVegOnly(localStorage.getItem("campusbite_veg_only") === "true");
+    };
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === "campusbite_veg_only") {
+        setVegOnly(event.newValue === "true");
+      }
+    };
+
+    syncVegPreference();
+    window.addEventListener("storage", handleStorage);
+    window.addEventListener("focus", syncVegPreference);
+
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("focus", syncVegPreference);
+    };
+  }, []);
+
+  const visibleItems = vegOnly ? items.filter((item) => item.is_veg) : items;
 
   const handleRemove = async (swipeId: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -74,24 +98,26 @@ export function WishlistClient({ initialItems, userId }: WishlistClientProps) {
         </button>
         <h1 className="text-xl font-bold tracking-tight">My Wishlist</h1>
         <span className="ml-auto text-xs font-bold text-on-surface/40 bg-surface-container px-3 py-1 rounded-full">
-          {items.length} items
+          {visibleItems.length} items
         </span>
       </header>
 
       {/* List */}
       <div className="px-6 space-y-4 pt-2">
-        {items.length === 0 ? (
+        {visibleItems.length === 0 ? (
           <div className="text-center py-20 text-on-surface/40">
             <div className="text-5xl mb-4 opacity-50">🧭</div>
             <p className="font-bold text-lg text-on-surface mb-1">
-              Your wishlist is empty
+              {items.length === 0 ? "Your wishlist is empty" : "No veg items in your wishlist"}
             </p>
             <p className="text-sm max-w-[250px] mx-auto leading-relaxed">
-              Swipe UP (Want to Try) on the home screen to save items for later.
+              {items.length === 0
+                ? "Swipe UP (Want to Try) on the home screen to save items for later."
+                : "Turn off Veg Only mode in Profile to view all saved items."}
             </p>
           </div>
         ) : (
-          items.map((item) => {
+          visibleItems.map((item) => {
             const isRemoving = removingIds.has(item.swipe_id);
 
             return (
